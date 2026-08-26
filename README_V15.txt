@@ -1,4 +1,4 @@
-Crypto Analyzer V15.3 - Vercel + Supabase + Web Push
+Crypto Analyzer V15.4 - Vercel + Supabase + Web Push
 ===================================================
 
 V15 핵심
@@ -56,7 +56,7 @@ https://내프로젝트.vercel.app/api/health
 정상 예
 {
   "status":"ok",
-  "app":"Crypto Analyzer V15.3",
+  "app":"Crypto Analyzer V15.4",
   "aiConfigured":true,
   "dbConfigured":true,
   "pushConfigured":true,
@@ -183,3 +183,29 @@ V15.3 차트 가독성 조정
 - 첫 화면에서 RSI/ADX/Volume/ATR 카드까지 함께 보이도록 세로 길이 축소
 - 메인 차트 표시 구간을 최대 200봉 → 150봉으로 조정하여 캔들 식별성 개선
 - 서버 DB / Cron / Push / Scanner / AI 기능은 V15.2와 동일
+
+
+V15.4 모바일 전용 레이아웃
+--------------------------
+760px 이하에서는 단순 축소가 아니라 별도 모바일 레이아웃으로 동작합니다.
+
+- 상단 핵심정보: 2 x 2 카드
+- 탭: 압축형 그리드 대신 좌우 스와이프
+- 메인 차트:
+  · 모바일 기본 최대 72봉
+  · 태블릿 최대 110봉
+  · 데스크톱 최대 150봉
+  · 모바일 높이 약 282~300px
+- RSI / ADX / Volume / ATR: 2 x 2 유지
+- 세부 지표 / Score History / 변화원인: 세로형 접기
+- 지지/저항 / 기술요약 / Risk Plan: 모바일 1열
+- Backtest / Scanner / My 표: 최소 폭 보존 + 좌우 스와이프
+- 서버 Push 설정 폼: 모바일 1~2열
+- 하단 고정 메뉴:
+  · 현재분석
+  · Scanner
+  · AI
+  · My
+- 모바일 최초 candle API count는 120으로 낮춰 초기 표시 부담을 줄임
+
+데스크톱 레이아웃과 서버 DB / Cron / Web Push / Scanner / AI 기능은 유지됩니다.

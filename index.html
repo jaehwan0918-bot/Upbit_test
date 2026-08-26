@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Crypto Analyzer">
 <link rel="manifest" href="/manifest.json">
-<title>Crypto Analyzer V15.3</title>
+<title>Crypto Analyzer V15.4</title>
 <style>
 :root{
   --bg:#0a0f15;--panel:#101822;--panel2:#151f2a;--soft:#0d141d;--line:#223041;
@@ -226,6 +226,165 @@ details.secondaryBox[open] > summary::after{content:"－"}
 @media(max-width:760px){#priceChart{height:320px!important}}
 @media(max-width:420px){#priceChart{height:295px!important}}
 
+
+/* =========================================================
+   V15.4 Mobile dedicated layout
+   Applies at <= 760px without changing desktop hierarchy.
+   ========================================================= */
+.mobileDock{display:none}
+.mobileOnly{display:none}
+
+@media(max-width:760px){
+  :root{--mobileDockH:64px}
+  body{padding-bottom:calc(var(--mobileDockH) + 12px)}
+  .wrap{padding-left:8px;padding-right:8px}
+  header{padding-top:9px;padding-bottom:7px;gap:8px}
+  .brand h1{font-size:17px}
+  .brand > span{display:none}
+  .status{font-size:9.5px}
+
+  /* Navigation: horizontal swipe instead of compressed grid */
+  .tabs{
+    display:flex!important;
+    grid-template-columns:none!important;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scrollbar-width:none;
+    gap:6px;
+    padding-bottom:4px;
+    -webkit-overflow-scrolling:touch
+  }
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    flex:0 0 auto;
+    min-width:82px;
+    padding:8px 11px;
+    white-space:nowrap;
+    font-size:10.5px
+  }
+
+  /* Data controls are thumb-friendly */
+  .toolbar{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:6px
+  }
+  .toolbar .field:first-child{grid-column:1/-1}
+  .toolbar .btn{min-height:42px}
+  .field select,.field input{min-height:40px;font-size:16px}
+
+  /* 2 x 2 "glance" cards */
+  .visualTop{
+    grid-template-columns:1fr 1fr!important;
+    gap:6px!important;
+    margin-bottom:7px
+  }
+  .visualCard{padding:9px!important;border-radius:11px}
+  .visualCard .eyebrow{font-size:9.5px;margin-bottom:4px}
+  .visualCard .xl{font-size:19px!important;line-height:1.08}
+  .visualCard .lg{font-size:18px!important;line-height:1.08}
+  .visualCard .subline{font-size:9px;margin-top:4px}
+  .tfInline{gap:6px;margin-top:6px;font-size:9px}
+  .tfInline b{font-size:10px}
+  .qualityTrack{margin:6px 0 4px}
+  .regimeBar{margin-top:6px}
+
+  /* Main chart — enough height, much less vertical stretching */
+  .chartHero{padding:7px!important;border-radius:11px}
+  .chartHeroHead{margin-bottom:3px}
+  .chartHeroHead .left h2{font-size:11.5px}
+  .chartHeroHead .left span{font-size:8.5px}
+  .chartActions{display:none}
+  #priceChart{height:300px!important;min-height:0!important}
+  .chartHero .legend{
+    overflow-x:auto;white-space:nowrap;display:flex;flex-wrap:nowrap;
+    padding-bottom:2px;scrollbar-width:none
+  }
+  .chartHero .legend::-webkit-scrollbar{display:none}
+
+  /* Primary indicators remain visible as 2 x 2 */
+  .indicatorStrip{grid-template-columns:1fr 1fr!important;gap:6px!important;margin-top:7px}
+  .indicatorViz{padding:8px!important;border-radius:10px}
+  .indicatorViz .head span{font-size:9.5px}
+  .indicatorViz .head strong{font-size:16px!important}
+  .indicatorViz canvas{height:66px!important;min-height:66px!important}
+
+  /* Everything secondary collapses vertically */
+  .foldRow{grid-template-columns:1fr!important;gap:6px!important;margin-top:7px}
+  details.secondaryBox{border-radius:10px}
+  details.secondaryBox > summary{min-height:48px!important;padding:9px 10px!important;font-size:10.5px}
+  .secondaryContent{padding:0 7px 7px!important}
+
+  .insightRow{grid-template-columns:1fr!important;gap:6px!important;margin-top:7px}
+  .insightCard{padding:9px!important;border-radius:10px}
+  .insightCard .title h3{font-size:11px}
+  .levelLine{padding:6px 0;font-size:10px}
+  .summaryBullets{font-size:10px;line-height:1.55}
+  .riskOverview .r{font-size:10px;padding:5px 0}
+
+  .bottomSummary{grid-template-columns:1fr!important;gap:6px!important;margin-top:7px}
+  .bottomCard{padding:9px!important;border-radius:10px}
+  .utilitySummary{grid-template-columns:1fr!important;gap:6px!important;margin-top:7px}
+  .utilityCard{padding:9px!important;border-radius:10px}
+
+  /* Keep dense tables usable: swipe rather than crushing columns */
+  .tableWrap{
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+    border-radius:8px
+  }
+  table{min-width:610px}
+  .miniTable{min-width:520px}
+  th,td{font-size:9.5px!important;padding:6px 5px!important}
+
+  /* Scanner list: card-like rows */
+  #scannerBody tr td:first-child,
+  #scoreHistoryBody tr td:first-child{position:sticky;left:0;background:var(--panel);z-index:1}
+
+  /* Personal / cloud forms */
+  .personalGrid{grid-template-columns:1fr!important}
+  .cloudStatus{grid-template-columns:1fr 1fr!important}
+  .cloudForm{grid-template-columns:1fr 1fr!important}
+  .cloudActions{grid-template-columns:1fr!important}
+  .infoGrid{grid-template-columns:1fr 1fr!important}
+
+  /* Hide low-value visual noise on very small screens */
+  .hint{font-size:9px}
+  .footer{font-size:9px;line-height:1.45}
+
+  /* Dedicated fixed bottom navigation */
+  .mobileDock{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    position:fixed;
+    left:8px;right:8px;bottom:7px;
+    height:var(--mobileDockH);
+    background:rgba(10,16,23,.96);
+    backdrop-filter:blur(14px);
+    border:1px solid var(--line);
+    border-radius:16px;
+    z-index:9999;
+    box-shadow:0 10px 30px rgba(0,0,0,.38);
+    overflow:hidden
+  }
+  .mobileDock button{
+    border:0;background:transparent;color:var(--muted);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    gap:4px;font-size:9.5px;font-weight:700;min-width:0
+  }
+  .mobileDock button .ico{font-size:17px;line-height:1}
+  .mobileDock button.active{color:var(--text);background:var(--soft)}
+  .mobileOnly{display:block}
+}
+
+@media(max-width:420px){
+  #priceChart{height:282px!important}
+  .visualCard .xl{font-size:17px!important}
+  .visualCard .lg{font-size:16.5px!important}
+  .indicatorViz canvas{height:58px!important;min-height:58px!important}
+  .mobileDock{left:5px;right:5px;bottom:5px}
+}
+
 .footer{margin-top:13px;color:var(--muted);font-size:9.5px;line-height:1.5}
 @media(max-width:1100px){.metrics{grid-template-columns:repeat(4,1fr)}.mainGrid{grid-template-columns:1fr}.formGrid{grid-template-columns:repeat(3,1fr)}.btMetrics{grid-template-columns:repeat(4,1fr)}.scannerCards{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.tabs{grid-template-columns:repeat(4,1fr)}.tab:nth-child(n+5){grid-column:auto}.mtfGrid{grid-template-columns:1fr}.riskGrid,.aiGrid{grid-template-columns:1fr}.scannerControls{grid-template-columns:1fr 1fr}.scannerControls .wide{grid-column:span 2}.infoGrid{grid-template-columns:1fr 1fr}}
@@ -237,7 +396,7 @@ details.secondaryBox[open] > summary::after{content:"－"}
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><h1>₿ Crypto Analyzer V15.3</h1><p>Upbit · Balanced Chart UI · Validation · Server Alerts · Scanner · AI</p></div>
+    <div class="brand"><h1>₿ Crypto Analyzer V15.4</h1><p>Upbit · Mobile First + Balanced Desktop · Validation · Server Alerts · Scanner · AI</p></div>
     <div class="badge"><i class="dot"></i><span id="cloudState">Vercel 연결 대기</span></div>
   </header>
 
@@ -642,7 +801,15 @@ details.secondaryBox[open] > summary::after{content:"－"}
 
   </main>
 
-  <footer class="footer">연구·교육용 도구입니다. Signal Quality는 성공확률이 아니며 Historical Win은 과거 표본 통계입니다. 서버 알림은 조건 감시 기능이며 매매 권유가 아닙니다. 모든 분석·백테스트 결과는 미래 수익을 보장하지 않습니다.</footer>
+  
+<nav class="mobileDock" id="mobileDock" aria-label="모바일 빠른 메뉴">
+  <button type="button" data-mobile-pane="overview" class="active"><span class="ico">⌁</span><span>현재분석</span></button>
+  <button type="button" data-mobile-pane="scanner"><span class="ico">⌕</span><span>Scanner</span></button>
+  <button type="button" data-mobile-pane="ai"><span class="ico">✦</span><span>AI</span></button>
+  <button type="button" data-mobile-pane="personal"><span class="ico">◎</span><span>My</span></button>
+</nav>
+
+<footer class="footer">연구·교육용 도구입니다. Signal Quality는 성공확률이 아니며 Historical Win은 과거 표본 통계입니다. 서버 알림은 조건 감시 기능이며 매매 권유가 아닙니다. 모든 분석·백테스트 결과는 미래 수익을 보장하지 않습니다.</footer>
 </div>
 
 <script>
@@ -837,11 +1004,11 @@ async function runScanner(){
   }catch(e){setStatus("Scanner 오류: "+e.message,0);alert("Scanner 오류\n\n"+e.message)}finally{$("runScanner").disabled=false}
 }
 
-function setupCanvas(id){const c=$(id),rect=c.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2),mobile=innerWidth<=620,h=mobile?({priceChart:320,rsiChart:165,macdChart:165,volChart:165,equityChart:220}[id]||220):(Number(c.getAttribute("height"))||260);c.width=Math.max(280,Math.floor(rect.width*ratio));c.height=Math.floor(h*ratio);c.style.height=h+"px";const ctx=c.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);return{ctx,w:Math.max(280,rect.width),h}}
+function setupCanvas(id){const c=$(id),rect=c.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2),mobile=innerWidth<=620,h=mobile?({priceChart:300,rsiChart:150,macdChart:150,volChart:150,equityChart:205}[id]||220):(Number(c.getAttribute("height"))||260);c.width=Math.max(280,Math.floor(rect.width*ratio));c.height=Math.floor(h*ratio);c.style.height=h+"px";const ctx=c.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);return{ctx,w:Math.max(280,rect.width),h}}
 function extent(vals,p=.05){const f=vals.filter(Number.isFinite);if(!f.length)return[0,1];let lo=Math.min(...f),hi=Math.max(...f);if(lo===hi){lo--;hi++}const d=(hi-lo)*p;return[lo-d,hi+d]}
 function grid(ctx,w,h,l=66,r=10,t=8,b=18,labels=null){ctx.strokeStyle="#223041";ctx.fillStyle="#7f91a5";ctx.font="10px Segoe UI";for(let k=0;k<=4;k++){const y=t+(h-t-b)*k/4;ctx.beginPath();ctx.moveTo(l,y);ctx.lineTo(w-r,y);ctx.stroke();if(labels){ctx.textAlign="right";ctx.textBaseline="middle";ctx.fillText(labels[k],l-6,y)}}return{l,r,t,b}}
 function drawSeries(ctx,a,key,x0,x1,y0,y1,g,w,h,color,dash=[]){ctx.strokeStyle=color;ctx.lineWidth=1.4;ctx.setLineDash(dash);ctx.beginPath();let ok=false;for(let i=x0;i<=x1;i++){const v=a[i][key];if(!Number.isFinite(v))continue;const x=g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),y=g.t+(y1-v)/(y1-y0)*(h-g.t-g.b);if(!ok){ctx.moveTo(x,y);ok=true}else ctx.lineTo(x,y)}ctx.stroke();ctx.setLineDash([])}
-function drawPrice(){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas("priceChart"),a=state.candles,view=Math.min(150,a.length),x0=a.length-view,x1=a.length-1,vals=[];for(let i=x0;i<=x1;i++)vals.push(a[i].high,a[i].low,a[i].bbU,a[i].bbL);if(state.levels)vals.push(state.levels.support,state.levels.resistance);const[y0,y1]=extent(vals,.04),labels=Array.from({length:5},(_,k)=>Math.round(y1-(y1-y0)*k/4).toLocaleString()),g=grid(ctx,w,h,70,10,8,20,labels),px=i=>g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),py=v=>g.t+(y1-v)/(y1-y0)*(h-g.t-g.b),cw=Math.max(1,Math.min(7,(w-g.l-g.r)/view*.65));for(let i=x0;i<=x1;i++){const d=a[i],x=px(i),up=d.close>=d.open;ctx.strokeStyle=ctx.fillStyle=up?"#36c99b":"#ef707b";ctx.beginPath();ctx.moveTo(x,py(d.high));ctx.lineTo(x,py(d.low));ctx.stroke();const yo=py(d.open),yc=py(d.close);ctx.fillRect(x-cw/2,Math.min(yo,yc),cw,Math.max(1,Math.abs(yc-yo)))}drawSeries(ctx,a,"ma20",x0,x1,y0,y1,g,w,h,"#5fa8ff");drawSeries(ctx,a,"ma60",x0,x1,y0,y1,g,w,h,"#efbe63");drawSeries(ctx,a,"ma120",x0,x1,y0,y1,g,w,h,"#b68cff");drawSeries(ctx,a,"bbU",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);drawSeries(ctx,a,"bbL",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);if(state.levels){for(const[v,c]of[[state.levels.support,"#36c99b"],[state.levels.resistance,"#ef707b"]]){ctx.strokeStyle=c;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(g.l,py(v));ctx.lineTo(w-g.r,py(v));ctx.stroke();ctx.setLineDash([])}}}
+function drawPrice(){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas("priceChart"),a=state.candles,view=Math.min(innerWidth<=620?72:innerWidth<=900?110:150,a.length),x0=a.length-view,x1=a.length-1,vals=[];for(let i=x0;i<=x1;i++)vals.push(a[i].high,a[i].low,a[i].bbU,a[i].bbL);if(state.levels)vals.push(state.levels.support,state.levels.resistance);const[y0,y1]=extent(vals,.04),labels=Array.from({length:5},(_,k)=>Math.round(y1-(y1-y0)*k/4).toLocaleString()),g=grid(ctx,w,h,70,10,8,20,labels),px=i=>g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),py=v=>g.t+(y1-v)/(y1-y0)*(h-g.t-g.b),cw=Math.max(1,Math.min(7,(w-g.l-g.r)/view*.65));for(let i=x0;i<=x1;i++){const d=a[i],x=px(i),up=d.close>=d.open;ctx.strokeStyle=ctx.fillStyle=up?"#36c99b":"#ef707b";ctx.beginPath();ctx.moveTo(x,py(d.high));ctx.lineTo(x,py(d.low));ctx.stroke();const yo=py(d.open),yc=py(d.close);ctx.fillRect(x-cw/2,Math.min(yo,yc),cw,Math.max(1,Math.abs(yc-yo)))}drawSeries(ctx,a,"ma20",x0,x1,y0,y1,g,w,h,"#5fa8ff");drawSeries(ctx,a,"ma60",x0,x1,y0,y1,g,w,h,"#efbe63");drawSeries(ctx,a,"ma120",x0,x1,y0,y1,g,w,h,"#b68cff");drawSeries(ctx,a,"bbU",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);drawSeries(ctx,a,"bbL",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);if(state.levels){for(const[v,c]of[[state.levels.support,"#36c99b"],[state.levels.resistance,"#ef707b"]]){ctx.strokeStyle=c;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(g.l,py(v));ctx.lineTo(w-g.r,py(v));ctx.stroke();ctx.setLineDash([])}}}
 function drawLine(id,key,fixed=null,extra=[]){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas(id),a=state.candles,view=Math.min(200,a.length),x0=a.length-view,x1=a.length-1,vals=[];for(let i=x0;i<=x1;i++){if(Number.isFinite(a[i][key]))vals.push(a[i][key]);for(const e of extra)if(Number.isFinite(a[i][e]))vals.push(a[i][e])}const[y0,y1]=fixed||extent(vals,.08),labels=Array.from({length:5},(_,k)=>(y1-(y1-y0)*k/4).toFixed(key==="rsi"?0:0)),g=grid(ctx,w,h,48,8,8,16,labels);drawSeries(ctx,a,key,x0,x1,y0,y1,g,w,h,"#5fa8ff");for(const e of extra)drawSeries(ctx,a,e,x0,x1,y0,y1,g,w,h,"#efbe63")}
 function drawVolume(){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas("volChart"),a=state.candles,view=Math.min(200,a.length),x0=a.length-view,x1=a.length-1,vmax=Math.max(...a.slice(x0).map(x=>x.volume))*1.08,g=grid(ctx,w,h,45,8,8,16,null),px=i=>g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),py=v=>g.t+(vmax-v)/vmax*(h-g.t-g.b),bw=Math.max(1,(w-g.l-g.r)/view*.7);for(let i=x0;i<=x1;i++){ctx.fillStyle=a[i].close>=a[Math.max(0,i-1)].close?"#267b67":"#8b414a";ctx.fillRect(px(i)-bw/2,py(a[i].volume),bw,h-g.b-py(a[i].volume))}}
 function drawEquity(){if(!state.bt)return;const{ctx,w,h}=setupCanvas("equityChart"),s=state.bt.eq,vals=s.map(x=>x.value),[y0,y1]=extent(vals,.05),labels=Array.from({length:5},(_,k)=>Math.round(y1-(y1-y0)*k/4).toLocaleString()),g=grid(ctx,w,h,66,8,8,16,labels);ctx.strokeStyle="#5fa8ff";ctx.lineWidth=1.8;ctx.beginPath();s.forEach((d,i)=>{const x=g.l+i/Math.max(1,s.length-1)*(w-g.l-g.r),y=g.t+(y1-d.value)/(y1-y0)*(h-g.t-g.b);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke()}
@@ -910,6 +1077,22 @@ function openPane(name){
 }
 $("gotoAi").addEventListener("click",()=>openPane("ai"));
 
+function syncMobileDock(name){
+  document.querySelectorAll("[data-mobile-pane]").forEach(b=>b.classList.toggle("active",b.dataset.mobilePane===name));
+}
+document.querySelectorAll("[data-mobile-pane]").forEach(b=>{
+  b.addEventListener("click",()=>{
+    const name=b.dataset.mobilePane;
+    openPane(name);
+    syncMobileDock(name);
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
+document.querySelectorAll(".tab").forEach(t=>{
+  t.addEventListener("click",()=>syncMobileDock(t.dataset.pane));
+});
+
+
 $("toggleReasons").addEventListener("click",()=>{
   const box=$("reasons"),expanded=box.classList.toggle("expanded");
   $("toggleReasons").textContent=expanded?"세부 근거 접기":"세부 근거 더보기";
@@ -935,7 +1118,7 @@ document.querySelectorAll("details.secondaryBox").forEach(d=>d.addEventListener(
   if(d.open&&state.loaded)setTimeout(()=>drawAll(),30);
 }));
 
-if(innerWidth<=620)$("count").value="200";renderPersonal();loadMarketsSelect().finally(()=>cloudRefreshStatus());
+if(innerWidth<=620)$("count").value="120";renderPersonal();loadMarketsSelect().finally(()=>cloudRefreshStatus());
 </script>
 </body>
 </html>

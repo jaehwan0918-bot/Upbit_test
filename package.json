@@ -1,8 +1,8 @@
 {
   "name": "crypto-analyzer-v15",
-  "version": "15.3.0",
+  "version": "15.4.0",
   "private": true,
-  "description": "Crypto Analyzer V15.3 with balanced responsive candlestick chart proportions",
+  "description": "Crypto Analyzer V15.4 with dedicated mobile layout, responsive 72-candle chart, swipe tabs and fixed mobile dock",
   "dependencies": {
     "web-push": "^3.6.7"
   }
