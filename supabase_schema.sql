@@ -1,4 +1,4 @@
--- Crypto Analyzer V15
+-- Crypto Analyzer V15.5
 -- Supabase SQL Editor에서 한 번 실행하세요.
 create extension if not exists pgcrypto;
 
@@ -44,6 +44,14 @@ create table if not exists public.signal_events (
   vol_ratio numeric,
   regime text,
   price numeric,
+  signal_candle_time timestamptz,
+  outcome_status text,
+  outcome_horizon integer,
+  outcome_return_pct numeric,
+  mfe_pct numeric,
+  mae_pct numeric,
+  outcome_hit boolean,
+  evaluated_at timestamptz,
   push_sent boolean not null default false,
   payload jsonb,
   created_at timestamptz not null default now()

@@ -1,4 +1,4 @@
-Crypto Analyzer V15.4 - Vercel + Supabase + Web Push
+Crypto Analyzer V15.5 - Vercel + Supabase + Web Push
 ===================================================
 
 V15 핵심
@@ -56,7 +56,7 @@ https://내프로젝트.vercel.app/api/health
 정상 예
 {
   "status":"ok",
-  "app":"Crypto Analyzer V15.4",
+  "app":"Crypto Analyzer V15.5",
   "aiConfigured":true,
   "dbConfigured":true,
   "pushConfigured":true,
@@ -209,3 +209,82 @@ V15.4 모바일 전용 레이아웃
 - 모바일 최초 candle API count는 120으로 낮춰 초기 표시 부담을 줄임
 
 데스크톱 레이아웃과 서버 DB / Cron / Web Push / Scanner / AI 기능은 유지됩니다.
+
+
+V15.5 Signal Lab
+================
+
+1. 확정봉 신호 모드
+-------------------
+기본값은 "확정봉 · 권장"입니다.
+진행 중인 현재 봉은 계산에서 제외하므로 봉 중간 Score 변화에 의한 신호 흔들림을 줄입니다.
+
+"진행봉 Preview"를 선택하면 현재 미완성 봉까지 포함해 볼 수 있습니다.
+Preview는 확정 신호가 아닙니다.
+
+Vercel 서버 알림 계산도 V15.5부터 확정봉을 기본으로 사용합니다.
+
+2. Signal Marker + Replay
+-------------------------
+메인 차트에서 |Score| >= 5 신호를 ▲ / ▼ 마커로 표시합니다.
+
+마커 클릭/터치 시 당시:
+- Score
+- 단일TF Replay Quality
+- 시장 국면
+- RSI / ADX
+- 6봉 후 수익률
+- MFE (최대 유리 움직임)
+- MAE (최대 불리 움직임)
+
+을 바로 확인할 수 있습니다.
+
+3. Scanner Relative Strength + Breadth
+--------------------------------------
+Scanner는 이제:
+- BTC 대비 12봉 상대강도(RS)
+- 스캔 시장 중 MA20 위 종목 비율
+- Positive Score 비율
+- 강한 상승 국면 비율
+- 24H 상승 종목 비율
+
+을 계산합니다.
+
+서버 Scanner 최대 검색 종목 수도 UI와 맞춰 50개로 조정했습니다.
+
+4. Signal Outcome DB
+--------------------
+서버 알림으로 발생한 Signal Event는 6봉이 지난 뒤:
+- 6봉 수익률
+- MFE
+- MAE
+- 방향 적중 여부
+
+를 Supabase signal_events에 자동 누적할 수 있습니다.
+
+기존 Supabase 사용자 중요:
+supabase_v15_5_migration.sql 파일을 Supabase SQL Editor에서 한 번 실행해야 합니다.
+
+My -> 최근 서버 Signal Events -> "Outcome 업데이트" 버튼으로 수동 평가도 가능합니다.
+Vercel Cron 실행 시에도 과거 미평가 Signal Event의 Outcome 평가를 시도합니다.
+
+5. 기존 기능
+-----------
+V15.4의:
+- 모바일 전용 레이아웃
+- 서버 DB
+- Cron
+- Web Push
+- Backtest
+- Walk-Forward
+- Risk Plan
+- Scanner
+- AI
+- Watchlist / Journal / Portfolio
+
+기능은 유지됩니다.
+
+주의
+----
+Signal Quality / Replay Quality / Historical Win Rate / Outcome 통계는 미래 성과를 보장하지 않습니다.
+V15.5는 신호 검증 및 연구 도구이며 자동 주문 프로그램이 아닙니다.

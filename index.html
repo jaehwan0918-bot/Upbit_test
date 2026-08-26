@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Crypto Analyzer">
 <link rel="manifest" href="/manifest.json">
-<title>Crypto Analyzer V15.4</title>
+<title>Crypto Analyzer V15.5</title>
 <style>
 :root{
   --bg:#0a0f15;--panel:#101822;--panel2:#151f2a;--soft:#0d141d;--line:#223041;
@@ -385,6 +385,33 @@ details.secondaryBox[open] > summary::after{content:"－"}
   .mobileDock{left:5px;right:5px;bottom:5px}
 }
 
+
+/* V15.5 Signal Lab */
+@media(min-width:761px){
+  .toolbar{grid-template-columns:1.25fr .8fr .95fr .75fr 1.1fr}
+}
+.modeBadge{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font-size:9.5px;color:var(--muted)}
+.modeBadge.closed{color:#36c99b}.modeBadge.live{color:#efbe63}
+.replayPanel{margin-top:8px;background:#0c141d;border:1px solid var(--line);border-radius:11px;padding:9px}
+.replayHead{display:flex;align-items:center;justify-content:space-between;gap:7px;flex-wrap:wrap}
+.replayHead strong{font-size:11px}.replayHead span{font-size:9.5px;color:var(--muted)}
+.replayActions{display:flex;gap:5px}.replayActions button{padding:5px 8px;min-height:0;font-size:9.5px}
+.replayMetrics{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:7px}
+.replayMetric{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:7px;min-width:0}
+.replayMetric small{display:block;color:var(--muted);font-size:8.5px}.replayMetric strong{display:block;margin-top:3px;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.markerLegend{font-size:9px!important;color:var(--muted)}
+.breadthBar{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
+.breadthCard{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:8px}
+.breadthCard small{display:block;font-size:9px;color:var(--muted)}.breadthCard strong{display:block;margin-top:4px;font-size:13px}
+.outcomeBtn{padding:5px 8px!important;min-height:0!important;font-size:9.5px!important}
+@media(max-width:760px){
+  .replayMetrics{grid-template-columns:repeat(2,1fr)}
+  .replayMetric:first-child{grid-column:1/-1}
+  .replayActions{width:100%;display:grid;grid-template-columns:repeat(3,1fr)}
+  .breadthBar{grid-template-columns:1fr 1fr 1fr}
+  .toolbar .field:first-child{grid-column:1/-1}
+}
+
 .footer{margin-top:13px;color:var(--muted);font-size:9.5px;line-height:1.5}
 @media(max-width:1100px){.metrics{grid-template-columns:repeat(4,1fr)}.mainGrid{grid-template-columns:1fr}.formGrid{grid-template-columns:repeat(3,1fr)}.btMetrics{grid-template-columns:repeat(4,1fr)}.scannerCards{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.tabs{grid-template-columns:repeat(4,1fr)}.tab:nth-child(n+5){grid-column:auto}.mtfGrid{grid-template-columns:1fr}.riskGrid,.aiGrid{grid-template-columns:1fr}.scannerControls{grid-template-columns:1fr 1fr}.scannerControls .wide{grid-column:span 2}.infoGrid{grid-template-columns:1fr 1fr}}
@@ -396,13 +423,14 @@ details.secondaryBox[open] > summary::after{content:"－"}
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><h1>₿ Crypto Analyzer V15.4</h1><p>Upbit · Mobile First + Balanced Desktop · Validation · Server Alerts · Scanner · AI</p></div>
+    <div class="brand"><h1>₿ Crypto Analyzer V15.5</h1><p>Upbit · Signal Lab + Mobile First · Validation · Server Alerts · Scanner · AI</p></div>
     <div class="badge"><i class="dot"></i><span id="cloudState">Vercel 연결 대기</span></div>
   </header>
 
   <section class="toolbar">
     <div class="field"><label>기준 마켓</label><select id="market"><option value="KRW-BTC">KRW-BTC</option></select></div>
     <div class="field"><label>타임프레임</label><select id="tf"><option value="60">1시간봉</option><option value="240" selected>4시간봉</option><option value="day">일봉</option></select></div>
+    <div class="field"><label>신호 기준</label><select id="analysisMode"><option value="closed" selected>확정봉 · 권장</option><option value="live">진행봉 Preview</option></select></div>
     <div class="field"><label>캔들 수</label><select id="count"><option>200</option><option selected>400</option><option>600</option><option>1000</option></select></div>
     <div class="field wide"><label>데이터</label><button id="load" class="btn primary" style="width:100%">데이터 불러오기</button></div>
   </section>
@@ -451,11 +479,27 @@ details.secondaryBox[open] > summary::after{content:"－"}
     <section id="overview" class="pane active">
       <div class="chartHero">
         <div class="chartHeroHead">
-          <div class="left"><h2><span id="overviewMarket">KRW-BTC</span> · <span id="overviewTf">4시간봉</span> · UPBIT</h2><span>MA20 · MA60 · MA120 · Bollinger · Support / Resistance</span></div>
+          <div class="left"><h2><span id="overviewMarket">KRW-BTC</span> · <span id="overviewTf">4시간봉</span> · UPBIT</h2><span>MA20 · MA60 · MA120 · Bollinger · Support / Resistance · Signal Marker</span></div><span id="analysisModeBadge" class="modeBadge closed">● 확정봉</span>
           <div class="chartActions"><span>지표</span><span>확대</span></div>
         </div>
         <canvas id="priceChart" height="400"></canvas>
         <div class="legend"><span><i class="sw" style="background:#5fa8ff"></i>MA20</span><span><i class="sw" style="background:#efbe63"></i>MA60</span><span><i class="sw" style="background:#b68cff"></i>MA120</span><span><i class="sw" style="background:#36c99b"></i>Support</span><span><i class="sw" style="background:#ef707b"></i>Resistance</span></div>
+        <div class="replayPanel" id="replayPanel">
+          <div class="replayHead">
+            <div><strong>Signal Replay</strong> <span>차트의 ▲/▼ 마커를 누르면 당시 신호를 재현합니다. · |Score| ≥ 5</span></div>
+            <div class="replayActions"><button id="replayPrev" class="miniBtn">◀ 이전</button><button id="replayLatest" class="miniBtn">최근 신호</button><button id="replayNext" class="miniBtn">다음 ▶</button></div>
+          </div>
+          <div class="replayMetrics">
+            <div class="replayMetric"><small>시각</small><strong id="replayTime">마커 선택</strong></div>
+            <div class="replayMetric"><small>Score</small><strong id="replayScore">-</strong></div>
+            <div class="replayMetric"><small>Quality*</small><strong id="replayQuality">-</strong></div>
+            <div class="replayMetric"><small>Regime</small><strong id="replayRegime">-</strong></div>
+            <div class="replayMetric"><small>RSI / ADX</small><strong id="replayMomentum">-</strong></div>
+            <div class="replayMetric"><small>6봉 Outcome</small><strong id="replayOutcome">-</strong></div>
+            <div class="replayMetric"><small>MFE / MAE</small><strong id="replayExcursion">-</strong></div>
+          </div>
+          <div class="markerLegend">* Replay Quality는 해당 시점의 단일 타임프레임 정합성 지표입니다. 현재 상단 Signal Quality의 멀티TF 정합도와는 계산 목적이 다릅니다.</div>
+        </div>
       </div>
 
       <div class="indicatorStrip">
@@ -688,9 +732,11 @@ details.secondaryBox[open] > summary::after{content:"－"}
           <div class="scanCard"><small>조건 통과</small><strong id="scanPass">-</strong></div>
           <div class="scanCard"><small>최고 Score</small><strong id="scanBest">-</strong></div>
           <div class="scanCard"><small>강한 상승 국면</small><strong id="scanTrendN">-</strong></div>
+          <div class="scanCard"><small>MA20 위 Breadth</small><strong id="scanBreadthMa">-</strong></div>
+          <div class="scanCard"><small>Positive Score</small><strong id="scanBreadthScore">-</strong></div>
           <div class="scanCard"><small>완료 시간</small><strong id="scanTime">-</strong></div>
         </div>
-        <div class="tableWrap"><table><thead><tr><th>순위</th><th>마켓</th><th>한글명</th><th>현재가</th><th>24H%</th><th>Score</th><th>신뢰도</th><th>국면</th><th>RSI</th><th>ADX</th><th>거래량비</th></tr></thead><tbody id="scannerBody"></tbody></table></div>
+        <div class="tableWrap"><table><thead><tr><th>순위</th><th>마켓</th><th>한글명</th><th>현재가</th><th>24H%</th><th>Score</th><th>Quality*</th><th>BTC대비 RS</th><th>국면</th><th>RSI</th><th>ADX</th><th>거래량비</th></tr></thead><tbody id="scannerBody"></tbody></table></div>
       </div>
     </section>
 
@@ -742,8 +788,8 @@ details.secondaryBox[open] > summary::after{content:"－"}
           <div class="cloudCode" style="margin-top:7px">Push를 받으려면 HTTPS 배포 주소에서 알림 권한을 허용해야 합니다.</div>
           <div class="title" style="margin-top:12px"><h3>서버 알림 조건</h3><span>Supabase에 저장</span></div>
           <div class="tableWrap"><table><thead><tr><th>마켓</th><th>TF</th><th>Score</th><th>Quality</th><th>ADX</th><th>Vol</th><th>Regime</th><th>Cooldown</th><th>최근 발동</th><th></th></tr></thead><tbody id="cloudRuleBody"></tbody></table></div>
-          <div class="title" style="margin-top:12px"><h3>최근 서버 Signal Events</h3><span>최근 30개</span></div>
-          <div class="tableWrap" style="max-height:260px"><table><thead><tr><th>시각</th><th>마켓</th><th>TF</th><th>Score</th><th>Quality</th><th>ADX</th><th>Regime</th><th>가격</th><th>Push</th></tr></thead><tbody id="cloudEventBody"></tbody></table></div>
+          <div class="title" style="margin-top:12px"><h3>최근 서버 Signal Events</h3><div style="display:flex;gap:6px;align-items:center"><span>최근 30개</span><button id="evaluateOutcomes" class="miniBtn outcomeBtn">Outcome 업데이트</button></div></div>
+          <div class="tableWrap" style="max-height:260px"><table><thead><tr><th>시각</th><th>마켓</th><th>TF</th><th>Score</th><th>Quality</th><th>ADX</th><th>Regime</th><th>가격</th><th>6봉</th><th>MFE</th><th>MAE</th><th>Push</th></tr></thead><tbody id="cloudEventBody"></tbody></table></div>
         </div>
         <div class="panel">
           <div class="title"><h2>Watchlist</h2><span>이 기기에 저장</span></div>
@@ -815,7 +861,7 @@ details.secondaryBox[open] > summary::after{content:"－"}
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
-const state={candles:[],multi:{},bt:null,advBt:null,compare:null,scanner:[],loaded:false,levels:null,marketData:[]};
+const state={candles:[],multi:{},bt:null,advBt:null,compare:null,scanner:[],scannerBreadth:null,loaded:false,levels:null,marketData:[],chartMarkers:[],replayIndex:null};
 const TF_NAMES={"60":"1시간봉","240":"4시간봉","day":"일봉"};
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 function num(v,d=0){const x=Number(v);return Number.isFinite(x)?x:d}
@@ -830,11 +876,18 @@ async function apiCandles(market,tf,count,to=""){
   const u=new URL("/api/candles",location.origin);u.searchParams.set("market",market);u.searchParams.set("tf",tf);u.searchParams.set("count",count);if(to)u.searchParams.set("to",to);
   const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw new Error((await r.text()).slice(0,220));return r.json();
 }
+
+function tfDurationMs(tf){return tf==="day"?86400000:Number(tf)*60000}
+function isClosedCandleTime(time,tf,now=Date.now()){return time.getTime()+tfDurationMs(tf)<=now-5000}
+function activeAnalysisMode(){return $("analysisMode")?.value||"closed"}
+
 async function fetchCandles(market,tf,total,onProgress){
   let rows=[],left=total,to="",page=0,pages=Math.ceil(total/200);
   while(left>0){page++;if(page>1)await sleep(140);if(onProgress)onProgress(page,pages,rows.length);const batch=await apiCandles(market,tf,Math.min(200,left),to);if(!batch.length)break;rows.push(...batch);left-=batch.length;to=batch.at(-1).candle_date_time_utc+"Z";if(batch.length<Math.min(200,left+batch.length))break}
   const map=new Map();for(const r of rows)map.set(r.candle_date_time_utc,r);
-  return indicators([...map.values()].map(r=>({time:new Date(r.candle_date_time_utc+"Z"),open:num(r.opening_price),high:num(r.high_price),low:num(r.low_price),close:num(r.trade_price),volume:num(r.candle_acc_trade_volume)})).sort((a,b)=>a.time-b.time));
+  let parsed=[...map.values()].map(r=>({time:new Date(r.candle_date_time_utc+"Z"),open:num(r.opening_price),high:num(r.high_price),low:num(r.low_price),close:num(r.trade_price),volume:num(r.candle_acc_trade_volume)})).sort((a,b)=>a.time-b.time);
+  if(activeAnalysisMode()==="closed")parsed=parsed.filter(x=>isClosedCandleTime(x.time,tf));
+  return indicators(parsed);
 }
 function sma(v,p){const o=Array(v.length).fill(null);let s=0;for(let i=0;i<v.length;i++){s+=v[i];if(i>=p)s-=v[i-p];if(i>=p-1)o[i]=s/p}return o}
 function ema(v,p){const o=Array(v.length).fill(null),a=2/(p+1);let x=null;for(let i=0;i<v.length;i++){x=x===null?v[i]:a*v[i]+(1-a)*x;o[i]=x}return o}
@@ -892,7 +945,7 @@ function updateScoreHistory(){
 function reasons(a,i){const x=a[i],p=a[i-1],good=[],bad=[];(x.close>x.ma20?good:bad).push(`현재가 ${x.close>x.ma20?">":"<"} MA20`);(x.ma20>x.ma60?good:bad).push(`MA20 ${x.ma20>x.ma60?">":"<"} MA60`);(x.ma60>x.ma120?good:bad).push(`MA60 ${x.ma60>x.ma120?">":"<"} MA120`);if(x.rsi<30)good.push(`RSI ${x.rsi.toFixed(1)} 과매도`);else if(x.rsi>70)bad.push(`RSI ${x.rsi.toFixed(1)} 과매수`);(x.macd>x.signal?good:bad).push(`MACD ${x.macd>x.signal?">":"<"} Signal`);if(x.volRatio>=1.5)(x.close>p.close?good:bad).push(`거래량 ${x.volRatio.toFixed(2)}x`);if(x.close<=x.bbL)good.push("볼린저 하단");else if(x.close>=x.bbU)bad.push("볼린저 상단");return{good,bad}}
 
 async function loadAll(){
-  $("load").disabled=true;["runBt","runAdvBt","calcRisk","runCompare","aiSummary","aiAsk"].forEach(id=>$(id).disabled=true);state.loaded=false;state.bt=null;state.compare=null;
+  $("load").disabled=true;["runBt","runAdvBt","calcRisk","runCompare","aiSummary","aiAsk"].forEach(id=>$(id).disabled=true);state.loaded=false;state.bt=null;state.compare=null;state.replayIndex=null;state.chartMarkers=[];renderReplay();updateModeUi();
   try{
     const market=$("market").value,tf=$("tf").value,total=Number($("count").value);setStatus("기준 데이터를 불러오는 중…",5);
     state.candles=await fetchCandles(market,tf,total,(p,ps,n)=>setStatus(`기준 데이터 ${p}/${ps} · ${n}개`,5+32*(p-1)/ps));
@@ -901,6 +954,49 @@ async function loadAll(){
     ["runBt","runAdvBt","calcRisk","runCompare","aiSummary","aiAsk"].forEach(id=>$(id).disabled=false);$("cloudState").textContent="Vercel 정상";setStatus(`완료 · ${market} · ${TF_NAMES[tf]} · ${state.candles.length}개`,100)
   }catch(e){console.error(e);setStatus("오류: "+e.message,0);$("cloudState").textContent="연결 오류";alert("데이터를 불러오지 못했습니다.\n\n"+e.message)}finally{$("load").disabled=false}
 }
+
+function replayQuality(a,i){
+  const x=a[i];if(!x||x.score==null)return 0;
+  let q=38+Math.min(28,(x.adx||0)/40*28)+(Math.abs(x.score)>=6?17:Math.abs(x.score)>=5?12:5);
+  if(x.volRatio>=1.5)q+=9;if(regime(a,i)==="전환 / 혼조")q-=10;
+  return Math.max(20,Math.min(95,Math.round(q)));
+}
+function outcomeAt(a,i,h=6){
+  const x=a[i];if(!x||i+h>=a.length)return null;
+  const future=a.slice(i+1,i+h+1),end=a[i+h],ret=(end.close/x.close-1)*100;
+  const mfe=(Math.max(...future.map(z=>z.high))/x.close-1)*100;
+  const mae=(Math.min(...future.map(z=>z.low))/x.close-1)*100;
+  const dir=Math.sign(x.score||0),hit=dir?ret*dir>0:null;
+  return{ret,mfe,mae,hit,h};
+}
+function strongSignalIndexes(){return state.candles.map((x,i)=>Math.abs(x.score||0)>=5?i:-1).filter(i=>i>=120)}
+function renderReplay(){
+  const i=state.replayIndex,a=state.candles;
+  if(i==null||!a[i]){["replayScore","replayQuality","replayRegime","replayMomentum","replayOutcome","replayExcursion"].forEach(id=>$(id).textContent="-");$("replayTime").textContent="마커 선택";return}
+  const x=a[i],q=replayQuality(a,i),o=outcomeAt(a,i,6);
+  $("replayTime").textContent=kst(x.time);$("replayScore").textContent=(x.score>=0?"+":"")+x.score;$("replayScore").className=cls(x.score);
+  $("replayQuality").textContent=q+"/100";$("replayRegime").textContent=regime(a,i);$("replayMomentum").textContent=`${x.rsi.toFixed(1)} / ${x.adx.toFixed(1)}`;
+  if(o){$("replayOutcome").textContent=`${o.ret>=0?"+":""}${o.ret.toFixed(2)}% ${o.hit?"✓":"✕"}`;$("replayOutcome").className=o.hit?"good":"bad";$("replayExcursion").textContent=`+${o.mfe.toFixed(2)}% / ${o.mae.toFixed(2)}%`}
+  else{$("replayOutcome").textContent="6봉 진행 중";$("replayOutcome").className="warn";$("replayExcursion").textContent="-"}
+}
+function selectReplay(i){if(i==null||!state.candles[i])return;state.replayIndex=i;renderReplay();drawPrice()}
+function stepReplay(dir){
+  const arr=strongSignalIndexes();if(!arr.length)return;
+  if(state.replayIndex==null)return selectReplay(dir<0?arr.at(-1):arr[0]);
+  let pos=arr.findIndex(i=>i===state.replayIndex);if(pos<0)pos=arr.findIndex(i=>i>state.replayIndex);
+  const next=Math.max(0,Math.min(arr.length-1,(pos<0?arr.length-1:pos)+dir));selectReplay(arr[next])
+}
+function latestReplay(){const arr=strongSignalIndexes();if(arr.length)selectReplay(arr.at(-1))}
+function chartMarkerClick(ev){
+  if(!state.chartMarkers.length)return;const r=$("priceChart").getBoundingClientRect(),x=ev.clientX-r.left,y=ev.clientY-r.top;
+  let best=null,dist=999;for(const m of state.chartMarkers){const d=Math.hypot(x-m.x,y-m.y);if(d<dist){dist=d;best=m}}
+  if(best&&dist<24)selectReplay(best.i)
+}
+function updateModeUi(){
+  const live=activeAnalysisMode()==="live",b=$("analysisModeBadge");if(!b)return;
+  b.textContent=live?"● 진행봉 Preview":"● 확정봉";b.className="modeBadge "+(live?"live":"closed");
+}
+
 function updateOverview(){
   const q=latest(state.candles);if(!q)return;const{x,i}=q,p=state.candles[i-1],chg=(x.close/p.close-1)*100,c=confidence(),rg=regime(state.candles,i),lv=state.levels;
   $("mPrice").textContent=fmtKRW(x.close);$("mChange").textContent=fmtPct(chg);$("mChange").className="s "+(chg>=0?"good":"bad");$("mScore").textContent=(x.score>=0?"+":"")+x.score;$("mScore").className="v "+cls(x.score);$("mVerdict").textContent=verdict(x.score);$("mConfidence").textContent=c+"/100";$("mConfidence").className="v "+(c>=75?"good":c<50?"bad":"warn");const hw=historicalWinRate(state.candles,i);$("mHistWin").textContent=hw.rate==null?"N/A":hw.rate.toFixed(1)+"%";$("mHistSample").textContent=hw.n?`${hw.n}개 표본 · ${hw.horizon}봉 후`:"강한 신호에서 계산";$("histWinBig").textContent=hw.rate==null?"N/A":hw.rate.toFixed(1)+"%";$("mRegime").textContent=rg;$("mRsi").textContent=x.rsi.toFixed(1);$("mAdx").textContent=x.adx.toFixed(1);$("mVol").textContent=x.volRatio.toFixed(2)+"x";$("mAtr").textContent=x.atrPct.toFixed(2)+"%";
@@ -996,11 +1092,15 @@ function runCompare(){runValidation()}
 async function runScanner(){
   $("runScanner").disabled=true;const body=$("scannerBody");body.innerHTML="";
   try{
-    const tf=$("scanTf").value,n=Math.min(30,Number($("scanN").value)),minScore=num($("scanMinScore").value),minVol=num($("scanMinVol").value);setStatus("V14 서버 Scanner 실행 중…",10);
+    const tf=$("scanTf").value,n=Math.min(50,Number($("scanN").value)),minScore=num($("scanMinScore").value),minVol=num($("scanMinVol").value);setStatus("V15.5 서버 Scanner 실행 중…",10);
     const u=new URL("/api/scanner",location.origin);u.searchParams.set("tf",tf);u.searchParams.set("n",n);u.searchParams.set("minScore",minScore);u.searchParams.set("minVol",minVol);
     const r=await fetch(u,{cache:"no-store"}),d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||`HTTP ${r.status}`);
-    const out=d.results||[];state.scanner=out;$("scanTarget").textContent=(d.scanned||n)+"개";$("scanPass").textContent=out.length+"개";$("scanBest").textContent=out.length?((out[0].score>=0?"+":"")+out[0].score):"-";$("scanTrendN").textContent=out.filter(x=>x.regime==="상승 추세").length+"개";$("scanTime").textContent=new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
-    out.forEach((x,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${i+1}</td><td style="text-align:left;font-weight:700">${x.market}</td><td style="text-align:left">${x.name}</td><td>${Math.round(x.price).toLocaleString()}</td><td class="${x.change>=0?"good":"bad"}">${x.change.toFixed(2)}%</td><td class="${cls(x.score)}">${x.score>=0?"+":""}${x.score}</td><td>${x.quality}</td><td>${x.regime}</td><td>${x.rsi.toFixed(1)}</td><td>${x.adx.toFixed(1)}</td><td>${x.vol.toFixed(2)}x</td>`;body.appendChild(tr)});setStatus(`서버 Scanner 완료 · ${out.length}개 조건 통과`,100);renderOverviewScanner();
+    const out=d.results||[];state.scanner=out;state.scannerBreadth=d.breadth||null;
+    $("scanTarget").textContent=(d.scanned||n)+"개";$("scanPass").textContent=out.length+"개";$("scanBest").textContent=out.length?((out[0].score>=0?"+":"")+out[0].score):"-";$("scanTrendN").textContent=out.filter(x=>x.regime==="상승 추세").length+"개";
+    $("scanBreadthMa").textContent=d.breadth?d.breadth.aboveMA20Pct.toFixed(0)+"%":"-";$("scanBreadthScore").textContent=d.breadth?d.breadth.positiveScorePct.toFixed(0)+"%":"-";
+    $("scanTime").textContent=new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
+    out.forEach((x,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${i+1}</td><td style="text-align:left;font-weight:700">${x.market}</td><td style="text-align:left">${x.name}</td><td>${Math.round(x.price).toLocaleString()}</td><td class="${x.change>=0?"good":"bad"}">${x.change.toFixed(2)}%</td><td class="${cls(x.score)}">${x.score>=0?"+":""}${x.score}</td><td>${x.quality}</td><td class="${x.relativeStrength>=0?"good":"bad"}">${x.relativeStrength>=0?"+":""}${x.relativeStrength.toFixed(2)}%</td><td>${x.regime}</td><td>${x.rsi.toFixed(1)}</td><td>${x.adx.toFixed(1)}</td><td>${x.vol.toFixed(2)}x</td>`;body.appendChild(tr)});
+    setStatus(`Scanner 완료 · Breadth MA20 ${d.breadth?d.breadth.aboveMA20Pct.toFixed(0):"-"}% · ${out.length}개 통과`,100);renderOverviewScanner();
   }catch(e){setStatus("Scanner 오류: "+e.message,0);alert("Scanner 오류\n\n"+e.message)}finally{$("runScanner").disabled=false}
 }
 
@@ -1008,7 +1108,32 @@ function setupCanvas(id){const c=$(id),rect=c.getBoundingClientRect(),ratio=Math
 function extent(vals,p=.05){const f=vals.filter(Number.isFinite);if(!f.length)return[0,1];let lo=Math.min(...f),hi=Math.max(...f);if(lo===hi){lo--;hi++}const d=(hi-lo)*p;return[lo-d,hi+d]}
 function grid(ctx,w,h,l=66,r=10,t=8,b=18,labels=null){ctx.strokeStyle="#223041";ctx.fillStyle="#7f91a5";ctx.font="10px Segoe UI";for(let k=0;k<=4;k++){const y=t+(h-t-b)*k/4;ctx.beginPath();ctx.moveTo(l,y);ctx.lineTo(w-r,y);ctx.stroke();if(labels){ctx.textAlign="right";ctx.textBaseline="middle";ctx.fillText(labels[k],l-6,y)}}return{l,r,t,b}}
 function drawSeries(ctx,a,key,x0,x1,y0,y1,g,w,h,color,dash=[]){ctx.strokeStyle=color;ctx.lineWidth=1.4;ctx.setLineDash(dash);ctx.beginPath();let ok=false;for(let i=x0;i<=x1;i++){const v=a[i][key];if(!Number.isFinite(v))continue;const x=g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),y=g.t+(y1-v)/(y1-y0)*(h-g.t-g.b);if(!ok){ctx.moveTo(x,y);ok=true}else ctx.lineTo(x,y)}ctx.stroke();ctx.setLineDash([])}
-function drawPrice(){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas("priceChart"),a=state.candles,view=Math.min(innerWidth<=620?72:innerWidth<=900?110:150,a.length),x0=a.length-view,x1=a.length-1,vals=[];for(let i=x0;i<=x1;i++)vals.push(a[i].high,a[i].low,a[i].bbU,a[i].bbL);if(state.levels)vals.push(state.levels.support,state.levels.resistance);const[y0,y1]=extent(vals,.04),labels=Array.from({length:5},(_,k)=>Math.round(y1-(y1-y0)*k/4).toLocaleString()),g=grid(ctx,w,h,70,10,8,20,labels),px=i=>g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),py=v=>g.t+(y1-v)/(y1-y0)*(h-g.t-g.b),cw=Math.max(1,Math.min(7,(w-g.l-g.r)/view*.65));for(let i=x0;i<=x1;i++){const d=a[i],x=px(i),up=d.close>=d.open;ctx.strokeStyle=ctx.fillStyle=up?"#36c99b":"#ef707b";ctx.beginPath();ctx.moveTo(x,py(d.high));ctx.lineTo(x,py(d.low));ctx.stroke();const yo=py(d.open),yc=py(d.close);ctx.fillRect(x-cw/2,Math.min(yo,yc),cw,Math.max(1,Math.abs(yc-yo)))}drawSeries(ctx,a,"ma20",x0,x1,y0,y1,g,w,h,"#5fa8ff");drawSeries(ctx,a,"ma60",x0,x1,y0,y1,g,w,h,"#efbe63");drawSeries(ctx,a,"ma120",x0,x1,y0,y1,g,w,h,"#b68cff");drawSeries(ctx,a,"bbU",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);drawSeries(ctx,a,"bbL",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);if(state.levels){for(const[v,c]of[[state.levels.support,"#36c99b"],[state.levels.resistance,"#ef707b"]]){ctx.strokeStyle=c;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(g.l,py(v));ctx.lineTo(w-g.r,py(v));ctx.stroke();ctx.setLineDash([])}}}
+function drawPrice(){
+  if(!state.candles.length)return;
+  const{ctx,w,h}=setupCanvas("priceChart"),a=state.candles,view=Math.min(innerWidth<=620?72:innerWidth<=900?110:150,a.length),x0=a.length-view,x1=a.length-1,vals=[];
+  for(let i=x0;i<=x1;i++)vals.push(a[i].high,a[i].low,a[i].bbU,a[i].bbL);
+  if(state.levels)vals.push(state.levels.support,state.levels.resistance);
+  const[y0,y1]=extent(vals,.05),labels=Array.from({length:5},(_,k)=>Math.round(y1-(y1-y0)*k/4).toLocaleString()),g=grid(ctx,w,h,70,10,8,20,labels),
+    px=i=>g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),py=v=>g.t+(y1-v)/(y1-y0)*(h-g.t-g.b),cw=Math.max(1,Math.min(7,(w-g.l-g.r)/view*.65));
+  for(let i=x0;i<=x1;i++){
+    const d=a[i],x=px(i),up=d.close>=d.open;ctx.strokeStyle=ctx.fillStyle=up?"#36c99b":"#ef707b";
+    ctx.beginPath();ctx.moveTo(x,py(d.high));ctx.lineTo(x,py(d.low));ctx.stroke();
+    const yo=py(d.open),yc=py(d.close);ctx.fillRect(x-cw/2,Math.min(yo,yc),cw,Math.max(1,Math.abs(yc-yo)))
+  }
+  drawSeries(ctx,a,"ma20",x0,x1,y0,y1,g,w,h,"#5fa8ff");drawSeries(ctx,a,"ma60",x0,x1,y0,y1,g,w,h,"#efbe63");drawSeries(ctx,a,"ma120",x0,x1,y0,y1,g,w,h,"#b68cff");drawSeries(ctx,a,"bbU",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);drawSeries(ctx,a,"bbL",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);
+  if(state.levels){for(const[v,c]of[[state.levels.support,"#36c99b"],[state.levels.resistance,"#ef707b"]]){ctx.strokeStyle=c;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(g.l,py(v));ctx.lineTo(w-g.r,py(v));ctx.stroke();ctx.setLineDash([])}}
+  state.chartMarkers=[];
+  for(let i=x0;i<=x1;i++){
+    const d=a[i];if(Math.abs(d.score||0)<5)continue;
+    const bullish=d.score>0,x=px(i),baseY=bullish?Math.min(h-g.b-8,py(d.low)+13):Math.max(g.t+8,py(d.high)-13),sel=i===state.replayIndex;
+    ctx.save();ctx.fillStyle=bullish?"#36c99b":"#ef707b";ctx.strokeStyle=sel?"#ffffff":"rgba(255,255,255,.35)";ctx.lineWidth=sel?2:1;
+    ctx.beginPath();
+    if(bullish){ctx.moveTo(x,baseY-7);ctx.lineTo(x-6,baseY+4);ctx.lineTo(x+6,baseY+4)}
+    else{ctx.moveTo(x,baseY+7);ctx.lineTo(x-6,baseY-4);ctx.lineTo(x+6,baseY-4)}
+    ctx.closePath();ctx.fill();ctx.stroke();ctx.font="bold 9px Segoe UI";ctx.textAlign="center";ctx.fillStyle="#dce7f2";ctx.fillText((d.score>0?"+":"")+d.score,x,bullish?baseY+15:baseY-9);ctx.restore();
+    state.chartMarkers.push({i,x,y:baseY})
+  }
+}
 function drawLine(id,key,fixed=null,extra=[]){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas(id),a=state.candles,view=Math.min(200,a.length),x0=a.length-view,x1=a.length-1,vals=[];for(let i=x0;i<=x1;i++){if(Number.isFinite(a[i][key]))vals.push(a[i][key]);for(const e of extra)if(Number.isFinite(a[i][e]))vals.push(a[i][e])}const[y0,y1]=fixed||extent(vals,.08),labels=Array.from({length:5},(_,k)=>(y1-(y1-y0)*k/4).toFixed(key==="rsi"?0:0)),g=grid(ctx,w,h,48,8,8,16,labels);drawSeries(ctx,a,key,x0,x1,y0,y1,g,w,h,"#5fa8ff");for(const e of extra)drawSeries(ctx,a,e,x0,x1,y0,y1,g,w,h,"#efbe63")}
 function drawVolume(){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas("volChart"),a=state.candles,view=Math.min(200,a.length),x0=a.length-view,x1=a.length-1,vmax=Math.max(...a.slice(x0).map(x=>x.volume))*1.08,g=grid(ctx,w,h,45,8,8,16,null),px=i=>g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),py=v=>g.t+(vmax-v)/vmax*(h-g.t-g.b),bw=Math.max(1,(w-g.l-g.r)/view*.7);for(let i=x0;i<=x1;i++){ctx.fillStyle=a[i].close>=a[Math.max(0,i-1)].close?"#267b67":"#8b414a";ctx.fillRect(px(i)-bw/2,py(a[i].volume),bw,h-g.b-py(a[i].volume))}}
 function drawEquity(){if(!state.bt)return;const{ctx,w,h}=setupCanvas("equityChart"),s=state.bt.eq,vals=s.map(x=>x.value),[y0,y1]=extent(vals,.05),labels=Array.from({length:5},(_,k)=>Math.round(y1-(y1-y0)*k/4).toLocaleString()),g=grid(ctx,w,h,66,8,8,16,labels);ctx.strokeStyle="#5fa8ff";ctx.lineWidth=1.8;ctx.beginPath();s.forEach((d,i)=>{const x=g.l+i/Math.max(1,s.length-1)*(w-g.l-g.r),y=g.t+(y1-d.value)/(y1-y0)*(h-g.t-g.b);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke()}
@@ -1057,16 +1182,34 @@ async function cloudCheck(){try{setStatus("V15 서버 알림 조건 검사 중�
 조건 ${d.evaluated||0}개\
 발동 ${d.triggered||0}개\
 Push ${d.pushSent||0}개`);await Promise.allSettled([cloudLoadRules(),cloudLoadEvents()])}catch(e){setStatus("서버 검사 오류: "+e.message,0);alert("서버 검사 실패: "+e.message)}}
-async function cloudLoadEvents(){const body=$("cloudEventBody");if(!body)return;body.innerHTML="";try{const d=await cloudJson(`/api/signal-events?deviceId=${encodeURIComponent(cloudDeviceId())}`,{cache:"no-store"});for(const e of d.events||[]){const tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${new Date(e.created_at).toLocaleString("ko-KR")}</td><td>${e.market}</td><td>${TF_NAMES[e.tf]||e.tf}</td><td>${e.score>=0?"+":""}${e.score}</td><td>${e.quality}</td><td>${Number(e.adx).toFixed(1)}</td><td>${e.regime}</td><td>${Math.round(Number(e.price)).toLocaleString()}</td><td>${e.push_sent?"✓":"-"}</td>`;body.appendChild(tr)}}catch(e){}}
+async function cloudLoadEvents(){
+  const body=$("cloudEventBody");if(!body)return;body.innerHTML="";
+  try{
+    const d=await cloudJson(`/api/signal-events?deviceId=${encodeURIComponent(cloudDeviceId())}`,{cache:"no-store"});
+    for(const e of d.events||[]){
+      const outcome=e.outcome_return_pct==null?"-":`${Number(e.outcome_return_pct)>=0?"+":""}${Number(e.outcome_return_pct).toFixed(2)}%`;
+      const tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${new Date(e.created_at).toLocaleString("ko-KR")}</td><td>${e.market}</td><td>${TF_NAMES[e.tf]||e.tf}</td><td>${e.score>=0?"+":""}${e.score}</td><td>${e.quality}</td><td>${Number(e.adx).toFixed(1)}</td><td>${e.regime}</td><td>${Math.round(Number(e.price)).toLocaleString()}</td><td class="${e.outcome_hit===true?"good":e.outcome_hit===false?"bad":""}">${outcome}</td><td>${e.mfe_pct==null?"-":"+"+Number(e.mfe_pct).toFixed(2)+"%"}</td><td>${e.mae_pct==null?"-":Number(e.mae_pct).toFixed(2)+"%"}</td><td>${e.push_sent?"✓":"-"}</td>`;body.appendChild(tr)
+    }
+  }catch(e){}
+}
+async function evaluateServerOutcomes(){
+  $("evaluateOutcomes").disabled=true;
+  try{
+    const d=await cloudJson("/api/evaluate-outcomes",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});
+    alert(`Outcome 평가 완료\n평가 ${d.evaluated||0}개\n대기 ${d.pending||0}개`);await cloudLoadEvents()
+  }catch(e){
+    alert(e.migrationRequired?"V15.5 Supabase migration SQL을 먼저 실행해야 합니다.":"Outcome 평가 실패: "+e.message)
+  }finally{$("evaluateOutcomes").disabled=false}
+}
 
-function aiContext(){const q=latest(state.candles),multi={};for(const tf of ["60","240","day"]){const z=latest(state.multi[tf]||[]);if(z)multi[TF_NAMES[tf]]={score:z.x.score,rsi:+z.x.rsi.toFixed(1),adx:+z.x.adx.toFixed(1),regime:regime(state.multi[tf],z.i),trend:trendText(z.x)}}return{market:$("market").value,timeframe:TF_NAMES[$("tf").value],current:q?{price:Math.round(q.x.close),score:q.x.score,signalQuality:confidence(),historicalWinRate:historicalWinRate(state.candles,q.i),regime:regime(state.candles,q.i),rsi:+q.x.rsi.toFixed(1),adx:+q.x.adx.toFixed(1),atrPct:+q.x.atrPct.toFixed(2),volumeRatio:+q.x.volRatio.toFixed(2),support:Math.round(state.levels.support),resistance:Math.round(state.levels.resistance)}:null,risk:state.risk||null,multi,backtest:state.bt?{...state.bt.summary,trades:state.bt.trades.length}:null,walkForward:state.compare||null,scannerTop:state.scanner.slice(0,8)}}
+function aiContext(){const q=latest(state.candles),multi={};for(const tf of ["60","240","day"]){const z=latest(state.multi[tf]||[]);if(z)multi[TF_NAMES[tf]]={score:z.x.score,rsi:+z.x.rsi.toFixed(1),adx:+z.x.adx.toFixed(1),regime:regime(state.multi[tf],z.i),trend:trendText(z.x)}}return{market:$("market").value,timeframe:TF_NAMES[$("tf").value],analysisMode:activeAnalysisMode(),scannerBreadth:state.scannerBreadth,current:q?{price:Math.round(q.x.close),score:q.x.score,signalQuality:confidence(),historicalWinRate:historicalWinRate(state.candles,q.i),regime:regime(state.candles,q.i),rsi:+q.x.rsi.toFixed(1),adx:+q.x.adx.toFixed(1),atrPct:+q.x.atrPct.toFixed(2),volumeRatio:+q.x.volRatio.toFixed(2),support:Math.round(state.levels.support),resistance:Math.round(state.levels.resistance)}:null,risk:state.risk||null,multi,backtest:state.bt?{...state.bt.summary,trades:state.bt.trades.length}:null,walkForward:state.compare||null,scannerTop:state.scanner.slice(0,8)}}
 async function callAi(mode,question=""){if(!state.loaded)return;$("aiSummary").disabled=true;$("aiAsk").disabled=true;$("aiOutput").textContent="AI 분석 중…";try{const r=await fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode,question,context:aiContext()})}),d=await r.json().catch(()=>({}));if(!r.ok){$("aiOutput").textContent=d.setupRequired?"AI 기능 설정이 필요합니다.\n\nVercel → Settings → Environment Variables → OPENAI_API_KEY 추가 → Redeploy":("AI 오류: "+(d.error||r.status));$("aiModel").textContent="설정 필요"}else{$("aiOutput").textContent=d.text||"응답 없음";$("aiModel").textContent=d.model||"OpenAI"}}catch(e){$("aiOutput").textContent="AI 연결 오류: "+e.message}finally{$("aiSummary").disabled=false;$("aiAsk").disabled=false}}
 
 async function loadMarketsSelect(){try{const r=await fetch("/api/markets",{cache:"no-store"});if(!r.ok)return;const d=await r.json();state.marketData=d.markets||[];const sel=$("market"),keep=sel.value;sel.innerHTML="";for(const m of d.markets){const o=document.createElement("option");o.value=m.market;o.textContent=`${m.market} · ${m.korean_name}`;sel.appendChild(o)}if([...sel.options].some(o=>o.value===keep))sel.value=keep;renderPersonal()}catch{}}
 
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".pane").forEach(x=>x.classList.remove("active"));b.classList.add("active");$(b.dataset.pane).classList.add("active");if(b.dataset.pane==="backtest"&&state.bt)drawEquity()}));
 document.querySelectorAll(".pill").forEach(b=>b.addEventListener("click",()=>{$("question").value=b.dataset.q}));
-$("load").addEventListener("click",loadAll);
+$("load").addEventListener("click",loadAll);$("analysisMode").addEventListener("change",()=>{updateModeUi();setStatus("신호 기준이 변경되었습니다. 데이터 불러오기를 눌러 다시 계산하세요.",0)});$("priceChart").addEventListener("click",chartMarkerClick);
 
 $("runAdvBt").addEventListener("click",runAdvBacktest);
 
@@ -1075,7 +1218,7 @@ function openPane(name){
   const tab=[...document.querySelectorAll(".tab")].find(x=>x.dataset.pane===name);if(!tab)return;
   tab.click();setTimeout(()=>document.getElementById(name)?.scrollIntoView({behavior:"smooth",block:"start"}),30);
 }
-$("gotoAi").addEventListener("click",()=>openPane("ai"));
+$("gotoAi").addEventListener("click",()=>openPane("ai"));$("replayPrev").addEventListener("click",()=>stepReplay(-1));$("replayNext").addEventListener("click",()=>stepReplay(1));$("replayLatest").addEventListener("click",latestReplay);
 
 function syncMobileDock(name){
   document.querySelectorAll("[data-mobile-pane]").forEach(b=>b.classList.toggle("active",b.dataset.mobilePane===name));
@@ -1101,7 +1244,7 @@ $("toggleReasons").addEventListener("click",()=>{
 $("cloudSubscribe").addEventListener("click",cloudSubscribe);
 $("cloudSaveRule").addEventListener("click",cloudSaveRule);
 $("cloudTestPush").addEventListener("click",cloudTest);
-$("cloudCheckNow").addEventListener("click",cloudCheck);
+$("cloudCheckNow").addEventListener("click",cloudCheck);$("evaluateOutcomes").addEventListener("click",evaluateServerOutcomes);
 
 $("addWatch").addEventListener("click",addWatch);
 $("saveAlert").addEventListener("click",saveAlert);
@@ -1118,7 +1261,7 @@ document.querySelectorAll("details.secondaryBox").forEach(d=>d.addEventListener(
   if(d.open&&state.loaded)setTimeout(()=>drawAll(),30);
 }));
 
-if(innerWidth<=620)$("count").value="120";renderPersonal();loadMarketsSelect().finally(()=>cloudRefreshStatus());
+if(innerWidth<=620)$("count").value="120";updateModeUi();renderReplay();renderPersonal();loadMarketsSelect().finally(()=>cloudRefreshStatus());
 </script>
 </body>
 </html>
