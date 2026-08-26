@@ -1,0 +1,1 @@
+module.exports=function handler(req,res){if(req.method!=="GET")return res.status(405).json({error:"GET only"});const key=process.env.VAPID_PUBLIC_KEY;if(!key)return res.status(503).json({error:"VAPID_PUBLIC_KEY is not configured.",setupRequired:true});res.setHeader("Cache-Control","no-store");return res.status(200).json({publicKey:key})};

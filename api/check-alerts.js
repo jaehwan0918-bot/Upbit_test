@@ -1,0 +1,2 @@
+const{evaluateRules}=require("../lib/monitor");
+module.exports=async function handler(req,res){if(req.method!=="POST")return res.status(405).json({error:"POST only"});const deviceId=String(req.body?.deviceId||"");if(!/^[a-zA-Z0-9_-]{8,100}$/.test(deviceId))return res.status(400).json({error:"Invalid deviceId"});try{return res.status(200).json({ok:true,...await evaluateRules({deviceId,sendPush:true})})}catch(e){return res.status(e.setupRequired?503:500).json({error:e.message,setupRequired:Boolean(e.setupRequired)})}};
