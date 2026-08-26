@@ -1,0 +1,185 @@
+Crypto Analyzer V15.3 - Vercel + Supabase + Web Push
+===================================================
+
+V15 핵심
+--------
+V14 전체 기능을 유지하면서 서버형 자동 알림을 추가했습니다.
+
+휴대폰/PWA -> Push 구독 -> Vercel API -> Supabase DB -> Vercel Cron -> Upbit 분석 -> 조건 충족 -> Web Push
+
+서버 DB에 저장되는 내용
+- 랜덤 Device ID
+- Push subscription endpoint / 암호화 공개정보
+- 사용자가 저장한 알림 조건
+- 실제 조건 발동 Signal Event 기록
+
+V15 신규 파일
+------------
+sw.js
+supabase_schema.sql
+ENV_TEMPLATE.txt
+lib/db.js
+lib/signal.js
+lib/monitor.js
+api/push-public-key.js
+api/push-subscribe.js
+api/push-test.js
+api/cloud-alerts.js
+api/check-alerts.js
+api/cron-monitor.js
+api/signal-events.js
+
+1. Supabase 설정
+---------------
+1) Supabase 프로젝트 생성
+2) SQL Editor에서 supabase_schema.sql 전체 실행
+3) Project URL과 service_role key 확인
+
+service_role key는 GitHub/index.html에 넣지 말고 Vercel Environment Variables에만 저장하세요.
+
+2. Vercel Environment Variables
+-------------------------------
+SUPABASE_URL
+SUPABASE_SERVICE_ROLE_KEY
+VAPID_PUBLIC_KEY
+VAPID_PRIVATE_KEY
+VAPID_SUBJECT
+CRON_SECRET
+기존 AI 사용 시 OPENAI_API_KEY
+
+이번 대화에서 생성된 V15_PRIVATE_ENV_VALUES_DO_NOT_UPLOAD.txt 파일의 VAPID Key와 CRON_SECRET을 사용할 수 있습니다. 이 파일은 GitHub에 업로드하지 마세요.
+
+3. Redeploy 후 확인
+------------------
+https://내프로젝트.vercel.app/api/health
+
+정상 예
+{
+  "status":"ok",
+  "app":"Crypto Analyzer V15.3",
+  "aiConfigured":true,
+  "dbConfigured":true,
+  "pushConfigured":true,
+  "cronConfigured":true
+}
+
+4. 휴대폰 사용 순서
+------------------
+1) V15 사이트 접속 -> My 탭
+2) ① 서버 Push 등록 -> 알림 권한 허용
+3) 알림 조건 입력
+4) ② 서버 알림조건 저장
+5) ③ 테스트 Push
+6) ④ 서버 조건 지금 검사
+
+권장 예시: KRW-BTC / 4시간 / Score >= +5 / Quality >= 75 / ADX >= 25 / Cooldown 4시간
+
+Cron 중요
+---------
+기본 vercel.json은 Vercel Hobby에서도 배포되도록 하루 1회로 설정합니다.
+0 0 * * * = 매일 00:00 UTC = 한국시간 오전 9시 시간대. Hobby는 실행시각이 해당 시간 내에서 지연될 수 있습니다.
+
+Vercel Pro에서 4시간마다: 0 */4 * * *
+매시간: 0 * * * *
+Hobby에서 하루 1회보다 잦은 Cron 표현은 배포 오류가 날 수 있습니다.
+
+보안
+----
+CRON_SECRET가 있으면 Vercel Cron이 Authorization Bearer 값으로 전달하고 cron-monitor가 검증합니다.
+SUPABASE_SERVICE_ROLE_KEY는 Vercel 서버에서만 사용합니다.
+Push는 Service Worker(sw.js)가 받습니다.
+
+주의
+----
+V15는 자동 주문 프로그램이 아니며 거래소 개인 API Key를 사용하지 않습니다.
+Signal Quality는 성공확률이 아닙니다. 서버 알림은 투자 권유가 아닙니다.
+
+
+V15.1 UI 변경
+-------------
+화면 위계를 다시 설계했습니다.
+
+1순위: 메인 가격 차트
+- 데스크톱에서 화면 폭의 약 70% 이상
+- 모바일에서도 첫 화면의 중심으로 크게 표시
+
+2순위: 핵심 판단
+- Score
+- Signal Quality
+- Historical Win
+- 시장 국면 / ADX
+- 지지 / 저항
+
+3순위: 핵심 보조지표
+- RSI
+- ADX
+- 거래량비
+- ATR
+중간 크기의 4개 카드로 표시
+
+4순위: 세부 데이터
+- RSI/MACD/거래량 보조 차트
+- Score History
+- Score 변화 원인
+기본적으로 접힌 상태로 두어 화면 밀도를 낮춤
+
+판정 근거
+- 처음에는 핵심 조건만 표시
+- "세부 근거 더보기"로 전체 표시
+
+서버 알림 / Scanner / AI / Backtest / My 기능은 기존 V15 기능을 유지합니다.
+
+
+V15.2 승인 UI 반영
+------------------
+이번 버전은 대화에서 이미지화한 UI 구조에 맞춰 실제 index.html을 재배치했습니다.
+
+화면 위계
+1. 상단 4개 핵심 카드
+   - 현재가
+   - Score + 멀티TF 미니 Score
+   - Signal Quality + Historical Win
+   - 시장 국면 + ADX
+
+2. 메인 가격 차트
+   - 화면 폭을 거의 전체 사용
+   - MA20/60/120, Bollinger, Support/Resistance
+   - 모바일에서도 큰 높이 유지
+
+3. 중간 크기 핵심지표 4개
+   - RSI
+   - ADX
+   - 거래량비
+   - ATR
+   - 각 카드 안에 미니 추세 그래프
+
+4. 기본 접힘 세부정보
+   - 보조 지표 차트
+   - Score History
+   - Score 변화 원인 / 판정근거
+
+5. 핵심 판단 3열
+   - 주요 지지/저항
+   - 기술적 핵심 요약
+   - ATR Risk Plan
+
+6. 하단 요약
+   - 멀티 타임프레임
+   - 기본 백테스트 자동 요약
+   - Scanner 최근 상위 결과
+
+7. 하단 유틸리티
+   - 서버 자동 알림 상태
+   - Watchlist
+   - Portfolio 요약
+
+서버 DB / Cron / Web Push / Supabase / Scanner / AI / Journal / Portfolio 기능은 V15.1과 동일하게 유지됩니다.
+
+
+V15.3 차트 가독성 조정
+----------------------
+- 데스크톱 메인 차트 높이: 약 370~410px
+- 모바일 메인 차트 높이: 약 295~320px
+- 첫 화면에서 RSI/ADX/Volume/ATR 카드까지 함께 보이도록 세로 길이 축소
+- 메인 차트 표시 구간을 최대 200봉 → 150봉으로 조정하여 캔들 식별성 개선
+- 서버 DB / Cron / Push / Scanner / AI 기능은 V15.2와 동일

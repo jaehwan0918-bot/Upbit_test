@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Crypto Analyzer">
 <link rel="manifest" href="/manifest.json">
-<title>Crypto Analyzer V15.2</title>
+<title>Crypto Analyzer V15.3</title>
 <style>
 :root{
   --bg:#0a0f15;--panel:#101822;--panel2:#151f2a;--soft:#0d141d;--line:#223041;
@@ -169,7 +169,7 @@ details.secondaryBox[open] > summary::after{content:"－"}
 .chartHeroHead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:7px}
 .chartHeroHead .left h2{margin:0;font-size:14px}.chartHeroHead .left span{display:block;color:var(--muted);font-size:10px;margin-top:4px}
 .chartActions{display:flex;gap:5px}.chartActions span{border:1px solid var(--line);background:var(--soft);border-radius:8px;padding:6px 8px;color:var(--muted);font-size:10px}
-#priceChart{min-height:535px}
+#priceChart{height:400px!important;min-height:0}
 .indicatorStrip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:9px}
 .indicatorViz{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;min-width:0}
 .indicatorViz .head{display:flex;justify-content:space-between;align-items:center;gap:7px}
@@ -199,7 +199,7 @@ details.secondaryBox[open] > summary::after{content:"－"}
 @media(max-width:1100px){
   .visualTop{grid-template-columns:1fr 1fr}
   .insightRow,.bottomSummary,.utilitySummary{grid-template-columns:1fr}
-  #priceChart{min-height:455px}
+  #priceChart{height:370px!important;min-height:0}
 }
 @media(max-width:760px){
   .indicatorStrip{grid-template-columns:1fr 1fr}
@@ -209,12 +209,22 @@ details.secondaryBox[open] > summary::after{content:"－"}
 @media(max-width:620px){
   .visualTop{grid-template-columns:1fr 1fr;gap:6px}
   .visualCard{padding:9px}.visualCard .xl{font-size:18px}.visualCard .lg{font-size:17px}
-  #priceChart{min-height:400px}
+  #priceChart{height:320px!important;min-height:0}
   .chartHero{padding:7px}
   .indicatorViz{padding:8px}
   .indicatorViz .head strong{font-size:16px}
   .miniKpis{grid-template-columns:1fr 1fr}
 }
+
+
+/* V15.3 balanced chart proportions */
+.chartHero{padding:10px 11px}
+.chartHeroHead{margin-bottom:5px}
+.chartHero .legend{margin-top:5px}
+@media(min-width:1200px){#priceChart{height:410px!important}}
+@media(min-width:761px) and (max-width:1199px){#priceChart{height:370px!important}}
+@media(max-width:760px){#priceChart{height:320px!important}}
+@media(max-width:420px){#priceChart{height:295px!important}}
 
 .footer{margin-top:13px;color:var(--muted);font-size:9.5px;line-height:1.5}
 @media(max-width:1100px){.metrics{grid-template-columns:repeat(4,1fr)}.mainGrid{grid-template-columns:1fr}.formGrid{grid-template-columns:repeat(3,1fr)}.btMetrics{grid-template-columns:repeat(4,1fr)}.scannerCards{grid-template-columns:repeat(3,1fr)}}
@@ -227,7 +237,7 @@ details.secondaryBox[open] > summary::after{content:"－"}
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><h1>₿ Crypto Analyzer V15.2</h1><p>Upbit · Chart First UI · Validation · Server Alerts · Scanner · AI</p></div>
+    <div class="brand"><h1>₿ Crypto Analyzer V15.3</h1><p>Upbit · Balanced Chart UI · Validation · Server Alerts · Scanner · AI</p></div>
     <div class="badge"><i class="dot"></i><span id="cloudState">Vercel 연결 대기</span></div>
   </header>
 
@@ -285,7 +295,7 @@ details.secondaryBox[open] > summary::after{content:"－"}
           <div class="left"><h2><span id="overviewMarket">KRW-BTC</span> · <span id="overviewTf">4시간봉</span> · UPBIT</h2><span>MA20 · MA60 · MA120 · Bollinger · Support / Resistance</span></div>
           <div class="chartActions"><span>지표</span><span>확대</span></div>
         </div>
-        <canvas id="priceChart" height="570"></canvas>
+        <canvas id="priceChart" height="400"></canvas>
         <div class="legend"><span><i class="sw" style="background:#5fa8ff"></i>MA20</span><span><i class="sw" style="background:#efbe63"></i>MA60</span><span><i class="sw" style="background:#b68cff"></i>MA120</span><span><i class="sw" style="background:#36c99b"></i>Support</span><span><i class="sw" style="background:#ef707b"></i>Resistance</span></div>
       </div>
 
@@ -827,11 +837,11 @@ async function runScanner(){
   }catch(e){setStatus("Scanner 오류: "+e.message,0);alert("Scanner 오류\n\n"+e.message)}finally{$("runScanner").disabled=false}
 }
 
-function setupCanvas(id){const c=$(id),rect=c.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2),mobile=innerWidth<=620,h=mobile?({priceChart:410,rsiChart:165,macdChart:165,volChart:165,equityChart:220}[id]||220):(Number(c.getAttribute("height"))||260);c.width=Math.max(280,Math.floor(rect.width*ratio));c.height=Math.floor(h*ratio);c.style.height=h+"px";const ctx=c.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);return{ctx,w:Math.max(280,rect.width),h}}
+function setupCanvas(id){const c=$(id),rect=c.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2),mobile=innerWidth<=620,h=mobile?({priceChart:320,rsiChart:165,macdChart:165,volChart:165,equityChart:220}[id]||220):(Number(c.getAttribute("height"))||260);c.width=Math.max(280,Math.floor(rect.width*ratio));c.height=Math.floor(h*ratio);c.style.height=h+"px";const ctx=c.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);return{ctx,w:Math.max(280,rect.width),h}}
 function extent(vals,p=.05){const f=vals.filter(Number.isFinite);if(!f.length)return[0,1];let lo=Math.min(...f),hi=Math.max(...f);if(lo===hi){lo--;hi++}const d=(hi-lo)*p;return[lo-d,hi+d]}
 function grid(ctx,w,h,l=66,r=10,t=8,b=18,labels=null){ctx.strokeStyle="#223041";ctx.fillStyle="#7f91a5";ctx.font="10px Segoe UI";for(let k=0;k<=4;k++){const y=t+(h-t-b)*k/4;ctx.beginPath();ctx.moveTo(l,y);ctx.lineTo(w-r,y);ctx.stroke();if(labels){ctx.textAlign="right";ctx.textBaseline="middle";ctx.fillText(labels[k],l-6,y)}}return{l,r,t,b}}
 function drawSeries(ctx,a,key,x0,x1,y0,y1,g,w,h,color,dash=[]){ctx.strokeStyle=color;ctx.lineWidth=1.4;ctx.setLineDash(dash);ctx.beginPath();let ok=false;for(let i=x0;i<=x1;i++){const v=a[i][key];if(!Number.isFinite(v))continue;const x=g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),y=g.t+(y1-v)/(y1-y0)*(h-g.t-g.b);if(!ok){ctx.moveTo(x,y);ok=true}else ctx.lineTo(x,y)}ctx.stroke();ctx.setLineDash([])}
-function drawPrice(){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas("priceChart"),a=state.candles,view=Math.min(200,a.length),x0=a.length-view,x1=a.length-1,vals=[];for(let i=x0;i<=x1;i++)vals.push(a[i].high,a[i].low,a[i].bbU,a[i].bbL);if(state.levels)vals.push(state.levels.support,state.levels.resistance);const[y0,y1]=extent(vals,.04),labels=Array.from({length:5},(_,k)=>Math.round(y1-(y1-y0)*k/4).toLocaleString()),g=grid(ctx,w,h,70,10,8,20,labels),px=i=>g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),py=v=>g.t+(y1-v)/(y1-y0)*(h-g.t-g.b),cw=Math.max(1,Math.min(7,(w-g.l-g.r)/view*.65));for(let i=x0;i<=x1;i++){const d=a[i],x=px(i),up=d.close>=d.open;ctx.strokeStyle=ctx.fillStyle=up?"#36c99b":"#ef707b";ctx.beginPath();ctx.moveTo(x,py(d.high));ctx.lineTo(x,py(d.low));ctx.stroke();const yo=py(d.open),yc=py(d.close);ctx.fillRect(x-cw/2,Math.min(yo,yc),cw,Math.max(1,Math.abs(yc-yo)))}drawSeries(ctx,a,"ma20",x0,x1,y0,y1,g,w,h,"#5fa8ff");drawSeries(ctx,a,"ma60",x0,x1,y0,y1,g,w,h,"#efbe63");drawSeries(ctx,a,"ma120",x0,x1,y0,y1,g,w,h,"#b68cff");drawSeries(ctx,a,"bbU",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);drawSeries(ctx,a,"bbL",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);if(state.levels){for(const[v,c]of[[state.levels.support,"#36c99b"],[state.levels.resistance,"#ef707b"]]){ctx.strokeStyle=c;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(g.l,py(v));ctx.lineTo(w-g.r,py(v));ctx.stroke();ctx.setLineDash([])}}}
+function drawPrice(){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas("priceChart"),a=state.candles,view=Math.min(150,a.length),x0=a.length-view,x1=a.length-1,vals=[];for(let i=x0;i<=x1;i++)vals.push(a[i].high,a[i].low,a[i].bbU,a[i].bbL);if(state.levels)vals.push(state.levels.support,state.levels.resistance);const[y0,y1]=extent(vals,.04),labels=Array.from({length:5},(_,k)=>Math.round(y1-(y1-y0)*k/4).toLocaleString()),g=grid(ctx,w,h,70,10,8,20,labels),px=i=>g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),py=v=>g.t+(y1-v)/(y1-y0)*(h-g.t-g.b),cw=Math.max(1,Math.min(7,(w-g.l-g.r)/view*.65));for(let i=x0;i<=x1;i++){const d=a[i],x=px(i),up=d.close>=d.open;ctx.strokeStyle=ctx.fillStyle=up?"#36c99b":"#ef707b";ctx.beginPath();ctx.moveTo(x,py(d.high));ctx.lineTo(x,py(d.low));ctx.stroke();const yo=py(d.open),yc=py(d.close);ctx.fillRect(x-cw/2,Math.min(yo,yc),cw,Math.max(1,Math.abs(yc-yo)))}drawSeries(ctx,a,"ma20",x0,x1,y0,y1,g,w,h,"#5fa8ff");drawSeries(ctx,a,"ma60",x0,x1,y0,y1,g,w,h,"#efbe63");drawSeries(ctx,a,"ma120",x0,x1,y0,y1,g,w,h,"#b68cff");drawSeries(ctx,a,"bbU",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);drawSeries(ctx,a,"bbL",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);if(state.levels){for(const[v,c]of[[state.levels.support,"#36c99b"],[state.levels.resistance,"#ef707b"]]){ctx.strokeStyle=c;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(g.l,py(v));ctx.lineTo(w-g.r,py(v));ctx.stroke();ctx.setLineDash([])}}}
 function drawLine(id,key,fixed=null,extra=[]){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas(id),a=state.candles,view=Math.min(200,a.length),x0=a.length-view,x1=a.length-1,vals=[];for(let i=x0;i<=x1;i++){if(Number.isFinite(a[i][key]))vals.push(a[i][key]);for(const e of extra)if(Number.isFinite(a[i][e]))vals.push(a[i][e])}const[y0,y1]=fixed||extent(vals,.08),labels=Array.from({length:5},(_,k)=>(y1-(y1-y0)*k/4).toFixed(key==="rsi"?0:0)),g=grid(ctx,w,h,48,8,8,16,labels);drawSeries(ctx,a,key,x0,x1,y0,y1,g,w,h,"#5fa8ff");for(const e of extra)drawSeries(ctx,a,e,x0,x1,y0,y1,g,w,h,"#efbe63")}
 function drawVolume(){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas("volChart"),a=state.candles,view=Math.min(200,a.length),x0=a.length-view,x1=a.length-1,vmax=Math.max(...a.slice(x0).map(x=>x.volume))*1.08,g=grid(ctx,w,h,45,8,8,16,null),px=i=>g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),py=v=>g.t+(vmax-v)/vmax*(h-g.t-g.b),bw=Math.max(1,(w-g.l-g.r)/view*.7);for(let i=x0;i<=x1;i++){ctx.fillStyle=a[i].close>=a[Math.max(0,i-1)].close?"#267b67":"#8b414a";ctx.fillRect(px(i)-bw/2,py(a[i].volume),bw,h-g.b-py(a[i].volume))}}
 function drawEquity(){if(!state.bt)return;const{ctx,w,h}=setupCanvas("equityChart"),s=state.bt.eq,vals=s.map(x=>x.value),[y0,y1]=extent(vals,.05),labels=Array.from({length:5},(_,k)=>Math.round(y1-(y1-y0)*k/4).toLocaleString()),g=grid(ctx,w,h,66,8,8,16,labels);ctx.strokeStyle="#5fa8ff";ctx.lineWidth=1.8;ctx.beginPath();s.forEach((d,i)=>{const x=g.l+i/Math.max(1,s.length-1)*(w-g.l-g.r),y=g.t+(y1-d.value)/(y1-y0)*(h-g.t-g.b);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke()}
