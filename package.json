@@ -1,6 +1,0 @@
-{
-  "name": "upbit-bitcoin-analyzer",
-  "version": "9.0.0",
-  "private": true,
-  "description": "Upbit KRW-BTC technical analysis and backtest web app for Vercel"
-}
