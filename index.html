@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Crypto Analyzer">
 <link rel="manifest" href="/manifest.json">
-<title>Crypto Analyzer V15.5.1</title>
+<title>Crypto Analyzer V15.5.2</title>
 <style>
 :root{
   --bg:#0a0f15;--panel:#101822;--panel2:#151f2a;--soft:#0d141d;--line:#223041;
@@ -423,7 +423,7 @@ details.secondaryBox[open] > summary::after{content:"－"}
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><h1>₿ Crypto Analyzer V15.5.1</h1><p>Upbit · Signal Lab + Scanner Stable · Validation · Server Alerts · Scanner · AI</p></div>
+    <div class="brand"><h1>₿ Crypto Analyzer V15.5.2</h1><p>Upbit · Signal Lab + Scanner Compat · Validation · Server Alerts · Scanner · AI</p></div>
     <div class="badge"><i class="dot"></i><span id="cloudState">Vercel 연결 대기</span></div>
   </header>
 
@@ -1089,19 +1089,82 @@ function runValidation(){
 }
 function runCompare(){runValidation()}
 
+function hasNum(v){return v!==null&&v!==undefined&&v!==""&&Number.isFinite(Number(v))}
+function fixedOr(v,d=1,suffix=""){return hasNum(v)?Number(v).toFixed(d)+suffix:"-"}
+function signedFixedOr(v,d=2,suffix="%"){return hasNum(v)?`${Number(v)>=0?"+":""}${Number(v).toFixed(d)}${suffix}`:"-"}
 async function runScanner(){
   $("runScanner").disabled=true;const body=$("scannerBody");body.innerHTML="";
   try{
-    const tf=$("scanTf").value,n=Math.min(50,Number($("scanN").value)),minScore=num($("scanMinScore").value),minVol=num($("scanMinVol").value);setStatus("V15.5 서버 Scanner 실행 중…",10);
-    const u=new URL("/api/scanner",location.origin);u.searchParams.set("tf",tf);u.searchParams.set("n",n);u.searchParams.set("minScore",minScore);u.searchParams.set("minVol",minVol);
-    const r=await fetch(u,{cache:"no-store"}),d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||`HTTP ${r.status}`);
-    const out=d.results||[];state.scanner=out;state.scannerBreadth=d.breadth||null;
-    $("scanTarget").textContent=(d.scanned||n)+"개";$("scanPass").textContent=out.length+"개";$("scanBest").textContent=out.length?((out[0].score>=0?"+":"")+out[0].score):"-";$("scanTrendN").textContent=out.filter(x=>x.regime==="상승 추세").length+"개";
-    $("scanBreadthMa").textContent=d.breadth?d.breadth.aboveMA20Pct.toFixed(0)+"%":"-";$("scanBreadthScore").textContent=d.breadth?d.breadth.positiveScorePct.toFixed(0)+"%":"-";
+    const tf=$("scanTf").value,n=Math.min(30,Number($("scanN").value)),minScore=num($("scanMinScore").value),minVol=num($("scanMinVol").value);
+    setStatus("V15.5.2 서버 Scanner 실행 중…",10);
+
+    const u=new URL("/api/scanner",location.origin);
+    u.searchParams.set("tf",tf);u.searchParams.set("n",n);u.searchParams.set("minScore",minScore);u.searchParams.set("minVol",minVol);
+
+    const r=await fetch(u,{cache:"no-store"});
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(d.detail||d.error||`HTTP ${r.status}`);
+
+    const raw=Array.isArray(d.results)?d.results:[];
+    const out=raw.map(x=>({
+      ...x,
+      quality:hasNum(x.quality)?Number(x.quality):(hasNum(x.confidence)?Number(x.confidence):null),
+      relativeStrength:hasNum(x.relativeStrength)?Number(x.relativeStrength):null,
+      vol:hasNum(x.vol)?Number(x.vol):(hasNum(x.volRatio)?Number(x.volRatio):null),
+      change:hasNum(x.change)?Number(x.change):null,
+      price:hasNum(x.price)?Number(x.price):null,
+      rsi:hasNum(x.rsi)?Number(x.rsi):null,
+      adx:hasNum(x.adx)?Number(x.adx):null,
+      score:hasNum(x.score)?Number(x.score):0
+    }));
+
+    state.scanner=out;
+    state.scannerBreadth=d.breadth||null;
+
+    $("scanTarget").textContent=(d.scanned??n)+"개";
+    $("scanPass").textContent=out.length+"개";
+    $("scanBest").textContent=out.length?((out[0].score>=0?"+":"")+out[0].score):"-";
+    $("scanTrendN").textContent=out.filter(x=>x.regime==="상승 추세").length+"개";
+
+    const b=d.breadth||{};
+    $("scanBreadthMa").textContent=hasNum(b.aboveMA20Pct)?Number(b.aboveMA20Pct).toFixed(0)+"%":"-";
+    $("scanBreadthScore").textContent=hasNum(b.positiveScorePct)?Number(b.positiveScorePct).toFixed(0)+"%":"-";
     $("scanTime").textContent=new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
-    out.forEach((x,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${i+1}</td><td style="text-align:left;font-weight:700">${x.market}</td><td style="text-align:left">${x.name}</td><td>${Math.round(x.price).toLocaleString()}</td><td class="${x.change>=0?"good":"bad"}">${x.change.toFixed(2)}%</td><td class="${cls(x.score)}">${x.score>=0?"+":""}${x.score}</td><td>${x.quality}</td><td class="${x.relativeStrength>=0?"good":"bad"}">${x.relativeStrength>=0?"+":""}${x.relativeStrength.toFixed(2)}%</td><td>${x.regime}</td><td>${x.rsi.toFixed(1)}</td><td>${x.adx.toFixed(1)}</td><td>${x.vol.toFixed(2)}x</td>`;body.appendChild(tr)});
-    setStatus(`Scanner 완료 · Breadth MA20 ${d.breadth?d.breadth.aboveMA20Pct.toFixed(0):"-"}% · ${out.length}개 통과`,100);renderOverviewScanner();
-  }catch(e){setStatus("Scanner 오류: "+e.message,0);alert("Scanner 오류\n\n"+e.message+"\n\n계속 실패하면 /api/scanner?tf=240&n=10&minScore=0&minVol=0 주소를 직접 열어 결과를 확인해 주세요.")}finally{$("runScanner").disabled=false}
+
+    out.forEach((x,i)=>{
+      const tr=document.createElement("tr");
+      const changeClass=hasNum(x.change)?(x.change>=0?"good":"bad"):"";
+      const rsClass=hasNum(x.relativeStrength)?(x.relativeStrength>=0?"good":"bad"):"";
+      tr.innerHTML=
+        `<td>${i+1}</td>`+
+        `<td style="text-align:left;font-weight:700">${x.market||"-"}</td>`+
+        `<td style="text-align:left">${x.name||"-"}</td>`+
+        `<td>${hasNum(x.price)?Math.round(x.price).toLocaleString():"-"}</td>`+
+        `<td class="${changeClass}">${signedFixedOr(x.change,2,"%")}</td>`+
+        `<td class="${cls(x.score)}">${x.score>=0?"+":""}${x.score}</td>`+
+        `<td>${hasNum(x.quality)?Math.round(x.quality):"-"}</td>`+
+        `<td class="${rsClass}">${signedFixedOr(x.relativeStrength,2,"%")}</td>`+
+        `<td>${x.regime||"-"}</td>`+
+        `<td>${fixedOr(x.rsi,1)}</td>`+
+        `<td>${fixedOr(x.adx,1)}</td>`+
+        `<td>${fixedOr(x.vol,2,"x")}</td>`;
+      body.appendChild(tr)
+    });
+
+    const breadthText=hasNum(b.aboveMA20Pct)?Number(b.aboveMA20Pct).toFixed(0)+"%":"계산 없음";
+    const failText=hasNum(d.failed)&&Number(d.failed)>0?` · 일부 실패 ${d.failed}개`:"";
+    setStatus(`Scanner 완료 · Breadth MA20 ${breadthText} · ${out.length}개 통과${failText}`,100);
+    renderOverviewScanner();
+
+    if(!out.length&&hasNum(d.failed)&&Number(d.failed)>0){
+      alert(`Scanner 요청은 완료됐지만 계산된 종목이 없습니다.\n실패 ${d.failed}개\n\napi/scanner.js가 최신 버전인지 확인해 주세요.`);
+    }
+  }catch(e){
+    setStatus("Scanner 오류: "+e.message,0);
+    alert("Scanner 오류\n\n"+e.message+"\n\nGitHub의 api/scanner.js와 index.html을 이번 V15.5.2 파일로 같이 교체해 주세요.")
+  }finally{
+    $("runScanner").disabled=false
+  }
 }
 
 function setupCanvas(id){const c=$(id),rect=c.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2),mobile=innerWidth<=620,h=mobile?({priceChart:300,rsiChart:150,macdChart:150,volChart:150,equityChart:205}[id]||220):(Number(c.getAttribute("height"))||260);c.width=Math.max(280,Math.floor(rect.width*ratio));c.height=Math.floor(h*ratio);c.style.height=h+"px";const ctx=c.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);return{ctx,w:Math.max(280,rect.width),h}}
