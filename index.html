@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1017">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Crypto Analyzer">
+<link rel="manifest" href="/manifest.json">
+<title>Crypto Analyzer V15.2</title>
+<style>
+:root{
+  --bg:#0a0f15;--panel:#101822;--panel2:#151f2a;--soft:#0d141d;--line:#223041;
+  --text:#eef3f7;--muted:#8ea0b3;--blue:#5fa8ff;--green:#36c99b;--red:#ef707b;
+  --amber:#efbe63;--purple:#b68cff;--cyan:#65d7e6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",Arial,sans-serif}
+body{min-height:100vh}
+button,input,select,textarea{font:inherit}
+.app{max-width:1440px;margin:auto;padding:16px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:max(20px,env(safe-area-inset-bottom))}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:12px}
+.brand h1{margin:0;font-size:22px}.brand p{margin:5px 0 0;color:var(--muted);font-size:12px}
+.badge{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid var(--line);background:var(--panel);border-radius:999px;color:var(--muted);font-size:12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.toolbar{display:grid;grid-template-columns:1.25fr 1fr 1fr 1.35fr;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:11px;margin-bottom:10px}
+.field label{display:block;color:var(--muted);font-size:11px;margin:0 0 5px 2px}
+select,input,textarea{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:10px;min-height:43px;padding:9px 10px;outline:none}
+textarea{resize:vertical}
+select:focus,input:focus,textarea:focus{border-color:var(--blue)}
+.btn{min-height:43px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text);padding:9px 12px;cursor:pointer;font-weight:700}
+.btn.primary{background:var(--blue);border-color:transparent;color:#07121e}.btn.secondary{background:transparent}.btn:disabled{opacity:.45;cursor:not-allowed}
+.status{display:flex;gap:9px;align-items:center;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:8px 10px;color:var(--muted);font-size:12px;margin-bottom:10px}
+.status .grow{flex:1}.progress{height:5px;background:#1d2936;border-radius:999px;overflow:hidden;width:25%;min-width:120px}.progress i{display:block;height:100%;width:0;background:var(--blue);transition:width .2s}
+.metrics{display:grid;grid-template-columns:repeat(9,1fr);gap:7px;margin-bottom:10px}.metric{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;min-width:0}.metric .k{color:var(--muted);font-size:10.5px}.metric .v{font-size:18px;font-weight:800;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.metric .s{font-size:10px;color:var(--muted);margin-top:3px}
+.good{color:var(--green)!important}.bad{color:var(--red)!important}.warn{color:var(--amber)!important}.cyan{color:var(--cyan)!important}
+.tabs{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;position:sticky;top:0;z-index:20;background:rgba(10,15,21,.95);backdrop-filter:blur(10px);padding:6px 0;margin-bottom:9px}
+.tab{min-height:40px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--muted);font-weight:700;cursor:pointer}.tab.active{background:var(--blue);color:#06111d;border-color:transparent}
+.pane{display:none}.pane.active{display:block}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}.title{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px}.title h2,.title h3{margin:0;font-size:14px}.title span{font-size:10.5px;color:var(--muted)}
+.mainGrid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(310px,.75fr);gap:10px}.stack{display:grid;gap:10px}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+canvas{width:100%;display:block;background:#0c131b;border-radius:9px}.legend{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:10.5px;margin-top:7px}.sw{display:inline-block;width:11px;height:3px;border-radius:2px;vertical-align:middle;margin-right:4px}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:8px}.heroCard{background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:11px}.heroCard .big{font-size:31px;font-weight:900;letter-spacing:-1px}.heroCard .label{font-size:11px;color:var(--muted)}.heroCard .sub{font-size:12px;font-weight:700;margin-top:3px}
+.reason{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px}.reason:last-child{border-bottom:0}.reason b{width:17px;text-align:center}
+.infoGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.info{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px}.info small{display:block;color:var(--muted);font-size:10px}.info strong{display:block;margin-top:5px;font-size:14px}
+.formGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.btMetrics{display:grid;grid-template-columns:repeat(8,1fr);gap:7px;margin:9px 0}.btMetrics .metric .v{font-size:15px}
+.tableWrap{overflow:auto;max-height:390px;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;font-size:10.5px;min-width:760px}th,td{padding:8px 7px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th{position:sticky;top:0;background:var(--panel2);color:var(--muted)}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
+.mtfGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.tfCard{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:12px}.tfHead{display:flex;justify-content:space-between;align-items:center}.tfScore{font-size:26px;font-weight:900}.tfRows{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}.tfRows div{background:var(--soft);border-radius:8px;padding:7px}.tfRows small{display:block;color:var(--muted);font-size:9.5px}.tfRows strong{font-size:12px}
+.combine{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:14px;margin-top:9px}.combine .big{font-size:30px;font-weight:900}
+.riskGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.riskBox{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:12px}.riskRows{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.riskItem{background:var(--soft);border-radius:9px;padding:9px}.riskItem small{display:block;color:var(--muted);font-size:10px}.riskItem strong{display:block;font-size:14px;margin-top:4px}
+.compareControls{display:flex;gap:8px;align-items:end;flex-wrap:wrap;margin-bottom:9px}.compareControls .field{min-width:140px}.compareControls .btn{min-width:180px}
+.aiGrid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:10px}.aiOutput{min-height:250px;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;white-space:pre-wrap;line-height:1.65;font-size:12.5px}.pillRow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.pill{border:1px solid var(--line);background:var(--soft);color:var(--muted);border-radius:999px;padding:6px 8px;font-size:10.5px;cursor:pointer}.aiActions{display:flex;gap:7px;margin-top:8px}.hint{color:var(--muted);font-size:10.5px;line-height:1.5;margin-top:7px}
+.scannerControls{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr 1.2fr;gap:8px;margin-bottom:9px}.scannerCards{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:9px}.scanCard{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:9px}.scanCard small{display:block;color:var(--muted);font-size:9.5px}.scanCard strong{display:block;font-size:13px;margin-top:4px}
+
+.scoreHistoryGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.65fr);gap:10px;margin-top:10px}
+.changeList{display:grid;gap:6px}.changeItem{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:8px;font-size:11px}
+.validationGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.heat td,.heat th{text-align:center!important}.heatGood{background:rgba(54,201,155,.13)}.heatBad{background:rgba(239,112,123,.12)}
+.personalGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.personalGrid .full{grid-column:span 2}
+.list{display:grid;gap:7px}.listItem{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:9px}
+.listItem .meta{min-width:0}.listItem strong{font-size:12px}.listItem small{display:block;color:var(--muted);font-size:9.5px;margin-top:3px}
+.miniBtn{min-height:32px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--text);padding:5px 8px;font-size:10px;cursor:pointer}
+.personalForm{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.personalForm .wide{grid-column:span 3}
+.notice{background:rgba(239,190,99,.08);border:1px solid rgba(239,190,99,.28);border-radius:9px;padding:9px;font-size:10.5px;color:#d9c394;line-height:1.5}
+.kpiRow{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:8px}
+@media(max-width:900px){.scoreHistoryGrid,.validationGrid,.personalGrid{grid-template-columns:1fr}.personalGrid .full{grid-column:auto}.kpiRow{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.personalForm{grid-template-columns:1fr 1fr}.personalForm .wide{grid-column:span 2}}
+
+
+.cloudStatus{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:9px}
+.cloudStatus .info strong{font-size:12px}
+.cloudForm{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.cloudActions{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:8px}
+.cloudCode{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;color:var(--muted);word-break:break-all}
+@media(max-width:760px){.cloudStatus,.cloudForm,.cloudActions{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.cloudActions{grid-template-columns:1fr}.cloudForm{grid-template-columns:1fr 1fr}}
+
+
+/* V15.1 visual hierarchy */
+.heroMetrics{
+  display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:9px;margin-bottom:10px
+}
+.heroMetric{
+  background:linear-gradient(180deg,var(--panel),var(--soft));
+  border:1px solid var(--line);border-radius:14px;padding:13px 14px;min-width:0
+}
+.heroMetric.primary{padding:15px 16px}
+.heroMetric .k{color:var(--muted);font-size:11px}
+.heroMetric .v{font-size:25px;font-weight:900;margin-top:5px;letter-spacing:-.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.heroMetric.primary .v{font-size:30px}
+.heroMetric .s{font-size:10.5px;color:var(--muted);margin-top:4px}
+
+.focusGrid{
+  display:grid;grid-template-columns:minmax(0,2.2fr) minmax(290px,.68fr);gap:11px
+}
+.focusChart{padding:13px}
+.focusChart canvas{min-height:500px}
+.focusSidebar{display:grid;gap:10px;align-content:start}
+.focusScore{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px
+}
+.focusScoreGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.focusScoreCard{
+  background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:12px
+}
+.focusScoreCard .k{font-size:10.5px;color:var(--muted)}
+.focusScoreCard .big{font-size:34px;font-weight:900;margin-top:4px;letter-spacing:-1px}
+.focusScoreCard .small{font-size:11px;margin-top:3px;color:var(--muted)}
+.coreIndicators{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px
+}
+.coreIndicator{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px
+}
+.coreIndicator .k{font-size:10px;color:var(--muted)}
+.coreIndicator .v{font-size:18px;font-weight:850;margin-top:5px}
+.coreIndicator .s{font-size:9.5px;color:var(--muted);margin-top:3px}
+details.secondaryBox{
+  background:var(--panel);border:1px solid var(--line);border-radius:13px;margin-top:10px;overflow:hidden
+}
+details.secondaryBox > summary{
+  list-style:none;cursor:pointer;padding:11px 13px;font-size:12px;font-weight:750;
+  display:flex;justify-content:space-between;align-items:center;color:var(--text)
+}
+details.secondaryBox > summary::-webkit-details-marker{display:none}
+details.secondaryBox > summary::after{content:"＋";color:var(--muted);font-size:16px}
+details.secondaryBox[open] > summary::after{content:"－"}
+.secondaryContent{padding:0 10px 10px}
+.secondaryGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mutedDivider{height:1px;background:var(--line);margin:9px 0}
+
+#overview .mainGrid{display:none}
+#overview .scoreHistoryGrid{margin-top:10px}
+#overview .scoreHistoryGrid details{width:100%}
+
+.compactReasons .reason{padding:7px 0;font-size:11px}
+.compactReasons .reason:nth-child(n+7){display:none}
+.compactReasons.expanded .reason:nth-child(n+7){display:flex}
+
+@media(max-width:1100px){
+  .heroMetrics{grid-template-columns:repeat(2,1fr)}
+  .focusGrid{grid-template-columns:1fr}
+  .focusChart canvas{min-height:430px}
+}
+@media(max-width:700px){
+  .heroMetrics{grid-template-columns:1fr 1fr;gap:7px}
+  .heroMetric{padding:10px}.heroMetric.primary{padding:11px}
+  .heroMetric .v{font-size:19px}.heroMetric.primary .v{font-size:22px}
+  .focusChart{padding:8px}.focusChart canvas{min-height:360px}
+  .coreIndicators{grid-template-columns:1fr 1fr}
+  .secondaryGrid{grid-template-columns:1fr}
+}
+
+
+/* V15.2 — screenshot-matched chart-first hierarchy */
+.toolbar{grid-template-columns:1.3fr .8fr .8fr 1fr;max-width:100%}
+.visualTop{display:grid;grid-template-columns:1.05fr .9fr 1.05fr 1.05fr;gap:9px;margin-bottom:10px}
+.visualCard{background:linear-gradient(180deg,#101a25,#0d151e);border:1px solid var(--line);border-radius:13px;padding:13px;min-width:0}
+.visualCard .eyebrow{font-size:10px;color:var(--muted);margin-bottom:6px}
+.visualCard .xl{font-size:25px;font-weight:900;letter-spacing:-.7px}
+.visualCard .lg{font-size:22px;font-weight:900}
+.visualCard .subline{font-size:10.5px;color:var(--muted);margin-top:5px}
+.tfInline{display:flex;gap:10px;flex-wrap:wrap;margin-top:9px;font-size:10.5px;color:var(--muted)}
+.tfInline b{font-size:11.5px;margin-left:3px}
+.qualityTrack{height:5px;border-radius:99px;background:#1b2634;margin:8px 0 5px;overflow:hidden}
+.qualityTrack i{display:block;height:100%;width:0;background:linear-gradient(90deg,#5fa8ff,#b68cff);border-radius:99px;transition:width .25s}
+.regimeBar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-top:9px}
+.regimeBar i{height:5px;border-radius:3px;background:#263343}.regimeBar i.on{background:#36c99b}
+.chartHero{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
+.chartHeroHead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:7px}
+.chartHeroHead .left h2{margin:0;font-size:14px}.chartHeroHead .left span{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+.chartActions{display:flex;gap:5px}.chartActions span{border:1px solid var(--line);background:var(--soft);border-radius:8px;padding:6px 8px;color:var(--muted);font-size:10px}
+#priceChart{min-height:535px}
+.indicatorStrip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:9px}
+.indicatorViz{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;min-width:0}
+.indicatorViz .head{display:flex;justify-content:space-between;align-items:center;gap:7px}
+.indicatorViz .head span{font-size:10.5px;color:var(--muted)}
+.indicatorViz .head strong{font-size:18px}
+.indicatorViz canvas{height:86px!important;min-height:86px;margin-top:4px;background:transparent}
+.foldRow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px}
+.foldRow details{margin-top:0}
+.foldRow details > summary{min-height:62px}
+.foldRow .secondaryContent{max-height:330px;overflow:auto}
+.insightRow{display:grid;grid-template-columns:.85fr 1.15fr 1fr;gap:9px;margin-top:9px}
+.insightCard{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:12px;min-width:0}
+.levelRows{display:grid;gap:8px}.levelLine{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:11px}.levelLine:last-child{border-bottom:0}
+.summaryBullets{margin:0;padding-left:17px;color:#cfd9e3;font-size:11px;line-height:1.65}.summaryBullets li+li{margin-top:5px}
+.riskOverview{display:grid;gap:7px}.riskOverview .r{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding:6px 0;font-size:11px}.riskOverview .r:last-child{border-bottom:0}
+.dashboardNavSpacer{margin-top:10px}
+.bottomSummary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:9px}
+.bottomCard{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:11px;min-width:0}
+.miniTable{width:100%;border-collapse:collapse;font-size:10px}.miniTable td,.miniTable th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:right}.miniTable td:first-child,.miniTable th:first-child{text-align:left}
+.miniKpis{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.miniKpi{background:var(--soft);border-radius:8px;padding:8px}.miniKpi small{display:block;color:var(--muted);font-size:9px}.miniKpi strong{display:block;margin-top:4px;font-size:13px}
+.utilitySummary{display:grid;grid-template-columns:.85fr 1.25fr 1fr;gap:9px;margin-top:9px}
+.utilityCard{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.utilityCard .title2{font-size:11px;font-weight:800}.utilityCard .detail{font-size:9.5px;color:var(--muted);margin-top:4px}
+.chipRow{display:flex;gap:5px;flex-wrap:wrap}.smallChip{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:6px 7px;font-size:9.5px}
+.overviewHiddenCompat{display:none!important}
+
+@media(max-width:1100px){
+  .visualTop{grid-template-columns:1fr 1fr}
+  .insightRow,.bottomSummary,.utilitySummary{grid-template-columns:1fr}
+  #priceChart{min-height:455px}
+}
+@media(max-width:760px){
+  .indicatorStrip{grid-template-columns:1fr 1fr}
+  .foldRow{grid-template-columns:1fr}
+  .visualCard .xl{font-size:21px}.visualCard .lg{font-size:19px}
+}
+@media(max-width:620px){
+  .visualTop{grid-template-columns:1fr 1fr;gap:6px}
+  .visualCard{padding:9px}.visualCard .xl{font-size:18px}.visualCard .lg{font-size:17px}
+  #priceChart{min-height:400px}
+  .chartHero{padding:7px}
+  .indicatorViz{padding:8px}
+  .indicatorViz .head strong{font-size:16px}
+  .miniKpis{grid-template-columns:1fr 1fr}
+}
+
+.footer{margin-top:13px;color:var(--muted);font-size:9.5px;line-height:1.5}
+@media(max-width:1100px){.metrics{grid-template-columns:repeat(4,1fr)}.mainGrid{grid-template-columns:1fr}.formGrid{grid-template-columns:repeat(3,1fr)}.btMetrics{grid-template-columns:repeat(4,1fr)}.scannerCards{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.tabs{grid-template-columns:repeat(4,1fr)}.tab:nth-child(n+5){grid-column:auto}.mtfGrid{grid-template-columns:1fr}.riskGrid,.aiGrid{grid-template-columns:1fr}.scannerControls{grid-template-columns:1fr 1fr}.scannerControls .wide{grid-column:span 2}.infoGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){
+  .app{padding:9px}.brand h1{font-size:18px}.toolbar{grid-template-columns:1fr 1fr;padding:8px}.toolbar .wide{grid-column:span 2}.metrics{grid-template-columns:1fr 1fr}.metric .v{font-size:16px}.tabs{grid-template-columns:repeat(4,1fr);gap:4px}.tab{font-size:10px;padding:5px 2px}.panel{padding:9px}.two{grid-template-columns:1fr}.hero{grid-template-columns:1fr 1fr}.formGrid{grid-template-columns:1fr 1fr}.formGrid .wide{grid-column:span 2}.btMetrics{grid-template-columns:1fr 1fr}.riskRows{grid-template-columns:1fr 1fr}.scannerCards{grid-template-columns:1fr 1fr}.aiActions{flex-direction:column}.aiActions .btn{width:100%}.status{flex-wrap:wrap}.progress{width:100%}.infoGrid{grid-template-columns:1fr 1fr}input,select,textarea{font-size:16px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><h1>₿ Crypto Analyzer V15.2</h1><p>Upbit · Chart First UI · Validation · Server Alerts · Scanner · AI</p></div>
+    <div class="badge"><i class="dot"></i><span id="cloudState">Vercel 연결 대기</span></div>
+  </header>
+
+  <section class="toolbar">
+    <div class="field"><label>기준 마켓</label><select id="market"><option value="KRW-BTC">KRW-BTC</option></select></div>
+    <div class="field"><label>타임프레임</label><select id="tf"><option value="60">1시간봉</option><option value="240" selected>4시간봉</option><option value="day">일봉</option></select></div>
+    <div class="field"><label>캔들 수</label><select id="count"><option>200</option><option selected>400</option><option>600</option><option>1000</option></select></div>
+    <div class="field wide"><label>데이터</label><button id="load" class="btn primary" style="width:100%">데이터 불러오기</button></div>
+  </section>
+
+  <div class="status"><span id="statusText">데이터를 불러오면 분석이 시작됩니다.</span><span class="grow"></span><div class="progress"><i id="progressBar"></i></div></div>
+
+  <section class="visualTop">
+    <div class="visualCard">
+      <div class="eyebrow">현재가 · <span id="visualMarket">KRW-BTC</span></div>
+      <div class="xl" id="mPrice">-</div>
+      <div class="subline" id="mChange">-</div>
+      <div class="subline">24H 거래대금 <b id="visualTrade24">-</b></div>
+    </div>
+    <div class="visualCard">
+      <div class="eyebrow">Score</div>
+      <div class="xl" id="mScore">-</div>
+      <div class="subline" id="mVerdict">-</div>
+      <div class="tfInline"><span>1H <b id="heroTf60">-</b></span><span>4H <b id="heroTf240">-</b></span><span>1D <b id="heroTfday">-</b></span></div>
+    </div>
+    <div class="visualCard">
+      <div class="eyebrow">Signal Quality</div>
+      <div class="lg" id="mConfidence">-</div>
+      <div class="qualityTrack"><i id="qualityBar"></i></div>
+      <div class="subline">Historical Win <b id="mHistWin">-</b></div>
+      <div class="subline" id="mHistSample">동일 신호 표본</div>
+    </div>
+    <div class="visualCard">
+      <div class="eyebrow">시장 국면</div>
+      <div class="lg" id="mRegime">-</div>
+      <div class="subline">추세 강도 ADX <b id="topAdx">-</b></div>
+      <div class="regimeBar" id="regimeStrength"><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab active" data-pane="overview">현재 분석</button>
+    <button class="tab" data-pane="backtest">백테스트</button>
+    <button class="tab" data-pane="multitf">멀티TF</button>
+    <button class="tab" data-pane="risk">Risk</button>
+    <button class="tab" data-pane="compare">자동비교</button>
+    <button class="tab" data-pane="scanner">Scanner</button>
+    <button class="tab" data-pane="ai">AI 분석</button><button class="tab" data-pane="personal">My</button>
+  </nav>
+
+  <main>
+    <section id="overview" class="pane active">
+      <div class="chartHero">
+        <div class="chartHeroHead">
+          <div class="left"><h2><span id="overviewMarket">KRW-BTC</span> · <span id="overviewTf">4시간봉</span> · UPBIT</h2><span>MA20 · MA60 · MA120 · Bollinger · Support / Resistance</span></div>
+          <div class="chartActions"><span>지표</span><span>확대</span></div>
+        </div>
+        <canvas id="priceChart" height="570"></canvas>
+        <div class="legend"><span><i class="sw" style="background:#5fa8ff"></i>MA20</span><span><i class="sw" style="background:#efbe63"></i>MA60</span><span><i class="sw" style="background:#b68cff"></i>MA120</span><span><i class="sw" style="background:#36c99b"></i>Support</span><span><i class="sw" style="background:#ef707b"></i>Resistance</span></div>
+      </div>
+
+      <div class="indicatorStrip">
+        <div class="indicatorViz"><div class="head"><span>RSI (14)</span><strong id="mRsi">-</strong></div><canvas id="rsiMini"></canvas></div>
+        <div class="indicatorViz"><div class="head"><span>ADX (14)</span><strong id="mAdx">-</strong></div><canvas id="adxMini"></canvas></div>
+        <div class="indicatorViz"><div class="head"><span>거래량 비율</span><strong id="mVol">-</strong></div><canvas id="volMini"></canvas></div>
+        <div class="indicatorViz"><div class="head"><span>ATR (14)</span><strong id="mAtr">-</strong></div><canvas id="atrMini"></canvas></div>
+      </div>
+
+      <div class="foldRow">
+        <details class="secondaryBox">
+          <summary><span>보조 지표 차트</span><span style="color:var(--muted);font-weight:500">RSI / MACD / 거래량</span></summary>
+          <div class="secondaryContent">
+            <div class="panel"><div class="title"><h3>RSI</h3><span>14</span></div><canvas id="rsiChart" height="165"></canvas></div>
+            <div class="panel" style="margin-top:7px"><div class="title"><h3>MACD</h3><span>12 / 26 / 9</span></div><canvas id="macdChart" height="165"></canvas></div>
+            <div class="panel" style="margin-top:7px"><div class="title"><h3>거래량</h3><span>MA20 대비</span></div><canvas id="volChart" height="165"></canvas></div>
+          </div>
+        </details>
+
+        <details class="secondaryBox">
+          <summary><span>Score History</span><span style="color:var(--muted);font-weight:500">최근 Score 변화</span></summary>
+          <div class="secondaryContent">
+            <div class="tableWrap" style="max-height:285px"><table><thead><tr><th>시각</th><th>Score</th><th>RSI</th><th>ADX</th><th>Vol</th><th>국면</th></tr></thead><tbody id="scoreHistoryBody"></tbody></table></div>
+          </div>
+        </details>
+
+        <details class="secondaryBox">
+          <summary><span>Score 변화 원인</span><span id="scoreDelta" style="color:var(--muted);font-weight:500">-</span></summary>
+          <div class="secondaryContent"><div id="scoreChanges" class="changeList"></div><div id="reasons" class="compactReasons" style="margin-top:8px"></div><button id="toggleReasons" class="miniBtn" style="width:100%;margin-top:7px">세부 근거 더보기</button></div>
+        </details>
+      </div>
+
+      <div class="insightRow">
+        <div class="insightCard">
+          <div class="title"><h3>주요 지지 / 저항</h3><span id="tfBadge">4시간봉</span></div>
+          <div class="levelRows">
+            <div class="levelLine bad"><span>저항 2</span><strong id="overviewR2">-</strong></div>
+            <div class="levelLine bad"><span>저항 1</span><strong id="resistBig">-</strong></div>
+            <div class="levelLine"><span>현재가</span><strong id="overviewCurrent">-</strong></div>
+            <div class="levelLine good"><span>지지 1</span><strong id="supportBig">-</strong></div>
+            <div class="levelLine good"><span>지지 2</span><strong id="overviewS2">-</strong></div>
+          </div>
+        </div>
+
+        <div class="insightCard">
+          <div class="title"><h3>기술적 핵심 요약</h3><span id="summaryTf">4시간봉 기준</span></div>
+          <ul class="summaryBullets" id="overviewSummary"><li>데이터를 불러오면 현재 구조를 요약합니다.</li></ul>
+          <button id="gotoAi" class="btn secondary" style="width:100%;margin-top:9px">AI 분석 탭에서 상세 분석</button>
+        </div>
+
+        <div class="insightCard">
+          <div class="title"><h3>ATR 기반 Risk Plan</h3><span>참고용</span></div>
+          <div class="riskOverview">
+            <div class="r"><span>손절 후보</span><strong class="bad" id="overviewStop">-</strong></div>
+            <div class="r"><span>1차 목표</span><strong class="good" id="overviewTp1">-</strong></div>
+            <div class="r"><span>2차 목표</span><strong class="good" id="overviewTp2">-</strong></div>
+            <div class="r"><span>Risk / Reward</span><strong id="overviewRR">-</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboardNavSpacer"></div>
+
+      <div class="bottomSummary">
+        <div class="bottomCard">
+          <div class="title"><h3>멀티 타임프레임 한눈에</h3><span id="overviewMtfVerdict">-</span></div>
+          <table class="miniTable"><thead><tr><th>TF</th><th>Score</th><th>Quality</th><th>Regime</th><th>RSI</th><th>ADX</th></tr></thead><tbody id="overviewMtfBody"></tbody></table>
+          <div class="combine" style="padding:8px;margin-top:7px"><span style="font-size:10px">멀티TF 종합</span><strong id="overviewMtfTotal">-</strong></div>
+        </div>
+
+        <div class="bottomCard">
+          <div class="title"><h3>백테스트 요약</h3><span>Entry +4 / Exit 0</span></div>
+          <div class="miniKpis">
+            <div class="miniKpi"><small>총 수익률</small><strong id="overviewBtRet">-</strong></div>
+            <div class="miniKpi"><small>승률</small><strong id="overviewBtWin">-</strong></div>
+            <div class="miniKpi"><small>PF</small><strong id="overviewBtPf">-</strong></div>
+            <div class="miniKpi"><small>MDD</small><strong id="overviewBtMdd">-</strong></div>
+          </div>
+          <div class="hint">기본 조건 백테스트를 데이터 로드시 자동 계산합니다.</div>
+        </div>
+
+        <div class="bottomCard">
+          <div class="title"><h3>TOP KRW 마켓 Scanner</h3><span>최근 실행 결과</span></div>
+          <div id="overviewScanner" class="list"><div class="hint">Scanner 탭에서 실행하면 상위 결과가 여기에 표시됩니다.</div></div>
+        </div>
+      </div>
+
+      <div class="utilitySummary">
+        <div class="utilityCard">
+          <div><div class="title2">자동 알림 · 서버 기반 V15</div><div class="detail"><span id="overviewCloudState">설정 상태 확인 중</span> · 활성 조건 <b id="overviewCloudRules">-</b></div></div>
+          <strong class="good" id="overviewCloudOn">-</strong>
+        </div>
+        <div class="utilityCard">
+          <div><div class="title2">Watchlist 빠른 보기</div><div class="detail">My 탭에 저장된 관심종목</div></div>
+          <div class="chipRow" id="overviewWatchlist"><span class="smallChip">등록 없음</span></div>
+        </div>
+        <div class="utilityCard">
+          <div><div class="title2">포트폴리오 요약</div><div class="detail">현재 Upbit 가격 기준</div></div>
+          <div style="text-align:right"><strong id="overviewPortfolioValue">-</strong><div class="detail" id="overviewPortfolioPnl">-</div></div>
+        </div>
+      </div>
+
+      <div class="overviewHiddenCompat">
+        <span id="histWinBig">-</span><span id="adxBig">-</span><span id="regimeBig">-</span>
+        <span id="scoreBig">-</span><span id="verdictBig">-</span><span id="confidenceBig">-</span><span id="confidenceText">-</span>
+      </div>
+    </section>
+
+    <section id="backtest" class="pane">
+      <div class="panel">
+        <div class="title"><h2>전략 백테스트</h2><span>종가 신호 → 다음 봉 시가 체결</span></div>
+        <div class="formGrid">
+          <div class="field"><label>매수 Score ≥</label><input id="entry" type="number" min="1" max="8" value="4"></div>
+          <div class="field"><label>매도 Score ≤</label><input id="exit" type="number" min="-8" max="3" value="0"></div>
+          <div class="field"><label>초기 자금(원)</label><input id="capital" type="number" value="10000000"></div>
+          <div class="field"><label>수수료(%)</label><input id="fee" type="number" step="0.01" value="0.05"></div>
+          <div class="field wide"><label>슬리피지(%)</label><input id="slip" type="number" step="0.01" value="0.02"></div>
+        </div>
+        <button id="runBt" class="btn primary" disabled style="width:100%;margin-top:8px">백테스트 실행</button>
+        <div class="panel" style="margin-top:10px;background:var(--soft)">
+          <div class="title"><h3>V14 Risk Exit 백테스트</h3><span>ATR Stop / TP / Trailing / Max Hold</span></div>
+          <div class="formGrid">
+            <div class="field"><label>Stop ATR</label><input id="advStop" type="number" step="0.1" value="1.5"></div>
+            <div class="field"><label>Take Profit ATR</label><input id="advTp" type="number" step="0.1" value="2.5"></div>
+            <div class="field"><label>Trailing ATR</label><input id="advTrail" type="number" step="0.1" value="1.5"></div>
+            <div class="field"><label>Max Hold(봉)</label><input id="advHold" type="number" value="30"></div>
+            <div class="field wide"><label>고급 백테스트</label><button id="runAdvBt" class="btn secondary" disabled style="width:100%">Risk Exit 적용 비교</button></div>
+          </div>
+          <div class="infoGrid" style="margin-top:8px">
+            <div class="info"><small>Risk Exit 수익률</small><strong id="advRet">-</strong></div>
+            <div class="info"><small>MDD</small><strong id="advMdd">-</strong></div>
+            <div class="info"><small>승률</small><strong id="advWin">-</strong></div>
+            <div class="info"><small>PF</small><strong id="advPf">-</strong></div>
+          </div>
+        </div>
+        <div class="btMetrics">
+          <div class="metric"><div class="k">전략 수익률</div><div class="v" id="btRet">-</div></div>
+          <div class="metric"><div class="k">Buy & Hold</div><div class="v" id="bhRet">-</div></div>
+          <div class="metric"><div class="k">MDD</div><div class="v" id="mdd">-</div></div>
+          <div class="metric"><div class="k">거래 수</div><div class="v" id="tradesN">-</div></div>
+          <div class="metric"><div class="k">승률</div><div class="v" id="winrate">-</div></div>
+          <div class="metric"><div class="k">Profit Factor</div><div class="v" id="pf">-</div></div>
+          <div class="metric"><div class="k">CAGR</div><div class="v" id="cagr">-</div></div>
+          <div class="metric"><div class="k">최종 평가액</div><div class="v" id="finalEq">-</div></div>
+        </div>
+        <div class="title"><h3>자산곡선</h3><span>전략 vs Buy & Hold</span></div><canvas id="equityChart" height="280"></canvas>
+        <div class="title" style="margin-top:12px"><h3>거래 내역</h3><span id="btPeriod">-</span></div>
+        <div class="tableWrap"><table><thead><tr><th>매수</th><th>매도</th><th>매수가</th><th>매도가</th><th>수익률</th><th>손익</th><th>보유봉</th></tr></thead><tbody id="tradeBody"></tbody></table></div>
+      </div>
+    </section>
+
+    <section id="multitf" class="pane">
+      <div class="mtfGrid">
+        <article class="tfCard"><div class="tfHead"><strong>1시간봉</strong><div class="tfScore" id="tf60Score">-</div></div><div class="tfRows"><div><small>RSI</small><strong id="tf60Rsi">-</strong></div><div><small>ADX</small><strong id="tf60Adx">-</strong></div><div><small>추세</small><strong id="tf60Trend">-</strong></div><div><small>국면</small><strong id="tf60Regime">-</strong></div></div></article>
+        <article class="tfCard"><div class="tfHead"><strong>4시간봉</strong><div class="tfScore" id="tf240Score">-</div></div><div class="tfRows"><div><small>RSI</small><strong id="tf240Rsi">-</strong></div><div><small>ADX</small><strong id="tf240Adx">-</strong></div><div><small>추세</small><strong id="tf240Trend">-</strong></div><div><small>국면</small><strong id="tf240Regime">-</strong></div></div></article>
+        <article class="tfCard"><div class="tfHead"><strong>일봉</strong><div class="tfScore" id="tfdayScore">-</div></div><div class="tfRows"><div><small>RSI</small><strong id="tfdayRsi">-</strong></div><div><small>ADX</small><strong id="tfdayAdx">-</strong></div><div><small>추세</small><strong id="tfdayTrend">-</strong></div><div><small>국면</small><strong id="tfdayRegime">-</strong></div></div></article>
+      </div>
+      <div class="combine"><div><small style="color:var(--muted)">멀티타임프레임 종합</small><div style="font-weight:800;margin-top:4px" id="mtfVerdict">데이터 필요</div></div><div class="big" id="mtfTotal">-</div></div>
+    </section>
+
+    <section id="risk" class="pane">
+      <div class="riskGrid">
+        <div class="riskBox">
+          <div class="title"><h2>ATR Risk Plan</h2><span>참고용 계산</span></div>
+          <div class="riskRows">
+            <div class="riskItem"><small>현재가</small><strong id="riskPrice">-</strong></div>
+            <div class="riskItem"><small>ATR</small><strong id="riskAtr">-</strong></div>
+            <div class="riskItem"><small>1차 지지</small><strong id="riskSupport">-</strong></div>
+            <div class="riskItem"><small>1차 저항</small><strong id="riskResist">-</strong></div>
+            <div class="riskItem"><small>손절 후보</small><strong id="riskStop">-</strong></div>
+            <div class="riskItem"><small>1차 목표</small><strong id="riskTp1">-</strong></div>
+            <div class="riskItem"><small>2차 목표</small><strong id="riskTp2">-</strong></div>
+            <div class="riskItem"><small>R:R (TP2)</small><strong id="riskRR">-</strong></div>
+          </div>
+        </div>
+        <div class="riskBox">
+          <div class="title"><h2>포지션 사이즈</h2><span>계좌 위험 기준</span></div>
+          <div class="formGrid" style="grid-template-columns:1fr 1fr">
+            <div class="field"><label>총 투자자산(원)</label><input id="riskCapital" type="number" value="50000000"></div>
+            <div class="field"><label>허용손실(%)</label><input id="riskPct" type="number" step="0.1" value="1"></div>
+          </div>
+          <button id="calcRisk" class="btn primary" disabled style="width:100%;margin-top:8px">포지션 계산</button>
+          <div class="riskRows" style="margin-top:8px">
+            <div class="riskItem"><small>최대 허용손실</small><strong id="maxLoss">-</strong></div>
+            <div class="riskItem"><small>추천 포지션 금액</small><strong id="positionValue">-</strong></div>
+            <div class="riskItem"><small>예상 BTC 수량</small><strong id="positionQty">-</strong></div>
+            <div class="riskItem"><small>자산 대비 비중</small><strong id="positionPct">-</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare" class="pane">
+      <div class="panel">
+        <div class="title"><h2>V13/V14 검증 엔진</h2><span>Parameter Stability · Rolling Walk-Forward · Regime Performance</span></div>
+        <div class="compareControls">
+          <div class="field"><label>기준 Exit</label><input id="cmpExit" type="number" value="0"></div>
+          <div class="field"><label>Train Window</label><select id="wfTrain"><option value="160">160봉</option><option value="180" selected>180봉</option><option value="220">220봉</option></select></div>
+          <div class="field"><label>Test Window</label><select id="wfTest"><option value="40">40봉</option><option value="50" selected>50봉</option><option value="70">70봉</option></select></div>
+          <button id="runCompare" class="btn primary" disabled>검증 엔진 실행</button>
+        </div>
+        <div class="validationGrid">
+          <div>
+            <div class="title"><h3>Parameter Stability</h3><span>셀 = 수익률</span></div>
+            <div class="tableWrap"><table class="heat"><thead><tr><th>Exit \\ Entry</th><th>+3</th><th>+4</th><th>+5</th><th>+6</th></tr></thead><tbody id="stabilityBody"></tbody></table></div>
+          </div>
+          <div>
+            <div class="title"><h3>Rolling Walk-Forward</h3><span>Train에서 선택 → 다음 Test 검증</span></div>
+            <div class="tableWrap"><table><thead><tr><th>Fold</th><th>Best Entry</th><th>Train Ret</th><th>Test Ret</th><th>Test MDD</th><th>Trades</th></tr></thead><tbody id="walkBody"></tbody></table></div>
+          </div>
+        </div>
+        <div class="title" style="margin-top:12px"><h3>시장 국면별 거래 성과</h3><span>기본 백테스트 거래를 진입 당시 국면으로 분류</span></div>
+        <div class="tableWrap"><table><thead><tr><th>국면</th><th>거래수</th><th>승률</th><th>평균 수익률</th><th>총 손익</th><th>PF</th></tr></thead><tbody id="regimeBody"></tbody></table></div>
+        <div class="hint">Rolling Walk-Forward는 각 Train 구간에서 Entry +3~+6 중 위험조정 점수가 가장 높은 조건을 선택한 뒤, 바로 다음 미사용 Test 구간에 적용합니다.</div>
+      </div>
+    </section>
+
+    <section id="scanner" class="pane">
+      <div class="panel">
+        <div class="title"><h2>업비트 KRW Scanner</h2><span>거래대금 상위 종목 기술적 Score 검색</span></div>
+        <div class="scannerControls">
+          <div class="field"><label>Scanner TF</label><select id="scanTf"><option value="60">1시간봉</option><option value="240" selected>4시간봉</option><option value="day">일봉</option></select></div>
+          <div class="field"><label>검색 종목 수</label><select id="scanN"><option>10</option><option selected>20</option><option>30</option><option>50</option></select></div>
+          <div class="field"><label>최소 Score</label><input id="scanMinScore" type="number" value="0"></div>
+          <div class="field"><label>최소 거래량비</label><input id="scanMinVol" type="number" step="0.1" value="0"></div>
+          <div class="field wide"><label>실행</label><button id="runScanner" class="btn primary" style="width:100%">Scanner 실행</button></div>
+        </div>
+        <div class="scannerCards">
+          <div class="scanCard"><small>검색 대상</small><strong id="scanTarget">-</strong></div>
+          <div class="scanCard"><small>조건 통과</small><strong id="scanPass">-</strong></div>
+          <div class="scanCard"><small>최고 Score</small><strong id="scanBest">-</strong></div>
+          <div class="scanCard"><small>강한 상승 국면</small><strong id="scanTrendN">-</strong></div>
+          <div class="scanCard"><small>완료 시간</small><strong id="scanTime">-</strong></div>
+        </div>
+        <div class="tableWrap"><table><thead><tr><th>순위</th><th>마켓</th><th>한글명</th><th>현재가</th><th>24H%</th><th>Score</th><th>신뢰도</th><th>국면</th><th>RSI</th><th>ADX</th><th>거래량비</th></tr></thead><tbody id="scannerBody"></tbody></table></div>
+      </div>
+    </section>
+
+    <section id="ai" class="pane">
+      <div class="aiGrid">
+        <div class="panel">
+          <div class="title"><h2>AI 분석 요청</h2><span>현재 계산값만 전달</span></div>
+          <div class="pillRow">
+            <button class="pill" data-q="현재 시장 국면과 신호 신뢰도를 중심으로 핵심만 분석해줘.">시장 국면</button>
+            <button class="pill" data-q="지지/저항과 ATR Risk Plan을 어떻게 해석해야 하는지 설명해줘.">Risk Plan</button>
+            <button class="pill" data-q="1시간, 4시간, 일봉 신호 충돌 여부와 우선순위를 설명해줘.">멀티TF</button>
+            <button class="pill" data-q="자동 백테스트 비교와 Walk-Forward 결과가 있으면 과최적화 관점에서 평가해줘.">Walk-Forward</button>
+          </div>
+          <textarea id="question" rows="5" maxlength="800" placeholder="예: 현재 +5점인데 신뢰도가 낮은 이유가 뭐야?"></textarea>
+          <div class="aiActions"><button id="aiSummary" class="btn primary" disabled>AI 종합 분석</button><button id="aiAsk" class="btn secondary" disabled>질문하기</button></div>
+          <div class="hint">OpenAI API Key는 Vercel 환경변수에만 저장됩니다. AI는 계산 결과를 설명하며 가격을 확정적으로 예측하지 않습니다.</div>
+        </div>
+        <div class="panel"><div class="title"><h2>AI 분석 결과</h2><span id="aiModel">-</span></div><div class="aiOutput" id="aiOutput">데이터를 먼저 불러온 뒤 AI 분석을 실행하세요.</div></div>
+      </div>
+    </section>
+
+    <section id="personal" class="pane">
+      <div class="personalGrid">
+        <div class="panel full">
+          <div class="title"><h2>V15 서버 자동 알림</h2><span>Supabase DB + Vercel Cron + Web Push</span></div>
+          <div class="cloudStatus">
+            <div class="info"><small>Database</small><strong id="cloudDb">확인 중</strong></div>
+            <div class="info"><small>Web Push</small><strong id="cloudPush">확인 중</strong></div>
+            <div class="info"><small>Cron</small><strong id="cloudCron">확인 중</strong></div>
+            <div class="info"><small>Device ID</small><strong id="cloudDevice">-</strong></div>
+          </div>
+          <div class="cloudForm">
+            <div class="field"><label>TF</label><select id="cloudTf"><option value="60">1시간</option><option value="240" selected>4시간</option><option value="day">일봉</option></select></div>
+            <div class="field"><label>Score ≥</label><input id="cloudScore" type="number" value="5"></div>
+            <div class="field"><label>Signal Quality ≥</label><input id="cloudQuality" type="number" value="75"></div>
+            <div class="field"><label>ADX ≥</label><input id="cloudAdx" type="number" value="25"></div>
+            <div class="field"><label>거래량비 ≥</label><input id="cloudVol" type="number" step="0.1" value="0"></div>
+            <div class="field"><label>시장 국면</label><select id="cloudRegime"><option value="ANY">상관없음</option><option>상승 추세</option><option>하락 추세</option><option>횡보</option><option>전환 / 혼조</option></select></div>
+            <div class="field"><label>재알림 제한</label><select id="cloudCooldown"><option value="60">60분</option><option value="240" selected>4시간</option><option value="720">12시간</option><option value="1440">24시간</option></select></div>
+            <div class="field"><label>현재 마켓</label><input id="cloudMarket" value="KRW-BTC" readonly></div>
+          </div>
+          <div class="cloudActions">
+            <button id="cloudSubscribe" class="btn primary">① 서버 Push 등록</button>
+            <button id="cloudSaveRule" class="btn primary">② 서버 알림조건 저장</button>
+            <button id="cloudTestPush" class="btn secondary">③ 테스트 Push</button>
+            <button id="cloudCheckNow" class="btn secondary">④ 서버 조건 지금 검사</button>
+          </div>
+          <div class="notice" style="margin-top:8px">Vercel Hobby 기본 Cron은 하루 1회입니다. V15는 Hobby에서도 배포되도록 하루 1회로 설정되어 있습니다. 더 자주 자동 감시하려면 Vercel Pro에서 Cron 주기를 변경하거나 외부 스케줄러가 필요합니다.</div>
+          <div class="cloudCode" style="margin-top:7px">Push를 받으려면 HTTPS 배포 주소에서 알림 권한을 허용해야 합니다.</div>
+          <div class="title" style="margin-top:12px"><h3>서버 알림 조건</h3><span>Supabase에 저장</span></div>
+          <div class="tableWrap"><table><thead><tr><th>마켓</th><th>TF</th><th>Score</th><th>Quality</th><th>ADX</th><th>Vol</th><th>Regime</th><th>Cooldown</th><th>최근 발동</th><th></th></tr></thead><tbody id="cloudRuleBody"></tbody></table></div>
+          <div class="title" style="margin-top:12px"><h3>최근 서버 Signal Events</h3><span>최근 30개</span></div>
+          <div class="tableWrap" style="max-height:260px"><table><thead><tr><th>시각</th><th>마켓</th><th>TF</th><th>Score</th><th>Quality</th><th>ADX</th><th>Regime</th><th>가격</th><th>Push</th></tr></thead><tbody id="cloudEventBody"></tbody></table></div>
+        </div>
+        <div class="panel">
+          <div class="title"><h2>Watchlist</h2><span>이 기기에 저장</span></div>
+          <button id="addWatch" class="btn primary" style="width:100%;margin-bottom:8px">현재 마켓 Watchlist 추가</button>
+          <div id="watchList" class="list"></div>
+        </div>
+        <div class="panel">
+          <div class="title"><h2>조건 알림</h2><span>앱이 열려 있을 때 확인</span></div>
+          <div class="personalForm">
+            <div class="field"><label>Score ≥</label><input id="alertScore" type="number" value="5"></div>
+            <div class="field"><label>Quality ≥</label><input id="alertQuality" type="number" value="70"></div>
+            <div class="field"><label>TF</label><select id="alertTf"><option value="60">1H</option><option value="240" selected>4H</option><option value="day">1D</option></select></div>
+          </div>
+          <div style="display:flex;gap:7px;margin-top:8px"><button id="saveAlert" class="btn primary" style="flex:1">현재 마켓 알림 저장</button><button id="notifyPerm" class="btn secondary" style="flex:1">알림 권한</button></div>
+          <div class="notice" style="margin-top:8px">브라우저가 닫힌 상태의 24시간 백그라운드 알림은 Vercel + LocalStorage만으로 보장할 수 없습니다. V14는 페이지가 열려 있거나 사용자가 Watchlist 알림 확인을 실행할 때 알립니다.</div>
+          <button id="checkAlerts" class="btn secondary" style="width:100%;margin-top:8px">Watchlist 알림 지금 확인</button>
+          <div id="alertList" class="list" style="margin-top:8px"></div>
+        </div>
+        <div class="panel full">
+          <div class="title"><h2>Analysis Snapshots</h2><span>Score 변화 기록</span></div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px"><button id="saveSnapshot" class="btn primary">현재 분석 저장</button><button id="exportData" class="btn secondary">개인데이터 JSON 백업</button><label class="btn secondary" style="display:inline-flex;align-items:center;cursor:pointer">JSON 복원<input id="importData" type="file" accept=".json,application/json" style="display:none"></label></div>
+          <div class="tableWrap"><table><thead><tr><th>저장 시각</th><th>마켓</th><th>TF</th><th>가격</th><th>Score</th><th>Quality</th><th>Historical Win</th><th>국면</th><th></th></tr></thead><tbody id="snapshotBody"></tbody></table></div>
+        </div>
+        <div class="panel">
+          <div class="title"><h2>Trading Journal</h2><span>수동 매매 기록</span></div>
+          <div class="personalForm">
+            <div class="field"><label>마켓</label><input id="jMarket" value="KRW-BTC"></div>
+            <div class="field"><label>진입가</label><input id="jEntry" type="number"></div>
+            <div class="field"><label>청산가</label><input id="jExit" type="number"></div>
+            <div class="field"><label>수량</label><input id="jQty" type="number" step="0.000001"></div>
+            <div class="field"><label>방향</label><select id="jSide"><option value="LONG">LONG</option></select></div>
+            <div class="field"><label>메모</label><input id="jNote" placeholder="진입 이유"></div>
+          </div>
+          <button id="saveJournal" class="btn primary" style="width:100%;margin-top:8px">Journal 저장</button>
+          <div id="journalList" class="list" style="margin-top:8px"></div>
+        </div>
+        <div class="panel">
+          <div class="title"><h2>Portfolio</h2><span>현재 Upbit 가격으로 평가</span></div>
+          <div class="personalForm">
+            <div class="field"><label>마켓</label><input id="pMarket" value="KRW-BTC"></div>
+            <div class="field"><label>수량</label><input id="pQty" type="number" step="0.000001"></div>
+            <div class="field"><label>평균단가</label><input id="pAvg" type="number"></div>
+          </div>
+          <button id="saveHolding" class="btn primary" style="width:100%;margin-top:8px">보유자산 저장</button>
+          <div class="kpiRow" style="margin-top:8px">
+            <div class="info"><small>총 평가액</small><strong id="pValue">-</strong></div>
+            <div class="info"><small>총 매입액</small><strong id="pCost">-</strong></div>
+            <div class="info"><small>평가손익</small><strong id="pPnl">-</strong></div>
+            <div class="info"><small>수익률</small><strong id="pRet">-</strong></div>
+          </div>
+          <div id="portfolioList" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">연구·교육용 도구입니다. Signal Quality는 성공확률이 아니며 Historical Win은 과거 표본 통계입니다. 서버 알림은 조건 감시 기능이며 매매 권유가 아닙니다. 모든 분석·백테스트 결과는 미래 수익을 보장하지 않습니다.</footer>
+</div>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const state={candles:[],multi:{},bt:null,advBt:null,compare:null,scanner:[],loaded:false,levels:null,marketData:[]};
+const TF_NAMES={"60":"1시간봉","240":"4시간봉","day":"일봉"};
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+function num(v,d=0){const x=Number(v);return Number.isFinite(x)?x:d}
+function fmtKRW(v){return Math.round(num(v)).toLocaleString("ko-KR")+"원"}
+function fmtPct(v){const x=num(v);return (x>=0?"+":"")+x.toFixed(2)+"%"}
+function kst(d){return new Intl.DateTimeFormat("ko-KR",{timeZone:"Asia/Seoul",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).format(d)}
+function setStatus(t,p=0){$("statusText").textContent=t;$("progressBar").style.width=Math.max(0,Math.min(100,p))+"%"}
+function verdict(s){return s>=6?"강한 매수 우위":s>=3?"매수 우위":s<=-6?"강한 매도 우위":s<=-3?"매도 우위":"중립 / 방향 확인"}
+function cls(s){return s>=3?"good":s<=-3?"bad":"warn"}
+
+async function apiCandles(market,tf,count,to=""){
+  const u=new URL("/api/candles",location.origin);u.searchParams.set("market",market);u.searchParams.set("tf",tf);u.searchParams.set("count",count);if(to)u.searchParams.set("to",to);
+  const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw new Error((await r.text()).slice(0,220));return r.json();
+}
+async function fetchCandles(market,tf,total,onProgress){
+  let rows=[],left=total,to="",page=0,pages=Math.ceil(total/200);
+  while(left>0){page++;if(page>1)await sleep(140);if(onProgress)onProgress(page,pages,rows.length);const batch=await apiCandles(market,tf,Math.min(200,left),to);if(!batch.length)break;rows.push(...batch);left-=batch.length;to=batch.at(-1).candle_date_time_utc+"Z";if(batch.length<Math.min(200,left+batch.length))break}
+  const map=new Map();for(const r of rows)map.set(r.candle_date_time_utc,r);
+  return indicators([...map.values()].map(r=>({time:new Date(r.candle_date_time_utc+"Z"),open:num(r.opening_price),high:num(r.high_price),low:num(r.low_price),close:num(r.trade_price),volume:num(r.candle_acc_trade_volume)})).sort((a,b)=>a.time-b.time));
+}
+function sma(v,p){const o=Array(v.length).fill(null);let s=0;for(let i=0;i<v.length;i++){s+=v[i];if(i>=p)s-=v[i-p];if(i>=p-1)o[i]=s/p}return o}
+function ema(v,p){const o=Array(v.length).fill(null),a=2/(p+1);let x=null;for(let i=0;i<v.length;i++){x=x===null?v[i]:a*v[i]+(1-a)*x;o[i]=x}return o}
+function wilder(v,p){const o=Array(v.length).fill(null),a=1/p;let x=null;for(let i=0;i<v.length;i++){x=x===null?v[i]:a*v[i]+(1-a)*x;if(i>=p-1)o[i]=x}return o}
+function indicators(a){
+  if(!a.length)return a;const c=a.map(x=>x.close),v=a.map(x=>x.volume),m20=sma(c,20),m60=sma(c,60),m120=sma(c,120),vm=sma(v,20),e12=ema(c,12),e26=ema(c,26),macd=c.map((_,i)=>e12[i]-e26[i]),sig=ema(macd,9);
+  const gains=[0],loss=[0];for(let i=1;i<c.length;i++){const d=c[i]-c[i-1];gains.push(Math.max(d,0));loss.push(Math.max(-d,0))}
+  const ag=wilder(gains,14),al=wilder(loss,14),tr=[a[0].high-a[0].low],plusDM=[0],minusDM=[0];
+  for(let i=1;i<a.length;i++){tr.push(Math.max(a[i].high-a[i].low,Math.abs(a[i].high-c[i-1]),Math.abs(a[i].low-c[i-1])));const up=a[i].high-a[i-1].high,dn=a[i-1].low-a[i].low;plusDM.push(up>dn&&up>0?up:0);minusDM.push(dn>up&&dn>0?dn:0)}
+  const atr=wilder(tr,14),pdm=wilder(plusDM,14),mdm=wilder(minusDM,14),pdi=atr.map((x,i)=>x?100*pdm[i]/x:null),mdi=atr.map((x,i)=>x?100*mdm[i]/x:null),dx=pdi.map((x,i)=>x!=null&&mdi[i]!=null&&(x+mdi[i])?100*Math.abs(x-mdi[i])/(x+mdi[i]):null),adx=wilder(dx.map(x=>x??0),14);
+  const bbU=Array(c.length).fill(null),bbL=Array(c.length).fill(null);
+  for(let i=19;i<c.length;i++){const w=c.slice(i-19,i+1),m=m20[i],sd=Math.sqrt(w.reduce((s,x)=>s+(x-m)*(x-m),0)/20);bbU[i]=m+2*sd;bbL[i]=m-2*sd}
+  for(let i=0;i<a.length;i++){let r=null;if(ag[i]!=null&&al[i]!=null)r=al[i]===0?100:ag[i]===0?0:100-100/(1+ag[i]/al[i]);Object.assign(a[i],{ma20:m20[i],ma60:m60[i],ma120:m120[i],rsi:r,macd:macd[i],signal:sig[i],hist:macd[i]-sig[i],bbU:bbU[i],bbL:bbL[i],volma:vm[i],volRatio:vm[i]?v[i]/vm[i]:null,atr:atr[i],atrPct:atr[i]?atr[i]/c[i]*100:null,adx:adx[i],score:null})}
+  for(let i=1;i<a.length;i++){const x=a[i],p=a[i-1];if([x.ma20,x.ma60,x.ma120,x.rsi,x.bbU,x.bbL,x.volRatio,x.adx].some(z=>z==null))continue;let s=0;s+=x.close>x.ma20?1:-1;s+=x.ma20>x.ma60?1:-1;s+=x.ma60>x.ma120?1:-1;if(x.rsi<30)s++;else if(x.rsi>70)s--;const g=x.macd>x.signal&&p.macd<=p.signal,d=x.macd<x.signal&&p.macd>=p.signal;if(g)s+=2;else if(d)s-=2;else s+=x.macd>x.signal?1:-1;if(x.volRatio>=1.5){if(x.close>p.close)s++;else if(x.close<p.close)s--}if(x.close<=x.bbL)s++;else if(x.close>=x.bbU)s--;x.score=s}
+  return a;
+}
+function latest(a){for(let i=a.length-1;i>=0;i--)if(a[i].score!=null)return{x:a[i],i};return null}
+function slopePct(a,i,key,look=5){if(i-look<0||!Number.isFinite(a[i][key])||!Number.isFinite(a[i-look][key]))return 0;return (a[i][key]/a[i-look][key]-1)*100}
+function regime(a,i){
+  const x=a[i],s60=slopePct(a,i,"ma60",5),spread=Math.abs(x.ma20-x.ma60)/x.close*100;
+  if(x.adx>=25&&x.ma20>x.ma60&&x.ma60>x.ma120&&s60>0)return"상승 추세";
+  if(x.adx>=25&&x.ma20<x.ma60&&x.ma60<x.ma120&&s60<0)return"하락 추세";
+  if(x.adx<20&&spread<1.2)return"횡보";
+  return"전환 / 혼조";
+}
+function trendText(x){return x.ma20>x.ma60&&x.ma60>x.ma120?"상승 정렬":x.ma20<x.ma60&&x.ma60<x.ma120?"하락 정렬":"혼조"}
+function levels(a,i,look=80){
+  const s=Math.max(2,i-look+1),pivH=[],pivL=[];
+  for(let k=s+2;k<=i-2;k++){if(a[k].high>a[k-1].high&&a[k].high>a[k-2].high&&a[k].high>=a[k+1].high&&a[k].high>=a[k+2].high)pivH.push(a[k].high);if(a[k].low<a[k-1].low&&a[k].low<a[k-2].low&&a[k].low<=a[k+1].low&&a[k].low<=a[k+2].low)pivL.push(a[k].low)}
+  const px=a[i].close,sup=pivL.filter(v=>v<px).sort((a,b)=>b-a),res=pivH.filter(v=>v>px).sort((a,b)=>a-b);
+  return{support:sup[0]??Math.min(...a.slice(s,i+1).map(x=>x.low)),support2:sup[1]??null,resistance:res[0]??Math.max(...a.slice(s,i+1).map(x=>x.high)),resistance2:res[1]??null}
+}
+function confidence(){
+  const q=latest(state.candles);if(!q)return 0;const x=q.x,scores=[];for(const tf of ["60","240","day"]){const z=latest(state.multi[tf]||[]);if(z)scores.push(z.x.score)}
+  const sign=scores.map(v=>Math.sign(v)).filter(v=>v!==0),same=sign.length?Math.max(sign.filter(v=>v>0).length,sign.filter(v=>v<0).length)/sign.length:0.5;
+  let c=35+same*30+Math.min(20,x.adx/40*20);if(x.volRatio>=1.5)c+=8;if(Math.abs(x.score)>=5)c+=7;if(regime(state.candles,q.i)==="전환 / 혼조")c-=10;return Math.max(20,Math.min(95,Math.round(c)))
+}
+function confidenceText(c){return c>=80?"높음":c>=65?"보통 이상":c>=50?"보통":"낮음"}
+
+function historicalWinRate(a,i){
+  const s=a[i]?.score;if(s==null||Math.abs(s)<3)return{rate:null,n:0,horizon:6};
+  const threshold=Math.max(3,Math.min(6,Math.abs(s))),dir=Math.sign(s),h=6;let hit=0,n=0;
+  for(let k=120;k+h<a.length;k++){const sc=a[k].score;if(sc==null)continue;const match=dir>0?sc>=threshold:sc<=-threshold;if(!match)continue;const ret=a[k+h].close/a[k].close-1;n++;if((dir>0&&ret>0)||(dir<0&&ret<0))hit++}
+  return{rate:n?hit/n*100:null,n,horizon:h,threshold};
+}
+function signalFlags(a,i){
+  if(i<=0)return{};const x=a[i];return{"현재가 > MA20":x.close>x.ma20,"MA20 > MA60":x.ma20>x.ma60,"MA60 > MA120":x.ma60>x.ma120,"MACD > Signal":x.macd>x.signal,"거래량 ≥ 1.5x":x.volRatio>=1.5,"RSI 과매수":x.rsi>70,"RSI 과매도":x.rsi<30,"볼린저 상단":x.close>=x.bbU,"볼린저 하단":x.close<=x.bbL};
+}
+function updateScoreHistory(){
+  const q=latest(state.candles);if(!q)return;const valid=state.candles.map((x,i)=>({x,i})).filter(z=>z.x.score!=null).slice(-12).reverse(),body=$("scoreHistoryBody");body.innerHTML="";
+  for(const z of valid){const tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${kst(z.x.time)}</td><td class="${cls(z.x.score)}">${z.x.score>=0?"+":""}${z.x.score}</td><td>${z.x.rsi.toFixed(1)}</td><td>${z.x.adx.toFixed(1)}</td><td>${z.x.volRatio.toFixed(2)}x</td><td>${regime(state.candles,z.i)}</td>`;body.appendChild(tr)}
+  const prev=valid[1];$("scoreDelta").textContent=prev?`${prev.x.score>=0?"+":""}${prev.x.score} → ${q.x.score>=0?"+":""}${q.x.score}`:"-";const box=$("scoreChanges");box.innerHTML="";if(!prev)return;const a=signalFlags(state.candles,prev.i),b=signalFlags(state.candles,q.i),changes=[];for(const k of Object.keys(b))if(a[k]!==b[k])changes.push(`${b[k]?"ON":"OFF"} · ${k}`);if(!changes.length)changes.push("주요 조건 변화 없음 · 기존 조건의 강도 변화");for(const t of changes){const d=document.createElement("div");d.className="changeItem";d.textContent=t;box.appendChild(d)}
+}
+
+function reasons(a,i){const x=a[i],p=a[i-1],good=[],bad=[];(x.close>x.ma20?good:bad).push(`현재가 ${x.close>x.ma20?">":"<"} MA20`);(x.ma20>x.ma60?good:bad).push(`MA20 ${x.ma20>x.ma60?">":"<"} MA60`);(x.ma60>x.ma120?good:bad).push(`MA60 ${x.ma60>x.ma120?">":"<"} MA120`);if(x.rsi<30)good.push(`RSI ${x.rsi.toFixed(1)} 과매도`);else if(x.rsi>70)bad.push(`RSI ${x.rsi.toFixed(1)} 과매수`);(x.macd>x.signal?good:bad).push(`MACD ${x.macd>x.signal?">":"<"} Signal`);if(x.volRatio>=1.5)(x.close>p.close?good:bad).push(`거래량 ${x.volRatio.toFixed(2)}x`);if(x.close<=x.bbL)good.push("볼린저 하단");else if(x.close>=x.bbU)bad.push("볼린저 상단");return{good,bad}}
+
+async function loadAll(){
+  $("load").disabled=true;["runBt","runAdvBt","calcRisk","runCompare","aiSummary","aiAsk"].forEach(id=>$(id).disabled=true);state.loaded=false;state.bt=null;state.compare=null;
+  try{
+    const market=$("market").value,tf=$("tf").value,total=Number($("count").value);setStatus("기준 데이터를 불러오는 중…",5);
+    state.candles=await fetchCandles(market,tf,total,(p,ps,n)=>setStatus(`기준 데이터 ${p}/${ps} · ${n}개`,5+32*(p-1)/ps));
+    const r=await Promise.all(["60","240","day"].map(async(t,idx)=>{const d=await fetchCandles(market,t,220);setStatus(`멀티TF ${idx+1}/3`,50+10*idx);return[t,d]}));state.multi=Object.fromEntries(r);
+    const q=latest(state.candles);if(!q)throw new Error("지표 계산에 필요한 데이터가 부족합니다.");state.levels=levels(state.candles,q.i);state.loaded=true;updateOverview();updateMulti();updateRisk();runBacktest();drawAll();
+    ["runBt","runAdvBt","calcRisk","runCompare","aiSummary","aiAsk"].forEach(id=>$(id).disabled=false);$("cloudState").textContent="Vercel 정상";setStatus(`완료 · ${market} · ${TF_NAMES[tf]} · ${state.candles.length}개`,100)
+  }catch(e){console.error(e);setStatus("오류: "+e.message,0);$("cloudState").textContent="연결 오류";alert("데이터를 불러오지 못했습니다.\n\n"+e.message)}finally{$("load").disabled=false}
+}
+function updateOverview(){
+  const q=latest(state.candles);if(!q)return;const{x,i}=q,p=state.candles[i-1],chg=(x.close/p.close-1)*100,c=confidence(),rg=regime(state.candles,i),lv=state.levels;
+  $("mPrice").textContent=fmtKRW(x.close);$("mChange").textContent=fmtPct(chg);$("mChange").className="s "+(chg>=0?"good":"bad");$("mScore").textContent=(x.score>=0?"+":"")+x.score;$("mScore").className="v "+cls(x.score);$("mVerdict").textContent=verdict(x.score);$("mConfidence").textContent=c+"/100";$("mConfidence").className="v "+(c>=75?"good":c<50?"bad":"warn");const hw=historicalWinRate(state.candles,i);$("mHistWin").textContent=hw.rate==null?"N/A":hw.rate.toFixed(1)+"%";$("mHistSample").textContent=hw.n?`${hw.n}개 표본 · ${hw.horizon}봉 후`:"강한 신호에서 계산";$("histWinBig").textContent=hw.rate==null?"N/A":hw.rate.toFixed(1)+"%";$("mRegime").textContent=rg;$("mRsi").textContent=x.rsi.toFixed(1);$("mAdx").textContent=x.adx.toFixed(1);$("mVol").textContent=x.volRatio.toFixed(2)+"x";$("mAtr").textContent=x.atrPct.toFixed(2)+"%";
+  $("scoreBig").textContent=(x.score>=0?"+":"")+x.score;$("scoreBig").className="big "+cls(x.score);$("verdictBig").textContent=verdict(x.score);$("confidenceBig").textContent=c+"/100";$("confidenceBig").className="big "+(c>=75?"good":c<50?"bad":"warn");$("confidenceText").textContent=confidenceText(c);$("regimeBig").textContent=rg;$("adxBig").textContent=x.adx.toFixed(1);$("supportBig").textContent=Math.round(lv.support).toLocaleString();$("resistBig").textContent=Math.round(lv.resistance).toLocaleString();$("tfBadge").textContent=TF_NAMES[$("tf").value];updateScoreHistory();
+  const rr=reasons(state.candles,i),box=$("reasons");box.innerHTML="";for(const t of rr.good){const d=document.createElement("div");d.className="reason good";d.innerHTML="<b>▲</b><span>"+t+"</span>";box.appendChild(d)}for(const t of rr.bad){const d=document.createElement("div");d.className="reason bad";d.innerHTML="<b>▼</b><span>"+t+"</span>";box.appendChild(d)}
+  updateVisualOverview();
+}
+
+function sparkCanvas(id,values,kind="line"){
+  const c=$(id);if(!c||!values?.length)return;const rect=c.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2),w=Math.max(120,rect.width),h=86;
+  c.width=Math.floor(w*ratio);c.height=Math.floor(h*ratio);c.style.height=h+"px";const ctx=c.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,w,h);
+  const vals=values.filter(Number.isFinite);if(!vals.length)return;let lo=Math.min(...vals),hi=Math.max(...vals);if(lo===hi){lo-=1;hi+=1}const pad=(hi-lo)*.12;lo-=pad;hi+=pad;
+  const x=i=>5+i/Math.max(1,values.length-1)*(w-10),y=v=>6+(hi-v)/(hi-lo)*(h-12);
+  if(kind==="bar"){const bw=Math.max(1,(w-10)/values.length*.58);for(let i=0;i<values.length;i++){ctx.fillStyle="#5269e8";const yy=y(values[i]);ctx.fillRect(x(i)-bw/2,yy,bw,h-8-yy)}}
+  else{ctx.strokeStyle=kind==="adx"?"#efbe63":kind==="atr"?"#ff8738":"#b68cff";ctx.lineWidth=1.6;ctx.beginPath();let started=false;values.forEach((v,i)=>{if(!Number.isFinite(v))return;const xx=x(i),yy=y(v);if(!started){ctx.moveTo(xx,yy);started=true}else ctx.lineTo(xx,yy)});ctx.stroke()}
+}
+function overviewSummaryLines(){
+  const q=latest(state.candles);if(!q)return[];const x=q.x,rg=regime(state.candles,q.i),lv=state.levels,lines=[];
+  lines.push(`시장 국면은 ${rg}이며 현재 Score는 ${x.score>=0?"+":""}${x.score}, Signal Quality는 ${confidence()}/100입니다.`);
+  if(x.ma20>x.ma60&&x.ma60>x.ma120)lines.push("MA20 > MA60 > MA120의 상승 정렬이 확인됩니다.");else if(x.ma20<x.ma60&&x.ma60<x.ma120)lines.push("MA20 < MA60 < MA120의 하락 정렬이 확인됩니다.");else lines.push("이동평균 배열은 혼조 상태라 추세 확인이 더 필요합니다.");
+  lines.push(`현재가는 1차 지지 ${Math.round(lv.support).toLocaleString()}원과 1차 저항 ${Math.round(lv.resistance).toLocaleString()}원 사이에 있습니다.`);
+  if(x.adx>=25)lines.push(`ADX ${x.adx.toFixed(1)}로 현재 추세 강도는 비교적 뚜렷한 편입니다.`);else lines.push(`ADX ${x.adx.toFixed(1)}로 강한 추세보다는 방향 확인이 중요합니다.`);
+  return lines;
+}
+function updateVisualOverview(){
+  const q=latest(state.candles);if(!q)return;const x=q.x,lv=state.levels,c=confidence(),rg=regime(state.candles,q.i),market=$("market").value,tf=$("tf").value;
+  $("visualMarket").textContent=market;$("overviewMarket").textContent=market;$("overviewTf").textContent=TF_NAMES[tf];$("summaryTf").textContent=TF_NAMES[tf]+" 기준";$("topAdx").textContent=x.adx.toFixed(1);
+  $("qualityBar").style.width=c+"%";const bars=$("regimeStrength").querySelectorAll("i"),strength=Math.max(1,Math.min(5,Math.round(x.adx/10)));bars.forEach((b,i)=>b.classList.toggle("on",i<strength));
+  const md=state.marketData.find(z=>z.market===market);$("visualTrade24").textContent=md?Math.round(md.acc_trade_price_24h/100000000).toLocaleString()+"억원":"-";
+  $("overviewR2").textContent=lv.resistance2?Math.round(lv.resistance2).toLocaleString():"-";$("overviewS2").textContent=lv.support2?Math.round(lv.support2).toLocaleString():"-";$("overviewCurrent").textContent=Math.round(x.close).toLocaleString();
+  const ul=$("overviewSummary");ul.innerHTML="";for(const t of overviewSummaryLines()){const li=document.createElement("li");li.textContent=t;ul.appendChild(li)}
+  const n=Math.min(42,state.candles.length),tail=state.candles.slice(-n);sparkCanvas("rsiMini",tail.map(z=>z.rsi),"line");sparkCanvas("adxMini",tail.map(z=>z.adx),"adx");sparkCanvas("volMini",tail.map(z=>z.volRatio),"bar");sparkCanvas("atrMini",tail.map(z=>z.atrPct),"atr");
+  updateOverviewMtf();updateOverviewRisk();updateOverviewBacktest();renderOverviewScanner();renderOverviewPersonal();
+}
+function updateOverviewMtf(){
+  const body=$("overviewMtfBody");if(!body)return;body.innerHTML="";let total=0,n=0;
+  for(const tf of ["60","240","day"]){const q=latest(state.multi[tf]||[]);if(!q)continue;const x=q.x,qual=Math.round(Math.max(30,Math.min(95,40+Math.min(25,x.adx/40*25)+(Math.abs(x.score)>=5?15:5)+(x.volRatio>=1.5?10:0))));total+=x.score;n++;
+    const hid=$(`heroTf${tf}`);if(hid){hid.textContent=(x.score>=0?"+":"")+x.score;hid.className=cls(x.score)}
+    const tr=document.createElement("tr");tr.innerHTML=`<td>${TF_NAMES[tf]}</td><td class="${cls(x.score)}">${x.score>=0?"+":""}${x.score}</td><td>${qual}/100</td><td>${regime(state.multi[tf],q.i)}</td><td>${x.rsi.toFixed(1)}</td><td>${x.adx.toFixed(1)}</td>`;body.appendChild(tr)
+  }
+  $("overviewMtfTotal").textContent=n?((total>=0?"+":"")+total):"-";$("overviewMtfVerdict").textContent=n?(total>=10?"강한 상승 정합":total>=5?"상승 우위":total<=-10?"강한 하락 정합":total<=-5?"하락 우위":"TF 혼조"):"-";
+}
+function updateOverviewRisk(){
+  if(!state.risk)return;$("overviewStop").textContent=Math.round(state.risk.stop).toLocaleString();$("overviewTp1").textContent=Math.round(state.risk.tp1).toLocaleString();$("overviewTp2").textContent=Math.round(state.risk.tp2).toLocaleString();$("overviewRR").textContent="1 : "+state.risk.rr.toFixed(2);
+}
+function updateOverviewBacktest(){
+  if(!state.bt)return;const b=state.bt.summary;$("overviewBtRet").textContent=fmtPct(b.ret);$("overviewBtRet").className=b.ret>=0?"good":"bad";$("overviewBtWin").textContent=b.win.toFixed(1)+"%";$("overviewBtPf").textContent=b.pf===Infinity?"∞":b.pf.toFixed(2);$("overviewBtMdd").textContent=b.mdd.toFixed(1)+"%";$("overviewBtMdd").className="bad";
+}
+function renderOverviewScanner(){
+  const box=$("overviewScanner");if(!box)return;box.innerHTML="";const rows=state.scanner.slice(0,5);if(!rows.length){box.innerHTML='<div class="hint">Scanner 탭에서 실행하면 상위 결과가 여기에 표시됩니다.</div>';return}
+  rows.forEach((x,i)=>{const d=document.createElement("div");d.className="listItem";d.innerHTML=`<div class="meta"><strong>${i+1}. ${x.market}</strong><small>${x.name||""}</small></div><div style="text-align:right"><strong class="${cls(x.score)}">${x.score>=0?"+":""}${x.score}</strong><small style="display:block;color:var(--muted)">${x.quality||x.confidence||"-"}/100</small></div>`;box.appendChild(d)})
+}
+function renderOverviewPersonal(){
+  const d=db(),watch=$("overviewWatchlist");if(watch){watch.innerHTML="";if(!d.watchlist.length)watch.innerHTML='<span class="smallChip">등록 없음</span>';else d.watchlist.slice(0,4).forEach(m=>{const md=state.marketData.find(x=>x.market===m),s=document.createElement("span");s.className="smallChip";s.textContent=m.replace("KRW-","")+(md?(" "+Math.round(md.trade_price).toLocaleString()):"");watch.appendChild(s)})}
+  let value=0,cost=0;for(const h of d.portfolio){const md=state.marketData.find(x=>x.market===h.market),px=md?.trade_price||0;value+=px*h.qty;cost+=h.avg*h.qty}$("overviewPortfolioValue").textContent=fmtKRW(value);$("overviewPortfolioPnl").textContent=cost?`${fmtKRW(value-cost)} (${fmtPct((value/cost-1)*100)})`:"보유자산 없음";$("overviewPortfolioPnl").className="detail "+(value-cost>=0?"good":"bad");
+}
+
+function updateMulti(){let total=0,n=0;for(const tf of ["60","240","day"]){const q=latest(state.multi[tf]||[]);if(!q)continue;const x=q.x;total+=x.score;n++;const e=$(`tf${tf}Score`);e.textContent=(x.score>=0?"+":"")+x.score;e.className="tfScore "+cls(x.score);$(`tf${tf}Rsi`).textContent=x.rsi.toFixed(1);$(`tf${tf}Adx`).textContent=x.adx.toFixed(1);$(`tf${tf}Trend`).textContent=trendText(x);$(`tf${tf}Regime`).textContent=regime(state.multi[tf],q.i)}$("mtfTotal").textContent=n?(total>=0?"+":"")+total:"-";$("mtfVerdict").textContent=n?(total>=10?"강한 상승 정합":total>=5?"상승 우위":total<=-10?"강한 하락 정합":total<=-5?"하락 우위":"TF 혼조"):"데이터 필요";if(state.loaded)updateOverviewMtf()}
+function updateRisk(){const q=latest(state.candles);if(!q)return;const x=q.x,lv=state.levels,stop=Math.min(lv.support,x.close-1.5*x.atr),tp1=Math.max(lv.resistance,x.close+x.atr),tp2=Math.max(lv.resistance2||0,x.close+2*x.atr),risk=x.close-stop,reward=tp2-x.close,rr=risk>0?reward/risk:0;state.risk={price:x.close,atr:x.atr,stop,tp1,tp2,rr,support:lv.support,resistance:lv.resistance};$("riskPrice").textContent=fmtKRW(x.close);$("riskAtr").textContent=x.atrPct.toFixed(2)+"%";$("riskSupport").textContent=fmtKRW(lv.support);$("riskResist").textContent=fmtKRW(lv.resistance);$("riskStop").textContent=fmtKRW(stop);$("riskTp1").textContent=fmtKRW(tp1);$("riskTp2").textContent=fmtKRW(tp2);$("riskRR").textContent="1 : "+rr.toFixed(2);if(state.loaded)updateOverviewRisk()}
+function calcRisk(){if(!state.risk)return;const cap=num($("riskCapital").value),pct=num($("riskPct").value)/100,maxLoss=cap*pct,unitRisk=Math.max(1,state.risk.price-state.risk.stop),qty=maxLoss/unitRisk,value=qty*state.risk.price,weight=value/cap*100;$("maxLoss").textContent=fmtKRW(maxLoss);$("positionValue").textContent=fmtKRW(value);$("positionQty").textContent=qty.toFixed(6)+" BTC";$("positionPct").textContent=weight.toFixed(1)+"%"}
+
+function btCalc(src,entry,exit,init,fee,slip){
+  const a=src.filter(x=>x.score!=null);if(a.length<5)return null;let cash=init,qty=0,en=null,trades=[],eq=[];
+  for(let i=1;i<a.length;i++){const d=a[i],sig=a[i-1].score;if(qty===0&&sig>=entry){const px=d.open*(1+slip);qty=cash*(1-fee)/px;en={time:d.time,price:px,equity:cash,bar:i};cash=0}else if(qty>0&&sig<=exit){const px=d.open*(1-slip);cash=qty*px*(1-fee);trades.push({entryTime:en.time,exitTime:d.time,entryPrice:en.price,exitPrice:px,ret:(cash/en.equity-1)*100,pnl:cash-en.equity,bars:i-en.bar});qty=0;en=null}eq.push({time:d.time,value:cash+qty*d.close})}
+  if(qty>0){const d=a.at(-1),px=d.close*(1-slip);cash=qty*px*(1-fee);trades.push({entryTime:en.time,exitTime:d.time,entryPrice:en.price,exitPrice:px,ret:(cash/en.equity-1)*100,pnl:cash-en.equity,bars:a.length-1-en.bar});if(eq.length)eq.at(-1).value=cash}
+  const final=eq.at(-1)?.value??init,ret=(final/init-1)*100;let peak=-Infinity,mdd=0;for(const e of eq){peak=Math.max(peak,e.value);mdd=Math.min(mdd,(e.value/peak-1)*100)}const wins=trades.filter(t=>t.pnl>0),losses=trades.filter(t=>t.pnl<0),gp=wins.reduce((s,t)=>s+t.pnl,0),gl=Math.abs(losses.reduce((s,t)=>s+t.pnl,0)),pf=gl?gp/gl:(gp?Infinity:0),win=trades.length?wins.length/trades.length*100:0,days=eq.length?(eq.at(-1).time-eq[0].time)/86400000:0,cagr=days>=30?(Math.pow(final/init,365.25/days)-1)*100:null,first=a[1]?.open||a[0].open,last=a.at(-1).close,bhQty=init*(1-fee)/(first*(1+slip)),bhFinal=bhQty*last*(1-slip)*(1-fee),bh=(bhFinal/init-1)*100;return{trades,eq,summary:{ret,bh,mdd,win,pf,cagr,final,start:eq[0]?.time,end:eq.at(-1)?.time}}
+}
+function runBacktest(){const r=btCalc(state.candles,num($("entry").value,4),num($("exit").value,0),num($("capital").value,1e7),num($("fee").value,.05)/100,num($("slip").value,.02)/100);if(!r)return;state.bt=r;const b=r.summary;$("btRet").textContent=fmtPct(b.ret);$("bhRet").textContent=fmtPct(b.bh);$("mdd").textContent=b.mdd.toFixed(2)+"%";$("tradesN").textContent=r.trades.length+"회";$("winrate").textContent=b.win.toFixed(1)+"%";$("pf").textContent=b.pf===Infinity?"∞":b.pf.toFixed(2);$("cagr").textContent=b.cagr==null?"N/A":fmtPct(b.cagr);$("finalEq").textContent=fmtKRW(b.final);$("btPeriod").textContent=b.start&&b.end?`${kst(b.start)} ~ ${kst(b.end)}`:"-";const body=$("tradeBody");body.innerHTML="";for(const t of r.trades){const tr=document.createElement("tr");tr.innerHTML=`<td>${kst(t.entryTime)}</td><td>${kst(t.exitTime)}</td><td>${Math.round(t.entryPrice).toLocaleString()}</td><td>${Math.round(t.exitPrice).toLocaleString()}</td><td class="${t.ret>=0?"good":"bad"}">${t.ret.toFixed(2)}%</td><td>${Math.round(t.pnl).toLocaleString()}</td><td>${t.bars}</td>`;body.appendChild(tr)}drawEquity();updateOverviewBacktest()}
+
+function btCalcRiskExit(src,entry,exit,init,fee,slip,stopATR,tpATR,trailATR,maxHold){
+  const a=src.filter(x=>x.score!=null&&Number.isFinite(x.atr));if(a.length<10)return null;let cash=init,qty=0,en=null,trades=[],eq=[];
+  function closeTrade(d,px,i,reason){cash=qty*px*(1-fee);trades.push({entryTime:en.time,exitTime:d.time,entryPrice:en.price,exitPrice:px,ret:(cash/en.equity-1)*100,pnl:cash-en.equity,bars:i-en.bar,reason});qty=0;en=null}
+  for(let i=1;i<a.length;i++){const d=a[i],prev=a[i-1],sig=prev.score;if(qty===0&&sig>=entry){const px=d.open*(1+slip),atr=Math.max(d.atr||prev.atr,1);qty=cash*(1-fee)/px;en={time:d.time,price:px,equity:cash,bar:i,stop:px-stopATR*atr,target:px+tpATR*atr,trail:px-trailATR*atr};cash=0}else if(qty>0){if(sig<=exit){closeTrade(d,d.open*(1-slip),i,"Score Exit")}else{const activeStop=Math.max(en.stop,en.trail),stopHit=d.low<=activeStop,targetHit=d.high>=en.target;if(stopHit){closeTrade(d,activeStop*(1-slip),i,targetHit?"Stop (same-bar conservative)":"ATR Stop")}else if(targetHit){closeTrade(d,en.target*(1-slip),i,"Take Profit")}else if(i-en.bar>=maxHold){closeTrade(d,d.close*(1-slip),i,"Max Hold")}else if(trailATR>0){en.trail=Math.max(en.trail,d.high-trailATR*Math.max(d.atr,1))}}}eq.push({time:d.time,value:cash+(qty>0?qty*d.close:0)})}
+  if(qty>0){const d=a.at(-1);closeTrade(d,d.close*(1-slip),a.length-1,"End of Data");if(eq.length)eq.at(-1).value=cash}
+  const final=eq.at(-1)?.value??init,ret=(final/init-1)*100;let peak=-Infinity,mdd=0;for(const e of eq){peak=Math.max(peak,e.value);mdd=Math.min(mdd,(e.value/peak-1)*100)}const wins=trades.filter(t=>t.pnl>0),loss=trades.filter(t=>t.pnl<0),gp=wins.reduce((s,t)=>s+t.pnl,0),gl=Math.abs(loss.reduce((s,t)=>s+t.pnl,0)),pf=gl?gp/gl:(gp?Infinity:0);return{trades,eq,summary:{ret,mdd,win:trades.length?wins.length/trades.length*100:0,pf,final}};
+}
+function runAdvBacktest(){
+  const r=btCalcRiskExit(state.candles,num($("entry").value,4),num($("exit").value,0),num($("capital").value,1e7),num($("fee").value,.05)/100,num($("slip").value,.02)/100,num($("advStop").value,1.5),num($("advTp").value,2.5),num($("advTrail").value,1.5),Math.max(1,num($("advHold").value,30)));if(!r)return;state.advBt=r;const b=r.summary;$("advRet").textContent=fmtPct(b.ret);$("advMdd").textContent=b.mdd.toFixed(2)+"%";$("advWin").textContent=b.win.toFixed(1)+"%";$("advPf").textContent=b.pf===Infinity?"∞":b.pf.toFixed(2);
+}
+function riskAdjustedScore(s){return s.ret-0.5*Math.abs(s.mdd)+(Number.isFinite(s.pf)?Math.min(20,s.pf*4):10)}
+function runValidation(){
+  const exit=num($("cmpExit").value,0),init=1e7,fee=.0005,slip=.0002,entries=[3,4,5,6],exits=[0,-1,-2],stab=$("stabilityBody");stab.innerHTML="";
+  for(const ex of exits){const tr=document.createElement("tr");let cells=`<td>${ex}</td>`;for(const en of entries){const r=btCalc(state.candles,en,ex,init,fee,slip),ret=r?r.summary.ret:0;cells+=`<td class="${ret>=0?"heatGood":"heatBad"}">${ret>=0?"+":""}${ret.toFixed(1)}%</td>`}tr.innerHTML=cells;stab.appendChild(tr)}
+  const trainN=Math.max(140,num($("wfTrain").value,180)),testN=Math.max(30,num($("wfTest").value,50)),walk=[];let start=0,fold=1;
+  while(start+trainN+testN<=state.candles.length&&fold<=6){const train=state.candles.slice(start,start+trainN),test=state.candles.slice(start+trainN-120,start+trainN+testN);let best=null;for(const en of entries){const r=btCalc(train,en,exit,init,fee,slip);if(!r)continue;const score=riskAdjustedScore(r.summary);if(!best||score>best.score)best={entry:en,score,train:r.summary}}if(best){const te=btCalc(test,best.entry,exit,init,fee,slip);if(te)walk.push({fold,entry:best.entry,train:best.train,test:te.summary,trades:te.trades.length})}start+=testN;fold++}
+  const wb=$("walkBody");wb.innerHTML="";for(const w of walk){const tr=document.createElement("tr");tr.innerHTML=`<td>${w.fold}</td><td>+${w.entry}</td><td>${fmtPct(w.train.ret)}</td><td class="${w.test.ret>=0?"good":"bad"}">${fmtPct(w.test.ret)}</td><td>${w.test.mdd.toFixed(1)}%</td><td>${w.trades}</td>`;wb.appendChild(tr)}
+  if(!state.bt)runBacktest();const groups={};for(const t of state.bt.trades){const idx=state.candles.findIndex(x=>x.time.getTime()===t.entryTime.getTime()),rg=idx>=0?regime(state.candles,idx):"기타";(groups[rg]??=[]).push(t)}
+  const rb=$("regimeBody");rb.innerHTML="";for(const [rg,ts] of Object.entries(groups)){const wins=ts.filter(t=>t.pnl>0),gp=wins.reduce((s,t)=>s+t.pnl,0),gl=Math.abs(ts.filter(t=>t.pnl<0).reduce((s,t)=>s+t.pnl,0)),pf=gl?gp/gl:(gp?Infinity:0),avg=ts.reduce((s,t)=>s+t.ret,0)/ts.length,pnl=ts.reduce((s,t)=>s+t.pnl,0),tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${rg}</td><td>${ts.length}</td><td>${(wins.length/ts.length*100).toFixed(1)}%</td><td>${avg.toFixed(2)}%</td><td>${Math.round(pnl).toLocaleString()}</td><td>${pf===Infinity?"∞":pf.toFixed(2)}</td>`;rb.appendChild(tr)}
+  state.compare={stability:true,walk};
+}
+function runCompare(){runValidation()}
+
+async function runScanner(){
+  $("runScanner").disabled=true;const body=$("scannerBody");body.innerHTML="";
+  try{
+    const tf=$("scanTf").value,n=Math.min(30,Number($("scanN").value)),minScore=num($("scanMinScore").value),minVol=num($("scanMinVol").value);setStatus("V14 서버 Scanner 실행 중…",10);
+    const u=new URL("/api/scanner",location.origin);u.searchParams.set("tf",tf);u.searchParams.set("n",n);u.searchParams.set("minScore",minScore);u.searchParams.set("minVol",minVol);
+    const r=await fetch(u,{cache:"no-store"}),d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||`HTTP ${r.status}`);
+    const out=d.results||[];state.scanner=out;$("scanTarget").textContent=(d.scanned||n)+"개";$("scanPass").textContent=out.length+"개";$("scanBest").textContent=out.length?((out[0].score>=0?"+":"")+out[0].score):"-";$("scanTrendN").textContent=out.filter(x=>x.regime==="상승 추세").length+"개";$("scanTime").textContent=new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
+    out.forEach((x,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${i+1}</td><td style="text-align:left;font-weight:700">${x.market}</td><td style="text-align:left">${x.name}</td><td>${Math.round(x.price).toLocaleString()}</td><td class="${x.change>=0?"good":"bad"}">${x.change.toFixed(2)}%</td><td class="${cls(x.score)}">${x.score>=0?"+":""}${x.score}</td><td>${x.quality}</td><td>${x.regime}</td><td>${x.rsi.toFixed(1)}</td><td>${x.adx.toFixed(1)}</td><td>${x.vol.toFixed(2)}x</td>`;body.appendChild(tr)});setStatus(`서버 Scanner 완료 · ${out.length}개 조건 통과`,100);renderOverviewScanner();
+  }catch(e){setStatus("Scanner 오류: "+e.message,0);alert("Scanner 오류\n\n"+e.message)}finally{$("runScanner").disabled=false}
+}
+
+function setupCanvas(id){const c=$(id),rect=c.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2),mobile=innerWidth<=620,h=mobile?({priceChart:410,rsiChart:165,macdChart:165,volChart:165,equityChart:220}[id]||220):(Number(c.getAttribute("height"))||260);c.width=Math.max(280,Math.floor(rect.width*ratio));c.height=Math.floor(h*ratio);c.style.height=h+"px";const ctx=c.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);return{ctx,w:Math.max(280,rect.width),h}}
+function extent(vals,p=.05){const f=vals.filter(Number.isFinite);if(!f.length)return[0,1];let lo=Math.min(...f),hi=Math.max(...f);if(lo===hi){lo--;hi++}const d=(hi-lo)*p;return[lo-d,hi+d]}
+function grid(ctx,w,h,l=66,r=10,t=8,b=18,labels=null){ctx.strokeStyle="#223041";ctx.fillStyle="#7f91a5";ctx.font="10px Segoe UI";for(let k=0;k<=4;k++){const y=t+(h-t-b)*k/4;ctx.beginPath();ctx.moveTo(l,y);ctx.lineTo(w-r,y);ctx.stroke();if(labels){ctx.textAlign="right";ctx.textBaseline="middle";ctx.fillText(labels[k],l-6,y)}}return{l,r,t,b}}
+function drawSeries(ctx,a,key,x0,x1,y0,y1,g,w,h,color,dash=[]){ctx.strokeStyle=color;ctx.lineWidth=1.4;ctx.setLineDash(dash);ctx.beginPath();let ok=false;for(let i=x0;i<=x1;i++){const v=a[i][key];if(!Number.isFinite(v))continue;const x=g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),y=g.t+(y1-v)/(y1-y0)*(h-g.t-g.b);if(!ok){ctx.moveTo(x,y);ok=true}else ctx.lineTo(x,y)}ctx.stroke();ctx.setLineDash([])}
+function drawPrice(){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas("priceChart"),a=state.candles,view=Math.min(200,a.length),x0=a.length-view,x1=a.length-1,vals=[];for(let i=x0;i<=x1;i++)vals.push(a[i].high,a[i].low,a[i].bbU,a[i].bbL);if(state.levels)vals.push(state.levels.support,state.levels.resistance);const[y0,y1]=extent(vals,.04),labels=Array.from({length:5},(_,k)=>Math.round(y1-(y1-y0)*k/4).toLocaleString()),g=grid(ctx,w,h,70,10,8,20,labels),px=i=>g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),py=v=>g.t+(y1-v)/(y1-y0)*(h-g.t-g.b),cw=Math.max(1,Math.min(7,(w-g.l-g.r)/view*.65));for(let i=x0;i<=x1;i++){const d=a[i],x=px(i),up=d.close>=d.open;ctx.strokeStyle=ctx.fillStyle=up?"#36c99b":"#ef707b";ctx.beginPath();ctx.moveTo(x,py(d.high));ctx.lineTo(x,py(d.low));ctx.stroke();const yo=py(d.open),yc=py(d.close);ctx.fillRect(x-cw/2,Math.min(yo,yc),cw,Math.max(1,Math.abs(yc-yo)))}drawSeries(ctx,a,"ma20",x0,x1,y0,y1,g,w,h,"#5fa8ff");drawSeries(ctx,a,"ma60",x0,x1,y0,y1,g,w,h,"#efbe63");drawSeries(ctx,a,"ma120",x0,x1,y0,y1,g,w,h,"#b68cff");drawSeries(ctx,a,"bbU",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);drawSeries(ctx,a,"bbL",x0,x1,y0,y1,g,w,h,"#647487",[4,4]);if(state.levels){for(const[v,c]of[[state.levels.support,"#36c99b"],[state.levels.resistance,"#ef707b"]]){ctx.strokeStyle=c;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(g.l,py(v));ctx.lineTo(w-g.r,py(v));ctx.stroke();ctx.setLineDash([])}}}
+function drawLine(id,key,fixed=null,extra=[]){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas(id),a=state.candles,view=Math.min(200,a.length),x0=a.length-view,x1=a.length-1,vals=[];for(let i=x0;i<=x1;i++){if(Number.isFinite(a[i][key]))vals.push(a[i][key]);for(const e of extra)if(Number.isFinite(a[i][e]))vals.push(a[i][e])}const[y0,y1]=fixed||extent(vals,.08),labels=Array.from({length:5},(_,k)=>(y1-(y1-y0)*k/4).toFixed(key==="rsi"?0:0)),g=grid(ctx,w,h,48,8,8,16,labels);drawSeries(ctx,a,key,x0,x1,y0,y1,g,w,h,"#5fa8ff");for(const e of extra)drawSeries(ctx,a,e,x0,x1,y0,y1,g,w,h,"#efbe63")}
+function drawVolume(){if(!state.candles.length)return;const{ctx,w,h}=setupCanvas("volChart"),a=state.candles,view=Math.min(200,a.length),x0=a.length-view,x1=a.length-1,vmax=Math.max(...a.slice(x0).map(x=>x.volume))*1.08,g=grid(ctx,w,h,45,8,8,16,null),px=i=>g.l+(i-x0)/Math.max(1,x1-x0)*(w-g.l-g.r),py=v=>g.t+(vmax-v)/vmax*(h-g.t-g.b),bw=Math.max(1,(w-g.l-g.r)/view*.7);for(let i=x0;i<=x1;i++){ctx.fillStyle=a[i].close>=a[Math.max(0,i-1)].close?"#267b67":"#8b414a";ctx.fillRect(px(i)-bw/2,py(a[i].volume),bw,h-g.b-py(a[i].volume))}}
+function drawEquity(){if(!state.bt)return;const{ctx,w,h}=setupCanvas("equityChart"),s=state.bt.eq,vals=s.map(x=>x.value),[y0,y1]=extent(vals,.05),labels=Array.from({length:5},(_,k)=>Math.round(y1-(y1-y0)*k/4).toLocaleString()),g=grid(ctx,w,h,66,8,8,16,labels);ctx.strokeStyle="#5fa8ff";ctx.lineWidth=1.8;ctx.beginPath();s.forEach((d,i)=>{const x=g.l+i/Math.max(1,s.length-1)*(w-g.l-g.r),y=g.t+(y1-d.value)/(y1-y0)*(h-g.t-g.b);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke()}
+function drawAll(){drawPrice();drawLine("rsiChart","rsi",[0,100]);drawLine("macdChart","macd",null,["signal"]);drawVolume()}
+
+
+const STORE_KEY="cryptoAnalyzerV14";
+function storeLoad(){try{return JSON.parse(localStorage.getItem(STORE_KEY))||{}}catch{return{}}}
+function storeSave(d){localStorage.setItem(STORE_KEY,JSON.stringify(d))}
+function db(){const d=storeLoad();d.watchlist??=[];d.alerts??=[];d.snapshots??=[];d.journal??=[];d.portfolio??=[];return d}
+function saveDb(d){storeSave(d);renderPersonal()}
+function addWatch(){const d=db(),m=$("market").value;if(!d.watchlist.includes(m))d.watchlist.push(m);saveDb(d)}
+function renderPersonal(){
+  const d=db(),wl=$("watchList");if(!wl)return;wl.innerHTML="";for(const m of d.watchlist){const x=state.marketData.find(z=>z.market===m),e=document.createElement("div");e.className="listItem";e.innerHTML=`<div class="meta"><strong>${m}</strong><small>${x?x.korean_name:""} ${x?fmtKRW(x.trade_price):""}</small></div><button class="miniBtn" data-rw="${m}">삭제</button>`;wl.appendChild(e)}document.querySelectorAll("[data-rw]").forEach(b=>b.onclick=()=>{const z=db();z.watchlist=z.watchlist.filter(x=>x!==b.dataset.rw);saveDb(z)});
+  const al=$("alertList");al.innerHTML="";d.alerts.forEach((a,i)=>{const e=document.createElement("div");e.className="listItem";e.innerHTML=`<div class="meta"><strong>${a.market} · ${TF_NAMES[a.tf]}</strong><small>Score ≥ ${a.score} · Quality ≥ ${a.quality}</small></div><button class="miniBtn" data-ra="${i}">삭제</button>`;al.appendChild(e)});document.querySelectorAll("[data-ra]").forEach(b=>b.onclick=()=>{const z=db();z.alerts.splice(Number(b.dataset.ra),1);saveDb(z)});
+  const sb=$("snapshotBody");sb.innerHTML="";d.snapshots.slice().reverse().slice(0,40).forEach((s,ri)=>{const idx=d.snapshots.length-1-ri,tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${new Date(s.savedAt).toLocaleString("ko-KR")}</td><td>${s.market}</td><td>${s.tf}</td><td>${Math.round(s.price).toLocaleString()}</td><td>${s.score>=0?"+":""}${s.score}</td><td>${s.quality}</td><td>${s.histWin==null?"N/A":s.histWin.toFixed(1)+"%"}</td><td>${s.regime}</td><td><button class="miniBtn" data-rs="${idx}">삭제</button></td>`;sb.appendChild(tr)});document.querySelectorAll("[data-rs]").forEach(b=>b.onclick=()=>{const z=db();z.snapshots.splice(Number(b.dataset.rs),1);saveDb(z)});
+  const jl=$("journalList");jl.innerHTML="";d.journal.slice().reverse().slice(0,30).forEach((j,ri)=>{const idx=d.journal.length-1-ri,pnl=(j.exit&&j.entry&&j.qty)?(j.exit-j.entry)*j.qty:null,e=document.createElement("div");e.className="listItem";e.innerHTML=`<div class="meta"><strong>${j.market} · ${j.side}</strong><small>${Number(j.entry).toLocaleString()} → ${j.exit?Number(j.exit).toLocaleString():"OPEN"} · ${pnl==null?"":("손익 "+Math.round(pnl).toLocaleString()+"원")} · ${j.note||""}</small></div><button class="miniBtn" data-rj="${idx}">삭제</button>`;jl.appendChild(e)});document.querySelectorAll("[data-rj]").forEach(b=>b.onclick=()=>{const z=db();z.journal.splice(Number(b.dataset.rj),1);saveDb(z)});
+  renderPortfolio(d);if($("overviewWatchlist"))renderOverviewPersonal();
+}
+function saveAlert(){const d=db();d.alerts.push({market:$("market").value,tf:$("alertTf").value,score:num($("alertScore").value,5),quality:num($("alertQuality").value,70)});saveDb(d)}
+async function requestNotify(){if(!("Notification"in window))return alert("이 브라우저는 Notification API를 지원하지 않습니다.");const p=await Notification.requestPermission();alert("알림 권한: "+p)}
+function notifyUser(title,body){if("Notification"in window&&Notification.permission==="granted")new Notification(title,{body})}
+async function checkAlerts(){
+  const d=db();if(!d.alerts.length)return alert("저장된 알림 조건이 없습니다.");setStatus("Watchlist 알림 확인 중…",10);let hits=0;
+  for(let i=0;i<d.alerts.length;i++){const a=d.alerts[i];try{const c=await fetchCandles(a.market,a.tf,160),q=latest(c);if(q){const qual=Math.round(Math.max(30,Math.min(95,40+Math.min(25,q.x.adx/40*25)+(Math.abs(q.x.score)>=5?15:5)+(q.x.volRatio>=1.5?10:0))));if(q.x.score>=a.score&&qual>=a.quality){hits++;notifyUser(`${a.market} Signal`,`Score +${q.x.score} · Quality ${qual} · ${regime(c,q.i)}`)}}await sleep(140)}catch(e){console.warn(e)}}setStatus(`알림 확인 완료 · ${hits}개 조건 충족`,100);alert(`알림 확인 완료: ${hits}개 조건 충족`);
+}
+function saveSnapshot(){if(!state.loaded)return;const d=db(),q=latest(state.candles),hw=historicalWinRate(state.candles,q.i);d.snapshots.push({savedAt:new Date().toISOString(),market:$("market").value,tf:TF_NAMES[$("tf").value],price:q.x.close,score:q.x.score,quality:confidence(),histWin:hw.rate,regime:regime(state.candles,q.i)});if(d.snapshots.length>200)d.snapshots=d.snapshots.slice(-200);saveDb(d)}
+function saveJournal(){const d=db(),entry=num($("jEntry").value),exit=num($("jExit").value),qty=num($("jQty").value);if(!entry||!qty)return alert("진입가와 수량을 입력하세요.");d.journal.push({savedAt:new Date().toISOString(),market:$("jMarket").value.trim().toUpperCase(),entry,exit:exit||null,qty,side:$("jSide").value,note:$("jNote").value.trim()});saveDb(d)}
+function saveHolding(){const d=db(),m=$("pMarket").value.trim().toUpperCase(),qty=num($("pQty").value),avg=num($("pAvg").value);if(!m||qty<=0||avg<=0)return alert("마켓, 수량, 평균단가를 입력하세요.");const old=d.portfolio.find(x=>x.market===m);if(old){old.qty=qty;old.avg=avg}else d.portfolio.push({market:m,qty,avg});saveDb(d)}
+function renderPortfolio(d=db()){const box=$("portfolioList");if(!box)return;box.innerHTML="";let value=0,cost=0;for(const h of d.portfolio){const md=state.marketData.find(x=>x.market===h.market),px=md?.trade_price||0,v=px*h.qty,c=h.avg*h.qty;value+=v;cost+=c;const e=document.createElement("div");e.className="listItem";e.innerHTML=`<div class="meta"><strong>${h.market} · ${h.qty}</strong><small>평단 ${Math.round(h.avg).toLocaleString()} · 현재 ${px?Math.round(px).toLocaleString():"가격 미조회"} · ${px?("수익률 "+((px/h.avg-1)*100).toFixed(2)+"%"):""}</small></div><button class="miniBtn" data-rp="${h.market}">삭제</button>`;box.appendChild(e)}document.querySelectorAll("[data-rp]").forEach(b=>b.onclick=()=>{const z=db();z.portfolio=z.portfolio.filter(x=>x.market!==b.dataset.rp);saveDb(z)});$("pValue").textContent=fmtKRW(value);$("pCost").textContent=fmtKRW(cost);$("pPnl").textContent=fmtKRW(value-cost);$("pRet").textContent=cost?fmtPct((value/cost-1)*100):"-"}
+function exportPersonal(){const blob=new Blob([JSON.stringify(db(),null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="crypto_analyzer_v14_backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+async function importPersonal(ev){const f=ev.target.files?.[0];if(!f)return;try{const obj=JSON.parse(await f.text());storeSave(obj);renderPersonal();alert("복원 완료")}catch(e){alert("JSON 복원 실패: "+e.message)}ev.target.value=""}
+
+
+const CLOUD_DEVICE_KEY="cryptoAnalyzerV15DeviceId";
+function cloudDeviceId(){let id=localStorage.getItem(CLOUD_DEVICE_KEY);if(!id){id=(crypto.randomUUID?crypto.randomUUID():("dev_"+Date.now()+"_"+Math.random().toString(36).slice(2))).replace(/[^a-zA-Z0-9_-]/g,"");localStorage.setItem(CLOUD_DEVICE_KEY,id)}return id}
+function b64ToUint8Array(s){const padding="=".repeat((4-s.length%4)%4),b=(s+padding).replace(/-/g,"+").replace(/_/g,"/"),raw=atob(b),out=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return out}
+async function cloudJson(url,options={}){const r=await fetch(url,options),d=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(d.error||`HTTP ${r.status}`);e.setupRequired=d.setupRequired;throw e}return d}
+async function cloudRefreshStatus(){$("cloudDevice").textContent=cloudDeviceId().slice(0,8)+"…";$('cloudMarket').value=$("market").value;try{const h=await cloudJson("/api/health",{cache:"no-store"});$("cloudDb").textContent=h.dbConfigured?"연결됨":"설정 필요";$("cloudDb").className=h.dbConfigured?"good":"warn";$("cloudPush").textContent=h.pushConfigured?"설정됨":"설정 필요";$("cloudPush").className=h.pushConfigured?"good":"warn";$("cloudCron").textContent=h.cronConfigured?"설정됨":"설정 필요";$("cloudCron").className=h.cronConfigured?"good":"warn"}catch(e){$("cloudDb").textContent="확인 실패"}await Promise.allSettled([cloudLoadRules(),cloudLoadEvents()])}
+async function cloudSubscribe(){if(!("serviceWorker"in navigator)||!("PushManager"in window))return alert("이 브라우저는 Web Push를 지원하지 않습니다.");try{const perm=await Notification.requestPermission();if(perm!=="granted")return alert("알림 권한이 필요합니다.");const reg=await navigator.serviceWorker.register("/sw.js"),{publicKey}=await cloudJson("/api/push-public-key",{cache:"no-store"});let sub=await reg.pushManager.getSubscription();if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToUint8Array(publicKey)});await cloudJson("/api/push-subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId(),subscription:sub.toJSON()})});alert("서버 Push 등록 완료");await cloudRefreshStatus()}catch(e){alert("Push 등록 실패: "+e.message)}}
+async function cloudSaveRule(){try{const body={deviceId:cloudDeviceId(),market:$("market").value,tf:$("cloudTf").value,minScore:num($("cloudScore").value,5),minQuality:num($("cloudQuality").value,75),minAdx:num($("cloudAdx").value,25),minVolRatio:num($("cloudVol").value,0),regime:$("cloudRegime").value,cooldownMinutes:num($("cloudCooldown").value,240)};await cloudJson("/api/cloud-alerts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});alert("서버 알림 조건 저장 완료");await cloudLoadRules()}catch(e){alert("서버 조건 저장 실패: "+e.message)}}
+async function cloudLoadRules(){const body=$("cloudRuleBody");if(!body)return;body.innerHTML="";try{const d=await cloudJson(`/api/cloud-alerts?deviceId=${encodeURIComponent(cloudDeviceId())}`,{cache:"no-store"});if($("overviewCloudRules"))$("overviewCloudRules").textContent=(d.rules||[]).length+"개";for(const r of d.rules||[]){const tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${r.market}</td><td>${TF_NAMES[r.tf]||r.tf}</td><td>≥ ${r.min_score}</td><td>≥ ${r.min_quality}</td><td>≥ ${Number(r.min_adx).toFixed(0)}</td><td>≥ ${Number(r.min_vol_ratio).toFixed(1)}x</td><td>${r.require_regime}</td><td>${r.cooldown_minutes}분</td><td>${r.last_triggered_at?new Date(r.last_triggered_at).toLocaleString("ko-KR"):"-"}</td><td><button class="miniBtn" data-cloud-del="${r.id}">삭제</button></td>`;body.appendChild(tr)}document.querySelectorAll("[data-cloud-del]").forEach(b=>b.onclick=()=>cloudDeleteRule(b.dataset.cloudDel))}catch(e){if(e.setupRequired){const tr=document.createElement("tr");tr.innerHTML='<td colspan="10" style="text-align:left">Supabase 환경변수 설정 후 사용할 수 있습니다.</td>';body.appendChild(tr)}}}
+async function cloudDeleteRule(id){if(!confirm("이 서버 알림 조건을 삭제할까요?"))return;try{await cloudJson(`/api/cloud-alerts?deviceId=${encodeURIComponent(cloudDeviceId())}&id=${encodeURIComponent(id)}`,{method:"DELETE"});await cloudLoadRules()}catch(e){alert("삭제 실패: "+e.message)}}
+async function cloudTest(){try{const d=await cloudJson("/api/push-test",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});alert(`테스트 Push 요청 완료 · 전송 ${d.sent||0}개`)}catch(e){alert("테스트 Push 실패: "+e.message)}}
+async function cloudCheck(){try{setStatus("V15 서버 알림 조건 검사 중…",20);const d=await cloudJson("/api/check-alerts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});setStatus(`서버 검사 완료 · ${d.triggered||0}개 발동 · Push ${d.pushSent||0}개`,100);alert(`검사 완료\
+조건 ${d.evaluated||0}개\
+발동 ${d.triggered||0}개\
+Push ${d.pushSent||0}개`);await Promise.allSettled([cloudLoadRules(),cloudLoadEvents()])}catch(e){setStatus("서버 검사 오류: "+e.message,0);alert("서버 검사 실패: "+e.message)}}
+async function cloudLoadEvents(){const body=$("cloudEventBody");if(!body)return;body.innerHTML="";try{const d=await cloudJson(`/api/signal-events?deviceId=${encodeURIComponent(cloudDeviceId())}`,{cache:"no-store"});for(const e of d.events||[]){const tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${new Date(e.created_at).toLocaleString("ko-KR")}</td><td>${e.market}</td><td>${TF_NAMES[e.tf]||e.tf}</td><td>${e.score>=0?"+":""}${e.score}</td><td>${e.quality}</td><td>${Number(e.adx).toFixed(1)}</td><td>${e.regime}</td><td>${Math.round(Number(e.price)).toLocaleString()}</td><td>${e.push_sent?"✓":"-"}</td>`;body.appendChild(tr)}}catch(e){}}
+
+function aiContext(){const q=latest(state.candles),multi={};for(const tf of ["60","240","day"]){const z=latest(state.multi[tf]||[]);if(z)multi[TF_NAMES[tf]]={score:z.x.score,rsi:+z.x.rsi.toFixed(1),adx:+z.x.adx.toFixed(1),regime:regime(state.multi[tf],z.i),trend:trendText(z.x)}}return{market:$("market").value,timeframe:TF_NAMES[$("tf").value],current:q?{price:Math.round(q.x.close),score:q.x.score,signalQuality:confidence(),historicalWinRate:historicalWinRate(state.candles,q.i),regime:regime(state.candles,q.i),rsi:+q.x.rsi.toFixed(1),adx:+q.x.adx.toFixed(1),atrPct:+q.x.atrPct.toFixed(2),volumeRatio:+q.x.volRatio.toFixed(2),support:Math.round(state.levels.support),resistance:Math.round(state.levels.resistance)}:null,risk:state.risk||null,multi,backtest:state.bt?{...state.bt.summary,trades:state.bt.trades.length}:null,walkForward:state.compare||null,scannerTop:state.scanner.slice(0,8)}}
+async function callAi(mode,question=""){if(!state.loaded)return;$("aiSummary").disabled=true;$("aiAsk").disabled=true;$("aiOutput").textContent="AI 분석 중…";try{const r=await fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode,question,context:aiContext()})}),d=await r.json().catch(()=>({}));if(!r.ok){$("aiOutput").textContent=d.setupRequired?"AI 기능 설정이 필요합니다.\n\nVercel → Settings → Environment Variables → OPENAI_API_KEY 추가 → Redeploy":("AI 오류: "+(d.error||r.status));$("aiModel").textContent="설정 필요"}else{$("aiOutput").textContent=d.text||"응답 없음";$("aiModel").textContent=d.model||"OpenAI"}}catch(e){$("aiOutput").textContent="AI 연결 오류: "+e.message}finally{$("aiSummary").disabled=false;$("aiAsk").disabled=false}}
+
+async function loadMarketsSelect(){try{const r=await fetch("/api/markets",{cache:"no-store"});if(!r.ok)return;const d=await r.json();state.marketData=d.markets||[];const sel=$("market"),keep=sel.value;sel.innerHTML="";for(const m of d.markets){const o=document.createElement("option");o.value=m.market;o.textContent=`${m.market} · ${m.korean_name}`;sel.appendChild(o)}if([...sel.options].some(o=>o.value===keep))sel.value=keep;renderPersonal()}catch{}}
+
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".pane").forEach(x=>x.classList.remove("active"));b.classList.add("active");$(b.dataset.pane).classList.add("active");if(b.dataset.pane==="backtest"&&state.bt)drawEquity()}));
+document.querySelectorAll(".pill").forEach(b=>b.addEventListener("click",()=>{$("question").value=b.dataset.q}));
+$("load").addEventListener("click",loadAll);
+
+$("runAdvBt").addEventListener("click",runAdvBacktest);
+
+
+function openPane(name){
+  const tab=[...document.querySelectorAll(".tab")].find(x=>x.dataset.pane===name);if(!tab)return;
+  tab.click();setTimeout(()=>document.getElementById(name)?.scrollIntoView({behavior:"smooth",block:"start"}),30);
+}
+$("gotoAi").addEventListener("click",()=>openPane("ai"));
+
+$("toggleReasons").addEventListener("click",()=>{
+  const box=$("reasons"),expanded=box.classList.toggle("expanded");
+  $("toggleReasons").textContent=expanded?"세부 근거 접기":"세부 근거 더보기";
+});
+
+$("cloudSubscribe").addEventListener("click",cloudSubscribe);
+$("cloudSaveRule").addEventListener("click",cloudSaveRule);
+$("cloudTestPush").addEventListener("click",cloudTest);
+$("cloudCheckNow").addEventListener("click",cloudCheck);
+
+$("addWatch").addEventListener("click",addWatch);
+$("saveAlert").addEventListener("click",saveAlert);
+$("notifyPerm").addEventListener("click",requestNotify);
+$("checkAlerts").addEventListener("click",checkAlerts);
+$("saveSnapshot").addEventListener("click",saveSnapshot);
+$("saveJournal").addEventListener("click",saveJournal);
+$("saveHolding").addEventListener("click",saveHolding);
+$("exportData").addEventListener("click",exportPersonal);
+$("importData").addEventListener("change",importPersonal);
+$("runBt").addEventListener("click",runBacktest);$("calcRisk").addEventListener("click",calcRisk);$("runCompare").addEventListener("click",runCompare);$("runScanner").addEventListener("click",runScanner);$("aiSummary").addEventListener("click",()=>callAi("summary"));$("aiAsk").addEventListener("click",()=>{const q=$("question").value.trim();if(!q)return alert("질문을 입력하세요.");callAi("question",q)});$("tf").addEventListener("change",()=>{$("tfBadge").textContent=TF_NAMES[$("tf").value]});$("market").addEventListener("change",()=>{$("cloudMarket").value=$("market").value;if($("visualMarket"))$("visualMarket").textContent=$("market").value;if($("overviewMarket"))$("overviewMarket").textContent=$("market").value;});window.addEventListener("resize",()=>{if(state.loaded){drawAll();updateVisualOverview();if(state.bt)drawEquity()}});
+
+document.querySelectorAll("details.secondaryBox").forEach(d=>d.addEventListener("toggle",()=>{
+  if(d.open&&state.loaded)setTimeout(()=>drawAll(),30);
+}));
+
+if(innerWidth<=620)$("count").value="200";renderPersonal();loadMarketsSelect().finally(()=>cloudRefreshStatus());
+</script>
+</body>
+</html>

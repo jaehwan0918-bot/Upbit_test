@@ -1,0 +1,9 @@
+{
+  "name": "crypto-analyzer-v15",
+  "version": "15.2.0",
+  "private": true,
+  "description": "Crypto Analyzer V15.2 chart-first visual dashboard matching approved UI, with server push, validation, scanner and AI",
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
+}
