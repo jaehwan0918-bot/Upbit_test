@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Crypto Analyzer">
 <link rel="manifest" href="/manifest.json">
-<title>Crypto Analyzer V15.5</title>
+<title>Crypto Analyzer V15.5.1</title>
 <style>
 :root{
   --bg:#0a0f15;--panel:#101822;--panel2:#151f2a;--soft:#0d141d;--line:#223041;
@@ -423,7 +423,7 @@ details.secondaryBox[open] > summary::after{content:"－"}
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><h1>₿ Crypto Analyzer V15.5</h1><p>Upbit · Signal Lab + Mobile First · Validation · Server Alerts · Scanner · AI</p></div>
+    <div class="brand"><h1>₿ Crypto Analyzer V15.5.1</h1><p>Upbit · Signal Lab + Scanner Stable · Validation · Server Alerts · Scanner · AI</p></div>
     <div class="badge"><i class="dot"></i><span id="cloudState">Vercel 연결 대기</span></div>
   </header>
 
@@ -719,10 +719,10 @@ details.secondaryBox[open] > summary::after{content:"－"}
 
     <section id="scanner" class="pane">
       <div class="panel">
-        <div class="title"><h2>업비트 KRW Scanner</h2><span>거래대금 상위 종목 기술적 Score 검색</span></div>
+        <div class="title"><h2>업비트 KRW Scanner</h2><span>안정모드 · 최대 30종목 · Upbit Rate Limit 보호</span></div>
         <div class="scannerControls">
           <div class="field"><label>Scanner TF</label><select id="scanTf"><option value="60">1시간봉</option><option value="240" selected>4시간봉</option><option value="day">일봉</option></select></div>
-          <div class="field"><label>검색 종목 수</label><select id="scanN"><option>10</option><option selected>20</option><option>30</option><option>50</option></select></div>
+          <div class="field"><label>검색 종목 수</label><select id="scanN"><option>10</option><option selected>20</option><option>30</option></select></div>
           <div class="field"><label>최소 Score</label><input id="scanMinScore" type="number" value="0"></div>
           <div class="field"><label>최소 거래량비</label><input id="scanMinVol" type="number" step="0.1" value="0"></div>
           <div class="field wide"><label>실행</label><button id="runScanner" class="btn primary" style="width:100%">Scanner 실행</button></div>
@@ -1101,7 +1101,7 @@ async function runScanner(){
     $("scanTime").textContent=new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
     out.forEach((x,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${i+1}</td><td style="text-align:left;font-weight:700">${x.market}</td><td style="text-align:left">${x.name}</td><td>${Math.round(x.price).toLocaleString()}</td><td class="${x.change>=0?"good":"bad"}">${x.change.toFixed(2)}%</td><td class="${cls(x.score)}">${x.score>=0?"+":""}${x.score}</td><td>${x.quality}</td><td class="${x.relativeStrength>=0?"good":"bad"}">${x.relativeStrength>=0?"+":""}${x.relativeStrength.toFixed(2)}%</td><td>${x.regime}</td><td>${x.rsi.toFixed(1)}</td><td>${x.adx.toFixed(1)}</td><td>${x.vol.toFixed(2)}x</td>`;body.appendChild(tr)});
     setStatus(`Scanner 완료 · Breadth MA20 ${d.breadth?d.breadth.aboveMA20Pct.toFixed(0):"-"}% · ${out.length}개 통과`,100);renderOverviewScanner();
-  }catch(e){setStatus("Scanner 오류: "+e.message,0);alert("Scanner 오류\n\n"+e.message)}finally{$("runScanner").disabled=false}
+  }catch(e){setStatus("Scanner 오류: "+e.message,0);alert("Scanner 오류\n\n"+e.message+"\n\n계속 실패하면 /api/scanner?tf=240&n=10&minScore=0&minVol=0 주소를 직접 열어 결과를 확인해 주세요.")}finally{$("runScanner").disabled=false}
 }
 
 function setupCanvas(id){const c=$(id),rect=c.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2),mobile=innerWidth<=620,h=mobile?({priceChart:300,rsiChart:150,macdChart:150,volChart:150,equityChart:205}[id]||220):(Number(c.getAttribute("height"))||260);c.width=Math.max(280,Math.floor(rect.width*ratio));c.height=Math.floor(h*ratio);c.style.height=h+"px";const ctx=c.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);return{ctx,w:Math.max(280,rect.width),h}}

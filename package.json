@@ -1,8 +1,8 @@
 {
   "name": "crypto-analyzer-v15",
-  "version": "15.5.0",
+  "version": "15.5.1",
   "private": true,
-  "description": "Crypto Analyzer V15.5 Signal Lab: closed-candle signals, chart replay, outcomes, relative strength and breadth",
+  "description": "Crypto Analyzer V15.5.1 Scanner Hotfix: rate-limit-safe Upbit scanner with retries and Vercel duration",
   "dependencies": {
     "web-push": "^3.6.7"
   }

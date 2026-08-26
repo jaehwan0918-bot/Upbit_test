@@ -20,5 +20,10 @@
       "path": "/api/cron-monitor",
       "schedule": "0 0 * * *"
     }
-  ]
+  ],
+  "functions": {
+    "api/scanner.js": {
+      "maxDuration": 60
+    }
+  }
 }

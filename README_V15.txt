@@ -1,4 +1,4 @@
-Crypto Analyzer V15.5 - Vercel + Supabase + Web Push
+Crypto Analyzer V15.5.1 - Vercel + Supabase + Web Push
 ===================================================
 
 V15 핵심
@@ -56,7 +56,7 @@ https://내프로젝트.vercel.app/api/health
 정상 예
 {
   "status":"ok",
-  "app":"Crypto Analyzer V15.5",
+  "app":"Crypto Analyzer V15.5.1",
   "aiConfigured":true,
   "dbConfigured":true,
   "pushConfigured":true,
@@ -288,3 +288,28 @@ V15.4의:
 ----
 Signal Quality / Replay Quality / Historical Win Rate / Outcome 통계는 미래 성과를 보장하지 않습니다.
 V15.5는 신호 검증 및 연구 도구이며 자동 주문 프로그램이 아닙니다.
+
+
+V15.5.1 Scanner Hotfix
+======================
+
+Scanner 안정성 수정:
+- 최대 스캔 종목 50 -> 30
+- Upbit candle API 요청 속도를 약 6.7 req/s 이하로 제한
+- HTTP 429 / 418 / 5xx 재시도
+- 개별 종목 실패 시 Scanner 전체 실패 대신 부분 결과 반환
+- BTC benchmark는 기존 스캔 결과를 재사용하여 API 호출 1회 절감
+- Vercel api/scanner.js maxDuration 60초 지정
+- API 응답에 calculated / failed / failures 디버그 정보 추가
+
+직접 API 진단:
+https://YOUR_DOMAIN/api/scanner?tf=240&n=10&minScore=0&minVol=0
+
+정상 응답에는:
+"ok": true
+"scanned": 10
+"calculated": 숫자
+"failed": 숫자
+"breadth": {...}
+"results": [...]
+가 표시됩니다.
