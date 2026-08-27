@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Crypto Analyzer">
 <link rel="manifest" href="/manifest.json">
-<title>Crypto Analyzer V15.5.2</title>
+<title>Crypto Analyzer V15.8</title>
 <style>
 :root{
   --bg:#0a0f15;--panel:#101822;--panel2:#151f2a;--soft:#0d141d;--line:#223041;
@@ -412,6 +412,77 @@ details.secondaryBox[open] > summary::after{content:"－"}
   .toolbar .field:first-child{grid-column:1/-1}
 }
 
+
+/* V15.6 */
+.koHelp{font-size:9px;color:var(--muted);font-weight:500}
+.v156Grid{display:grid;grid-template-columns:1.05fr 1.45fr;gap:9px;margin-top:9px}
+.v156Card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:11px;min-width:0}
+.v156Card .title{margin-bottom:8px}
+.divTable{width:100%;border-collapse:collapse;min-width:0!important}
+.divTable th,.divTable td{padding:7px 5px;border-bottom:1px solid var(--line);font-size:10px;text-align:center}
+.divTable th:first-child,.divTable td:first-child{text-align:left}
+.divBadge{display:inline-flex;padding:4px 7px;border:1px solid var(--line);border-radius:999px;font-size:9.5px;white-space:nowrap}
+.divBull{color:#36c99b;background:rgba(54,201,155,.08)}
+.divBear{color:#ef707b;background:rgba(239,112,123,.08)}
+.divNone{color:var(--muted);background:var(--soft)}
+.strengthDots{letter-spacing:1px;font-size:10px;white-space:nowrap}
+.envHero{display:grid;grid-template-columns:1.15fr repeat(3,1fr);gap:7px}
+.envBox{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:9px;min-width:0}
+.envBox.main{background:linear-gradient(180deg,#122030,#0e1721)}
+.envBox small{display:block;color:var(--muted);font-size:8.8px}
+.envBox strong{display:block;font-size:15px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.envBox.main strong{font-size:17px}
+.envDetail{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:7px}
+.envRow{background:var(--soft);border-radius:8px;padding:7px}
+.envRow small{display:block;font-size:8.5px;color:var(--muted)}
+.envRow b{display:block;margin-top:3px;font-size:10.5px}
+.envNote{font-size:8.8px;color:var(--muted);line-height:1.45;margin-top:7px}
+.envScore{font-weight:900}
+@media(max-width:900px){.v156Grid{grid-template-columns:1fr}.envHero{grid-template-columns:1fr 1fr}.envDetail{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:620px){
+  .v156Grid{gap:6px;margin-top:7px}
+  .v156Card{padding:9px;border-radius:10px}
+  .envHero{grid-template-columns:1fr 1fr;gap:5px}
+  .envBox{padding:7px}.envBox strong{font-size:13px}.envBox.main strong{font-size:15px}
+  .envDetail{grid-template-columns:1fr 1fr;gap:5px}
+  .divTable th,.divTable td{font-size:9px;padding:6px 3px}
+}
+
+
+
+/* V15.8 source-enhanced decision panels */
+.sourceGrid{display:grid;grid-template-columns:1.15fr 1fr;gap:9px;margin-top:9px}
+.sourceCard{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:11px;min-width:0}
+.sourceCard.wide{grid-column:1/-1}
+.sourceTitle{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:8px}
+.sourceTitle h3{font-size:12px;margin:0}.sourceTitle span{font-size:8.8px;color:var(--muted);text-align:right}
+.confluenceHero{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center}
+.confluenceScore{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.confluenceScore small{display:block;font-size:8.5px;color:var(--muted)}.confluenceScore strong{display:block;font-size:24px;margin-top:4px}.confluenceScore em{display:block;font-style:normal;font-size:9px;color:var(--muted);margin-top:3px}
+.signalChecks{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.signalCheck{background:var(--soft);border-radius:9px;padding:7px;min-width:0;border:1px solid transparent}
+.signalCheck.good{border-color:rgba(54,201,155,.22)}.signalCheck.bad{border-color:rgba(239,112,123,.22)}.signalCheck.neutral{border-color:var(--line)}
+.signalCheck small{display:block;font-size:8.2px;color:var(--muted)}.signalCheck b{display:block;font-size:10px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ichGrid,.structureGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.ichItem,.structureItem{background:var(--soft);border-radius:8px;padding:7px}
+.ichItem small,.structureItem small{display:block;font-size:8.3px;color:var(--muted)}.ichItem b,.structureItem b{display:block;font-size:10px;margin-top:3px}
+.statusHero{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--soft);border-radius:10px;padding:9px;margin-bottom:7px}.statusHero strong{font-size:13px}.statusHero span{font-size:9px;color:var(--muted)}
+.ruleList{display:grid;gap:5px;margin-top:7px}.ruleLine{display:flex;justify-content:space-between;gap:8px;background:var(--soft);border-radius:7px;padding:6px 7px;font-size:9px}.ruleLine span{color:var(--muted)}.ruleLine b{font-size:9px}
+.sourceNote{font-size:8.5px;color:var(--muted);line-height:1.45;margin-top:7px}.miniTag{display:inline-flex;padding:3px 6px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font-size:8px}
+@media(max-width:900px){.sourceGrid{grid-template-columns:1fr}.sourceCard.wide{grid-column:auto}}
+@media(max-width:620px){.sourceGrid{gap:6px;margin-top:7px}.sourceCard{padding:9px;border-radius:10px}.confluenceHero{grid-template-columns:92px 1fr;gap:7px}.confluenceScore{padding:9px}.confluenceScore strong{font-size:20px}.signalChecks{grid-template-columns:1fr 1fr}.ichGrid,.structureGrid{grid-template-columns:1fr 1fr}}
+
+/* V15.7 user-first optimization */
+.integratedTool{margin-top:10px}
+.integratedTool > summary{min-height:52px}
+.integratedContent{max-height:none!important;overflow:visible!important;padding-top:8px}
+.legacyPersonal{display:none!important}
+.utilitySummary{grid-template-columns:1fr 1fr!important}
+.userTip{font-size:9.5px;color:var(--muted);line-height:1.5}
+.tabs .tab{white-space:nowrap}
+@media(max-width:760px){
+  .utilitySummary{grid-template-columns:1fr!important}
+  .integratedTool > summary{min-height:48px}
+}
+
 .footer{margin-top:13px;color:var(--muted);font-size:9.5px;line-height:1.5}
 @media(max-width:1100px){.metrics{grid-template-columns:repeat(4,1fr)}.mainGrid{grid-template-columns:1fr}.formGrid{grid-template-columns:repeat(3,1fr)}.btMetrics{grid-template-columns:repeat(4,1fr)}.scannerCards{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.tabs{grid-template-columns:repeat(4,1fr)}.tab:nth-child(n+5){grid-column:auto}.mtfGrid{grid-template-columns:1fr}.riskGrid,.aiGrid{grid-template-columns:1fr}.scannerControls{grid-template-columns:1fr 1fr}.scannerControls .wide{grid-column:span 2}.infoGrid{grid-template-columns:1fr 1fr}}
@@ -423,12 +494,12 @@ details.secondaryBox[open] > summary::after{content:"－"}
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><h1>₿ Crypto Analyzer V15.5.2</h1><p>Upbit · Signal Lab + Scanner Compat · Validation · Server Alerts · Scanner · AI</p></div>
+    <div class="brand"><h1>₿ Crypto Analyzer V15.8</h1><p>업비트 · 지금 분석 · 신호 겹침 · 일목 흐름 · 다이버전스 · 시장환경</p></div>
     <div class="badge"><i class="dot"></i><span id="cloudState">Vercel 연결 대기</span></div>
   </header>
 
   <section class="toolbar">
-    <div class="field"><label>기준 마켓</label><select id="market"><option value="KRW-BTC">KRW-BTC</option></select></div>
+    <div class="field"><label>기준 종목</label><select id="market"><option value="KRW-BTC">KRW-BTC</option></select></div>
     <div class="field"><label>타임프레임</label><select id="tf"><option value="60">1시간봉</option><option value="240" selected>4시간봉</option><option value="day">일봉</option></select></div>
     <div class="field"><label>신호 기준</label><select id="analysisMode"><option value="closed" selected>확정봉 · 권장</option><option value="live">진행봉 Preview</option></select></div>
     <div class="field"><label>캔들 수</label><select id="count"><option>200</option><option selected>400</option><option>600</option><option>1000</option></select></div>
@@ -445,20 +516,20 @@ details.secondaryBox[open] > summary::after{content:"－"}
       <div class="subline">24H 거래대금 <b id="visualTrade24">-</b></div>
     </div>
     <div class="visualCard">
-      <div class="eyebrow">Score</div>
+      <div class="eyebrow">점수</div>
       <div class="xl" id="mScore">-</div>
       <div class="subline" id="mVerdict">-</div>
       <div class="tfInline"><span>1H <b id="heroTf60">-</b></span><span>4H <b id="heroTf240">-</b></span><span>1D <b id="heroTfday">-</b></span></div>
     </div>
     <div class="visualCard">
-      <div class="eyebrow">Signal Quality</div>
+      <div class="eyebrow">품질 <span class="koHelp">· 신호 정합도</span></div>
       <div class="lg" id="mConfidence">-</div>
       <div class="qualityTrack"><i id="qualityBar"></i></div>
-      <div class="subline">Historical Win <b id="mHistWin">-</b></div>
+      <div class="subline">적중률 <b id="mHistWin">-</b></div>
       <div class="subline" id="mHistSample">동일 신호 표본</div>
     </div>
     <div class="visualCard">
-      <div class="eyebrow">시장 국면</div>
+      <div class="eyebrow">시장 흐름</div>
       <div class="lg" id="mRegime">-</div>
       <div class="subline">추세 강도 ADX <b id="topAdx">-</b></div>
       <div class="regimeBar" id="regimeStrength"><i></i><i></i><i></i><i></i><i></i></div>
@@ -466,39 +537,38 @@ details.secondaryBox[open] > summary::after{content:"－"}
   </section>
 
   <nav class="tabs">
-    <button class="tab active" data-pane="overview">현재 분석</button>
-    <button class="tab" data-pane="backtest">백테스트</button>
-    <button class="tab" data-pane="multitf">멀티TF</button>
-    <button class="tab" data-pane="risk">Risk</button>
-    <button class="tab" data-pane="compare">자동비교</button>
-    <button class="tab" data-pane="scanner">Scanner</button>
-    <button class="tab" data-pane="ai">AI 분석</button><button class="tab" data-pane="personal">My</button>
+    <button class="tab active" data-pane="overview">지금 분석</button>
+    <button class="tab" data-pane="backtest">과거 성과</button>
+    <button class="tab" data-pane="multitf">시간대별 비교</button>
+    <button class="tab" data-pane="scanner">종목 찾기</button>
+    <button class="tab" data-pane="ai">AI 해설</button>
+    <button class="tab" data-pane="personal">알림·설정</button>
   </nav>
 
   <main>
     <section id="overview" class="pane active">
       <div class="chartHero">
         <div class="chartHeroHead">
-          <div class="left"><h2><span id="overviewMarket">KRW-BTC</span> · <span id="overviewTf">4시간봉</span> · UPBIT</h2><span>MA20 · MA60 · MA120 · Bollinger · Support / Resistance · Signal Marker</span></div><span id="analysisModeBadge" class="modeBadge closed">● 확정봉</span>
+          <div class="left"><h2><span id="overviewMarket">KRW-BTC</span> · <span id="overviewTf">4시간봉</span> · UPBIT</h2><span>MA20 · MA60 · MA120 · Bollinger · 지지 / 저항 · 신호표시</span></div><span id="analysisModeBadge" class="modeBadge closed">● 확정봉</span>
           <div class="chartActions"><span>지표</span><span>확대</span></div>
         </div>
         <canvas id="priceChart" height="400"></canvas>
         <div class="legend"><span><i class="sw" style="background:#5fa8ff"></i>MA20</span><span><i class="sw" style="background:#efbe63"></i>MA60</span><span><i class="sw" style="background:#b68cff"></i>MA120</span><span><i class="sw" style="background:#36c99b"></i>Support</span><span><i class="sw" style="background:#ef707b"></i>Resistance</span></div>
         <div class="replayPanel" id="replayPanel">
           <div class="replayHead">
-            <div><strong>Signal Replay</strong> <span>차트의 ▲/▼ 마커를 누르면 당시 신호를 재현합니다. · |Score| ≥ 5</span></div>
+            <div><strong>신호재현</strong> <span>차트의 ▲/▼ 마커를 누르면 당시 신호를 재현합니다. · |점수| ≥ 5</span></div>
             <div class="replayActions"><button id="replayPrev" class="miniBtn">◀ 이전</button><button id="replayLatest" class="miniBtn">최근 신호</button><button id="replayNext" class="miniBtn">다음 ▶</button></div>
           </div>
           <div class="replayMetrics">
             <div class="replayMetric"><small>시각</small><strong id="replayTime">마커 선택</strong></div>
-            <div class="replayMetric"><small>Score</small><strong id="replayScore">-</strong></div>
-            <div class="replayMetric"><small>Quality*</small><strong id="replayQuality">-</strong></div>
-            <div class="replayMetric"><small>Regime</small><strong id="replayRegime">-</strong></div>
+            <div class="replayMetric"><small>점수</small><strong id="replayScore">-</strong></div>
+            <div class="replayMetric"><small>품질*</small><strong id="replayQuality">-</strong></div>
+            <div class="replayMetric"><small>국면</small><strong id="replayRegime">-</strong></div>
             <div class="replayMetric"><small>RSI / ADX</small><strong id="replayMomentum">-</strong></div>
-            <div class="replayMetric"><small>6봉 Outcome</small><strong id="replayOutcome">-</strong></div>
-            <div class="replayMetric"><small>MFE / MAE</small><strong id="replayExcursion">-</strong></div>
+            <div class="replayMetric"><small>6봉 결과</small><strong id="replayOutcome">-</strong></div>
+            <div class="replayMetric"><small>최대유리(MFE) / 최대불리(MAE)</small><strong id="replayExcursion">-</strong></div>
           </div>
-          <div class="markerLegend">* Replay Quality는 해당 시점의 단일 타임프레임 정합성 지표입니다. 현재 상단 Signal Quality의 멀티TF 정합도와는 계산 목적이 다릅니다.</div>
+          <div class="markerLegend">* 재현 품질은 해당 시점의 단일 시간봉 정합성입니다. 상단 신품과 계산 목적이 다릅니다.</div>
         </div>
       </div>
 
@@ -507,6 +577,88 @@ details.secondaryBox[open] > summary::after{content:"－"}
         <div class="indicatorViz"><div class="head"><span>ADX (14)</span><strong id="mAdx">-</strong></div><canvas id="adxMini"></canvas></div>
         <div class="indicatorViz"><div class="head"><span>거래량 비율</span><strong id="mVol">-</strong></div><canvas id="volMini"></canvas></div>
         <div class="indicatorViz"><div class="head"><span>ATR (14)</span><strong id="mAtr">-</strong></div><canvas id="atrMini"></canvas></div>
+      </div>
+
+
+      <div class="v156Grid">
+        <div class="v156Card">
+          <div class="title"><h3>다이버전스</h3><span id="divSummary">확정된 고점·저점 기준 · RSI + MACD</span></div>
+          <div class="tableWrap">
+            <table class="divTable">
+              <thead><tr><th>시간봉</th><th>판정</th><th>RSI</th><th>MACD</th><th>추세</th><th>강도</th></tr></thead>
+              <tbody>
+                <tr><td>1시간</td><td id="div60Type">-</td><td id="div60Rsi">-</td><td id="div60Macd">-</td><td id="div60Trend">-</td><td id="div60Strength">-</td></tr>
+                <tr><td>4시간</td><td id="div240Type">-</td><td id="div240Rsi">-</td><td id="div240Macd">-</td><td id="div240Trend">-</td><td id="div240Strength">-</td></tr>
+                <tr><td>일봉</td><td id="divdayType">-</td><td id="divdayRsi">-</td><td id="divdayMacd">-</td><td id="divdayTrend">-</td><td id="divdayStrength">-</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="envNote">일반 상승·하락은 반전 가능성, 히든 상승·하락은 기존 추세가 이어질 가능성을 보는 신호입니다. 확정된 고점·저점만 사용합니다.</div>
+        </div>
+
+        <div class="v156Card">
+          <div class="title"><h3>시장 전체 흐름</h3><span id="envUpdated">BTC · 도미넌스 · 테더 · 매크로 보조</span></div>
+          <div class="envHero">
+            <div class="envBox main"><small>시장 판단</small><strong id="envVerdict">불러오는 중</strong><small id="envSubVerdict">-</small></div>
+            <div class="envBox"><small>BTC 흐름</small><strong id="envBtcFlow">-</strong><small id="envBtcScore">-</small></div>
+            <div class="envBox"><small>BTC 도미넌스</small><strong id="envBtcDom">-</strong><small id="envBtcDomDelta">24H 변화 -</small></div>
+            <div class="envBox"><small>USDT 도미넌스</small><strong id="envUsdtDom">-</strong><small id="envUsdtDomDelta">24H 변화 -</small></div>
+          </div>
+          <div class="envDetail">
+            <div class="envRow"><small>테더 자금 흐름</small><b id="envTetherImpact">-</b></div>
+            <div class="envRow"><small>상승 확산</small><b id="envBreadth">종목 찾아보기 전</b></div>
+            <div class="envRow"><small>전체 코인 시총 24시간</small><b id="envTotalCap">-</b></div>
+            <div class="envRow"><small>VIX</small><b id="envVix">-</b></div>
+            <div class="envRow"><small>미 10년물</small><b id="envUs10y">-</b></div>
+            <div class="envRow"><small>달러 흐름</small><b id="envDollar">-</b></div>
+          </div>
+          <div class="envNote">BTC·USDT 도미넌스와 거시지표를 함께 봅니다. 테더 도미넌스 상승은 위험회피 가능성, 하락은 코인시장으로 자금이 이동할 가능성을 보는 보조 신호입니다.</div>
+        </div>
+      </div>
+
+
+      <div class="sourceGrid">
+        <div class="sourceCard wide">
+          <div class="sourceTitle"><h3>신호 겹침</h3><span>여러 조건이 같은 방향인지 확인</span></div>
+          <div class="confluenceHero">
+            <div class="confluenceScore"><small>종합 확인</small><strong id="confluenceMain">-</strong><em id="confluenceSub">데이터 필요</em></div>
+            <div class="signalChecks" id="confluenceChecks">
+              <div class="signalCheck neutral"><small>기술 점수</small><b>-</b></div><div class="signalCheck neutral"><small>시간대 흐름</small><b>-</b></div><div class="signalCheck neutral"><small>다이버전스</small><b>-</b></div>
+              <div class="signalCheck neutral"><small>일목 흐름</small><b>-</b></div><div class="signalCheck neutral"><small>돌파·거래량</small><b>-</b></div><div class="signalCheck neutral"><small>시장 전체 흐름</small><b>-</b></div>
+            </div>
+          </div>
+          <div class="sourceNote">기존 점수와 별도입니다. 같은 방향으로 확인되는 조건의 개수를 보여주며 성공확률을 뜻하지 않습니다.</div>
+        </div>
+
+        <div class="sourceCard">
+          <div class="sourceTitle"><h3>일목 흐름</h3><span>9 · 26 · 52 기준</span></div>
+          <div class="statusHero"><div><strong id="ichVerdict">-</strong><span id="ichStrength">-</span></div><span id="ichWarning" class="miniTag">-</span></div>
+          <div class="ichGrid">
+            <div class="ichItem"><small>가격 위치</small><b id="ichPrice">-</b></div><div class="ichItem"><small>전환선 / 기준선</small><b id="ichTk">-</b></div><div class="ichItem"><small>앞 구름</small><b id="ichFuture">-</b></div>
+            <div class="ichItem"><small>후행 확인</small><b id="ichChikou">-</b></div><div class="ichItem"><small>52기간 갱신</small><b id="ich52">-</b></div><div class="ichItem"><small>선행선 움직임</small><b id="ichSpanMotion">-</b></div>
+          </div>
+          <div class="sourceNote">전환선·기준선·선행스팬·후행스팬 관계를 정량화하되 기존 점수에는 합산하지 않습니다.</div>
+        </div>
+
+        <div class="sourceCard">
+          <div class="sourceTitle"><h3>돌파·재확인</h3><span>지지·저항 + 거래량</span></div>
+          <div class="statusHero"><div><strong id="breakoutVerdict">-</strong><span id="breakoutDetail">-</span></div><span id="breakoutVol" class="miniTag">-</span></div>
+          <div class="structureGrid">
+            <div class="structureItem"><small>기준 가격</small><b id="breakoutLevel">-</b></div><div class="structureItem"><small>재확인</small><b id="breakoutRetest">-</b></div><div class="structureItem"><small>반전 신호</small><b id="reversalSignal">-</b></div>
+          </div>
+          <div class="sourceNote">최근 지지·저항 돌파 후 같은 가격대를 다시 확인했는지와 당시 거래량을 함께 봅니다.</div>
+        </div>
+
+        <div class="sourceCard wide">
+          <div class="sourceTitle"><h3>파동 규칙 후보</h3><span>엘리어트 5파를 확정하지 않고 기본 규칙만 검사</span></div>
+          <div class="statusHero"><div><strong id="waveVerdict">-</strong><span id="waveAge">-</span></div><span id="waveConfidence" class="miniTag">-</span></div>
+          <div class="ruleList">
+            <div class="ruleLine"><span>2파가 1파 시작점을 넘지 않음</span><b id="waveRule2">-</b></div>
+            <div class="ruleLine"><span>3파가 1·3·5파 중 최단이 아님</span><b id="waveRule3">-</b></div>
+            <div class="ruleLine"><span>4파가 1파 가격영역과 겹치지 않음</span><b id="waveRule4">-</b></div>
+          </div>
+          <div class="sourceNote">자동 파동 카운팅은 해석 차이가 커 “후보”만 표시합니다. 세 기본 규칙을 모두 충족해야 유효 후보로 봅니다.</div>
+        </div>
       </div>
 
       <div class="foldRow">
@@ -520,14 +672,14 @@ details.secondaryBox[open] > summary::after{content:"－"}
         </details>
 
         <details class="secondaryBox">
-          <summary><span>Score History</span><span style="color:var(--muted);font-weight:500">최근 Score 변화</span></summary>
+          <summary><span>점수 이력</span><span style="color:var(--muted);font-weight:500">최근 점수 변화</span></summary>
           <div class="secondaryContent">
-            <div class="tableWrap" style="max-height:285px"><table><thead><tr><th>시각</th><th>Score</th><th>RSI</th><th>ADX</th><th>Vol</th><th>국면</th></tr></thead><tbody id="scoreHistoryBody"></tbody></table></div>
+            <div class="tableWrap" style="max-height:285px"><table><thead><tr><th>시각</th><th>점수</th><th>RSI</th><th>ADX</th><th>거래량</th><th>흐름</th></tr></thead><tbody id="scoreHistoryBody"></tbody></table></div>
           </div>
         </details>
 
         <details class="secondaryBox">
-          <summary><span>Score 변화 원인</span><span id="scoreDelta" style="color:var(--muted);font-weight:500">-</span></summary>
+          <summary><span>점수 변화 원인</span><span id="scoreDelta" style="color:var(--muted);font-weight:500">-</span></summary>
           <div class="secondaryContent"><div id="scoreChanges" class="changeList"></div><div id="reasons" class="compactReasons" style="margin-top:8px"></div><button id="toggleReasons" class="miniBtn" style="width:100%;margin-top:7px">세부 근거 더보기</button></div>
         </details>
       </div>
@@ -547,16 +699,16 @@ details.secondaryBox[open] > summary::after{content:"－"}
         <div class="insightCard">
           <div class="title"><h3>기술적 핵심 요약</h3><span id="summaryTf">4시간봉 기준</span></div>
           <ul class="summaryBullets" id="overviewSummary"><li>데이터를 불러오면 현재 구조를 요약합니다.</li></ul>
-          <button id="gotoAi" class="btn secondary" style="width:100%;margin-top:9px">AI 분석 탭에서 상세 분석</button>
+          <button id="gotoAi" class="btn secondary" style="width:100%;margin-top:9px">AI 해설에서 자세히 보기</button>
         </div>
 
         <div class="insightCard">
-          <div class="title"><h3>ATR 기반 Risk Plan</h3><span>참고용</span></div>
+          <div class="title"><h3>ATR 기반 위험계획</h3><span>참고용</span></div>
           <div class="riskOverview">
             <div class="r"><span>손절 후보</span><strong class="bad" id="overviewStop">-</strong></div>
             <div class="r"><span>1차 목표</span><strong class="good" id="overviewTp1">-</strong></div>
             <div class="r"><span>2차 목표</span><strong class="good" id="overviewTp2">-</strong></div>
-            <div class="r"><span>Risk / Reward</span><strong id="overviewRR">-</strong></div>
+            <div class="r"><span>손익비</span><strong id="overviewRR">-</strong></div>
           </div>
         </div>
       </div>
@@ -565,105 +717,49 @@ details.secondaryBox[open] > summary::after{content:"－"}
 
       <div class="bottomSummary">
         <div class="bottomCard">
-          <div class="title"><h3>멀티 타임프레임 한눈에</h3><span id="overviewMtfVerdict">-</span></div>
-          <table class="miniTable"><thead><tr><th>TF</th><th>Score</th><th>Quality</th><th>Regime</th><th>RSI</th><th>ADX</th></tr></thead><tbody id="overviewMtfBody"></tbody></table>
-          <div class="combine" style="padding:8px;margin-top:7px"><span style="font-size:10px">멀티TF 종합</span><strong id="overviewMtfTotal">-</strong></div>
+          <div class="title"><h3>시간대별 흐름 한눈에</h3><span id="overviewMtfVerdict">-</span></div>
+          <table class="miniTable"><thead><tr><th>시간</th><th>점수</th><th>품질</th><th>흐름</th><th>RSI</th><th>ADX</th></tr></thead><tbody id="overviewMtfBody"></tbody></table>
+          <div class="combine" style="padding:8px;margin-top:7px"><span style="font-size:10px">시간대 종합</span><strong id="overviewMtfTotal">-</strong></div>
         </div>
 
         <div class="bottomCard">
-          <div class="title"><h3>백테스트 요약</h3><span>Entry +4 / Exit 0</span></div>
+          <div class="title"><h3>과거 성과 요약</h3><span>진입 +4 / 청산 0</span></div>
           <div class="miniKpis">
             <div class="miniKpi"><small>총 수익률</small><strong id="overviewBtRet">-</strong></div>
             <div class="miniKpi"><small>승률</small><strong id="overviewBtWin">-</strong></div>
-            <div class="miniKpi"><small>PF</small><strong id="overviewBtPf">-</strong></div>
-            <div class="miniKpi"><small>MDD</small><strong id="overviewBtMdd">-</strong></div>
+            <div class="miniKpi"><small>손익비율</small><strong id="overviewBtPf">-</strong></div>
+            <div class="miniKpi"><small>최대낙폭(MDD)</small><strong id="overviewBtMdd">-</strong></div>
           </div>
-          <div class="hint">기본 조건 백테스트를 데이터 로드시 자동 계산합니다.</div>
+          <div class="hint">기본 조건의 과거 성과를 데이터 로드시 자동 계산합니다.</div>
         </div>
 
         <div class="bottomCard">
-          <div class="title"><h3>TOP KRW 마켓 Scanner</h3><span>최근 실행 결과</span></div>
-          <div id="overviewScanner" class="list"><div class="hint">Scanner 탭에서 실행하면 상위 결과가 여기에 표시됩니다.</div></div>
+          <div class="title"><h3>주목할 종목</h3><span>최근 실행 결과</span></div>
+          <div id="overviewScanner" class="list"><div class="hint">종목 찾기에서 실행하면 상위 결과가 여기에 표시됩니다.</div></div>
         </div>
       </div>
 
       <div class="utilitySummary">
         <div class="utilityCard">
-          <div><div class="title2">자동 알림 · 서버 기반 V15</div><div class="detail"><span id="overviewCloudState">설정 상태 확인 중</span> · 활성 조건 <b id="overviewCloudRules">-</b></div></div>
+          <div><div class="title2">자동 알림</div><div class="detail"><span id="overviewCloudState">연결 상태 확인 중</span> · 저장 조건 <b id="overviewCloudRules">-</b></div></div>
           <strong class="good" id="overviewCloudOn">-</strong>
         </div>
         <div class="utilityCard">
-          <div><div class="title2">Watchlist 빠른 보기</div><div class="detail">My 탭에 저장된 관심종목</div></div>
+          <div><div class="title2">관심종목 빠른 보기</div><div class="detail">알림·설정에 저장된 관심종목</div></div>
           <div class="chipRow" id="overviewWatchlist"><span class="smallChip">등록 없음</span></div>
-        </div>
-        <div class="utilityCard">
-          <div><div class="title2">포트폴리오 요약</div><div class="detail">현재 Upbit 가격 기준</div></div>
-          <div style="text-align:right"><strong id="overviewPortfolioValue">-</strong><div class="detail" id="overviewPortfolioPnl">-</div></div>
         </div>
       </div>
 
       <div class="overviewHiddenCompat">
         <span id="histWinBig">-</span><span id="adxBig">-</span><span id="regimeBig">-</span>
-        <span id="scoreBig">-</span><span id="verdictBig">-</span><span id="confidenceBig">-</span><span id="confidenceText">-</span>
+        <span id="scoreBig">-</span><span id="verdictBig">-</span><span id="confidenceBig">-</span><span id="confidenceText">-</span><span id="overviewPortfolioValue">-</span><span id="overviewPortfolioPnl">-</span>
       </div>
-    </section>
-
-    <section id="backtest" class="pane">
-      <div class="panel">
-        <div class="title"><h2>전략 백테스트</h2><span>종가 신호 → 다음 봉 시가 체결</span></div>
-        <div class="formGrid">
-          <div class="field"><label>매수 Score ≥</label><input id="entry" type="number" min="1" max="8" value="4"></div>
-          <div class="field"><label>매도 Score ≤</label><input id="exit" type="number" min="-8" max="3" value="0"></div>
-          <div class="field"><label>초기 자금(원)</label><input id="capital" type="number" value="10000000"></div>
-          <div class="field"><label>수수료(%)</label><input id="fee" type="number" step="0.01" value="0.05"></div>
-          <div class="field wide"><label>슬리피지(%)</label><input id="slip" type="number" step="0.01" value="0.02"></div>
-        </div>
-        <button id="runBt" class="btn primary" disabled style="width:100%;margin-top:8px">백테스트 실행</button>
-        <div class="panel" style="margin-top:10px;background:var(--soft)">
-          <div class="title"><h3>V14 Risk Exit 백테스트</h3><span>ATR Stop / TP / Trailing / Max Hold</span></div>
-          <div class="formGrid">
-            <div class="field"><label>Stop ATR</label><input id="advStop" type="number" step="0.1" value="1.5"></div>
-            <div class="field"><label>Take Profit ATR</label><input id="advTp" type="number" step="0.1" value="2.5"></div>
-            <div class="field"><label>Trailing ATR</label><input id="advTrail" type="number" step="0.1" value="1.5"></div>
-            <div class="field"><label>Max Hold(봉)</label><input id="advHold" type="number" value="30"></div>
-            <div class="field wide"><label>고급 백테스트</label><button id="runAdvBt" class="btn secondary" disabled style="width:100%">Risk Exit 적용 비교</button></div>
-          </div>
-          <div class="infoGrid" style="margin-top:8px">
-            <div class="info"><small>Risk Exit 수익률</small><strong id="advRet">-</strong></div>
-            <div class="info"><small>MDD</small><strong id="advMdd">-</strong></div>
-            <div class="info"><small>승률</small><strong id="advWin">-</strong></div>
-            <div class="info"><small>PF</small><strong id="advPf">-</strong></div>
-          </div>
-        </div>
-        <div class="btMetrics">
-          <div class="metric"><div class="k">전략 수익률</div><div class="v" id="btRet">-</div></div>
-          <div class="metric"><div class="k">Buy & Hold</div><div class="v" id="bhRet">-</div></div>
-          <div class="metric"><div class="k">MDD</div><div class="v" id="mdd">-</div></div>
-          <div class="metric"><div class="k">거래 수</div><div class="v" id="tradesN">-</div></div>
-          <div class="metric"><div class="k">승률</div><div class="v" id="winrate">-</div></div>
-          <div class="metric"><div class="k">Profit Factor</div><div class="v" id="pf">-</div></div>
-          <div class="metric"><div class="k">CAGR</div><div class="v" id="cagr">-</div></div>
-          <div class="metric"><div class="k">최종 평가액</div><div class="v" id="finalEq">-</div></div>
-        </div>
-        <div class="title"><h3>자산곡선</h3><span>전략 vs Buy & Hold</span></div><canvas id="equityChart" height="280"></canvas>
-        <div class="title" style="margin-top:12px"><h3>거래 내역</h3><span id="btPeriod">-</span></div>
-        <div class="tableWrap"><table><thead><tr><th>매수</th><th>매도</th><th>매수가</th><th>매도가</th><th>수익률</th><th>손익</th><th>보유봉</th></tr></thead><tbody id="tradeBody"></tbody></table></div>
-      </div>
-    </section>
-
-    <section id="multitf" class="pane">
-      <div class="mtfGrid">
-        <article class="tfCard"><div class="tfHead"><strong>1시간봉</strong><div class="tfScore" id="tf60Score">-</div></div><div class="tfRows"><div><small>RSI</small><strong id="tf60Rsi">-</strong></div><div><small>ADX</small><strong id="tf60Adx">-</strong></div><div><small>추세</small><strong id="tf60Trend">-</strong></div><div><small>국면</small><strong id="tf60Regime">-</strong></div></div></article>
-        <article class="tfCard"><div class="tfHead"><strong>4시간봉</strong><div class="tfScore" id="tf240Score">-</div></div><div class="tfRows"><div><small>RSI</small><strong id="tf240Rsi">-</strong></div><div><small>ADX</small><strong id="tf240Adx">-</strong></div><div><small>추세</small><strong id="tf240Trend">-</strong></div><div><small>국면</small><strong id="tf240Regime">-</strong></div></div></article>
-        <article class="tfCard"><div class="tfHead"><strong>일봉</strong><div class="tfScore" id="tfdayScore">-</div></div><div class="tfRows"><div><small>RSI</small><strong id="tfdayRsi">-</strong></div><div><small>ADX</small><strong id="tfdayAdx">-</strong></div><div><small>추세</small><strong id="tfdayTrend">-</strong></div><div><small>국면</small><strong id="tfdayRegime">-</strong></div></div></article>
-      </div>
-      <div class="combine"><div><small style="color:var(--muted)">멀티타임프레임 종합</small><div style="font-weight:800;margin-top:4px" id="mtfVerdict">데이터 필요</div></div><div class="big" id="mtfTotal">-</div></div>
-    </section>
-
-    <section id="risk" class="pane">
-      <div class="riskGrid">
+      <details class="secondaryBox integratedTool">
+        <summary><span>투자금액 계산</span><span style="color:var(--muted);font-weight:500">손절 기준으로 포지션 크기 계산</span></summary>
+        <div class="secondaryContent integratedContent">
+          <div class="riskGrid">
         <div class="riskBox">
-          <div class="title"><h2>ATR Risk Plan</h2><span>참고용 계산</span></div>
+          <div class="title"><h2>ATR 위험 기준</h2><span>참고용 계산</span></div>
           <div class="riskRows">
             <div class="riskItem"><small>현재가</small><strong id="riskPrice">-</strong></div>
             <div class="riskItem"><small>ATR</small><strong id="riskAtr">-</strong></div>
@@ -680,156 +776,217 @@ details.secondaryBox[open] > summary::after{content:"－"}
           <div class="formGrid" style="grid-template-columns:1fr 1fr">
             <div class="field"><label>총 투자자산(원)</label><input id="riskCapital" type="number" value="50000000"></div>
             <div class="field"><label>허용손실(%)</label><input id="riskPct" type="number" step="0.1" value="1"></div>
+            <div class="field wide"><label>무효화 가격(손절 기준)</label><input id="riskInvalidation" type="number" step="1" placeholder="자동 추천값"></div>
           </div>
           <button id="calcRisk" class="btn primary" disabled style="width:100%;margin-top:8px">포지션 계산</button>
           <div class="riskRows" style="margin-top:8px">
             <div class="riskItem"><small>최대 허용손실</small><strong id="maxLoss">-</strong></div>
             <div class="riskItem"><small>추천 포지션 금액</small><strong id="positionValue">-</strong></div>
-            <div class="riskItem"><small>예상 BTC 수량</small><strong id="positionQty">-</strong></div>
+            <div class="riskItem"><small>예상 수량</small><strong id="positionQty">-</strong></div>
             <div class="riskItem"><small>자산 대비 비중</small><strong id="positionPct">-</strong></div>
           </div>
         </div>
       </div>
+        </div>
+      </details>
+
     </section>
 
-    <section id="compare" class="pane">
+    <section id="backtest" class="pane">
       <div class="panel">
-        <div class="title"><h2>V13/V14 검증 엔진</h2><span>Parameter Stability · Rolling Walk-Forward · Regime Performance</span></div>
+        <div class="title"><h2>과거 데이터로 성과 확인</h2><span>종가 신호 → 다음 봉 시가 체결</span></div>
+        <div class="formGrid">
+          <div class="field"><label>진입 점수 ≥</label><input id="entry" type="number" min="1" max="8" value="4"></div>
+          <div class="field"><label>청산 점수 ≤</label><input id="exit" type="number" min="-8" max="3" value="0"></div>
+          <div class="field"><label>초기 자금(원)</label><input id="capital" type="number" value="10000000"></div>
+          <div class="field"><label>수수료(%)</label><input id="fee" type="number" step="0.01" value="0.05"></div>
+          <div class="field wide"><label>슬리피지(%)</label><input id="slip" type="number" step="0.01" value="0.02"></div>
+        </div>
+        <button id="runBt" class="btn primary" disabled style="width:100%;margin-top:8px">과거 성과 계산</button>
+        <div class="panel" style="margin-top:10px;background:var(--soft)">
+          <div class="title"><h3>손절·목표 적용 비교</h3><span>ATR 손절 / 목표 / 추적 / 최대보유</span></div>
+          <div class="formGrid">
+            <div class="field"><label>손절 ATR</label><input id="advStop" type="number" step="0.1" value="1.5"></div>
+            <div class="field"><label>목표 ATR</label><input id="advTp" type="number" step="0.1" value="2.5"></div>
+            <div class="field"><label>추적 ATR</label><input id="advTrail" type="number" step="0.1" value="1.5"></div>
+            <div class="field"><label>최대보유(봉)</label><input id="advHold" type="number" value="30"></div>
+            <div class="field wide"><label>추가 비교</label><button id="runAdvBt" class="btn secondary" disabled style="width:100%">손절·목표 적용해서 비교</button></div>
+          </div>
+          <div class="infoGrid" style="margin-top:8px">
+            <div class="info"><small>위험청산 수익률</small><strong id="advRet">-</strong></div>
+            <div class="info"><small>최대낙폭(MDD)</small><strong id="advMdd">-</strong></div>
+            <div class="info"><small>승률</small><strong id="advWin">-</strong></div>
+            <div class="info"><small>손익비율</small><strong id="advPf">-</strong></div>
+          </div>
+        </div>
+        <div class="btMetrics">
+          <div class="metric"><div class="k">전략 수익률</div><div class="v" id="btRet">-</div></div>
+          <div class="metric"><div class="k">단순보유</div><div class="v" id="bhRet">-</div></div>
+          <div class="metric"><div class="k">최대낙폭(MDD)</div><div class="v" id="mdd">-</div></div>
+          <div class="metric"><div class="k">거래 수</div><div class="v" id="tradesN">-</div></div>
+          <div class="metric"><div class="k">승률</div><div class="v" id="winrate">-</div></div>
+          <div class="metric"><div class="k">손익비율</div><div class="v" id="pf">-</div></div>
+          <div class="metric"><div class="k">연환산 수익률</div><div class="v" id="cagr">-</div></div>
+          <div class="metric"><div class="k">최종 평가액</div><div class="v" id="finalEq">-</div></div>
+        </div>
+        <div class="title"><h3>자산곡선</h3><span>전략 vs 단순보유</span></div><canvas id="equityChart" height="280"></canvas>
+        <div class="title" style="margin-top:12px"><h3>거래 내역</h3><span id="btPeriod">-</span></div>
+        <div class="tableWrap"><table><thead><tr><th>매수</th><th>매도</th><th>매수가</th><th>매도가</th><th>수익률</th><th>손익</th><th>보유봉</th></tr></thead><tbody id="tradeBody"></tbody></table></div>
+      </div>
+      <details class="secondaryBox integratedTool" style="margin-top:10px">
+        <summary><span>조건별로 더 확인하기</span><span style="color:var(--muted);font-weight:500">조건 안정성 · 구간별 재확인</span></summary>
+        <div class="secondaryContent integratedContent">
+          <div class="panel">
+        <div class="title"><h2>조건이 바뀌어도 괜찮은지 확인</h2><span>조건 안정성 · 구간별 재확인 · 흐름별 성과</span></div>
         <div class="compareControls">
-          <div class="field"><label>기준 Exit</label><input id="cmpExit" type="number" value="0"></div>
-          <div class="field"><label>Train Window</label><select id="wfTrain"><option value="160">160봉</option><option value="180" selected>180봉</option><option value="220">220봉</option></select></div>
-          <div class="field"><label>Test Window</label><select id="wfTest"><option value="40">40봉</option><option value="50" selected>50봉</option><option value="70">70봉</option></select></div>
-          <button id="runCompare" class="btn primary" disabled>검증 엔진 실행</button>
+          <div class="field"><label>기준 청산점수</label><input id="cmpExit" type="number" value="0"></div>
+          <div class="field"><label>기준 구간</label><select id="wfTrain"><option value="160">160봉</option><option value="180" selected>180봉</option><option value="220">220봉</option></select></div>
+          <div class="field"><label>확인 구간</label><select id="wfTest"><option value="40">40봉</option><option value="50" selected>50봉</option><option value="70">70봉</option></select></div>
+          <button id="runCompare" class="btn primary" disabled>조건 다시 확인</button>
         </div>
         <div class="validationGrid">
           <div>
-            <div class="title"><h3>Parameter Stability</h3><span>셀 = 수익률</span></div>
-            <div class="tableWrap"><table class="heat"><thead><tr><th>Exit \\ Entry</th><th>+3</th><th>+4</th><th>+5</th><th>+6</th></tr></thead><tbody id="stabilityBody"></tbody></table></div>
+            <div class="title"><h3>조건 안정성</h3><span>셀 = 수익률</span></div>
+            <div class="tableWrap"><table class="heat"><thead><tr><th>청산 \\ 진입</th><th>+3</th><th>+4</th><th>+5</th><th>+6</th></tr></thead><tbody id="stabilityBody"></tbody></table></div>
           </div>
           <div>
-            <div class="title"><h3>Rolling Walk-Forward</h3><span>Train에서 선택 → 다음 Test 검증</span></div>
-            <div class="tableWrap"><table><thead><tr><th>Fold</th><th>Best Entry</th><th>Train Ret</th><th>Test Ret</th><th>Test MDD</th><th>Trades</th></tr></thead><tbody id="walkBody"></tbody></table></div>
+            <div class="title"><h3>구간별 재확인</h3><span>기준 구간 선택 → 다음 확인 구간 평가</span></div>
+            <div class="tableWrap"><table><thead><tr><th>구간</th><th>선택 진입</th><th>기준 수익률</th><th>확인 수익률</th><th>확인 최대낙폭(MDD)</th><th>거래수</th></tr></thead><tbody id="walkBody"></tbody></table></div>
           </div>
         </div>
-        <div class="title" style="margin-top:12px"><h3>시장 국면별 거래 성과</h3><span>기본 백테스트 거래를 진입 당시 국면으로 분류</span></div>
-        <div class="tableWrap"><table><thead><tr><th>국면</th><th>거래수</th><th>승률</th><th>평균 수익률</th><th>총 손익</th><th>PF</th></tr></thead><tbody id="regimeBody"></tbody></table></div>
-        <div class="hint">Rolling Walk-Forward는 각 Train 구간에서 Entry +3~+6 중 위험조정 점수가 가장 높은 조건을 선택한 뒤, 바로 다음 미사용 Test 구간에 적용합니다.</div>
+        <div class="title" style="margin-top:12px"><h3>시장 흐름별 거래 성과</h3><span>기본 백테스트 거래를 진입 당시 흐름으로 분류</span></div>
+        <div class="tableWrap"><table><thead><tr><th>흐름</th><th>거래수</th><th>승률</th><th>평균 수익률</th><th>총 손익</th><th>손익비율</th></tr></thead><tbody id="regimeBody"></tbody></table></div>
+        <div class="hint">구간별 재확인는 각 기준 구간에서 진입점수 +3~+6 중 위험조정 점수가 가장 높은 조건을 선택한 뒤, 바로 다음 미사용 확인 구간에 적용합니다.</div>
       </div>
+        </div>
+      </details>
+
     </section>
+
+    <section id="multitf" class="pane">
+      <div class="mtfGrid">
+        <article class="tfCard"><div class="tfHead"><strong>1시간봉</strong><div class="tfScore" id="tf60Score">-</div></div><div class="tfRows"><div><small>RSI</small><strong id="tf60Rsi">-</strong></div><div><small>ADX</small><strong id="tf60Adx">-</strong></div><div><small>추세</small><strong id="tf60Trend">-</strong></div><div><small>국면</small><strong id="tf60Regime">-</strong></div></div></article>
+        <article class="tfCard"><div class="tfHead"><strong>4시간봉</strong><div class="tfScore" id="tf240Score">-</div></div><div class="tfRows"><div><small>RSI</small><strong id="tf240Rsi">-</strong></div><div><small>ADX</small><strong id="tf240Adx">-</strong></div><div><small>추세</small><strong id="tf240Trend">-</strong></div><div><small>국면</small><strong id="tf240Regime">-</strong></div></div></article>
+        <article class="tfCard"><div class="tfHead"><strong>일봉</strong><div class="tfScore" id="tfdayScore">-</div></div><div class="tfRows"><div><small>RSI</small><strong id="tfdayRsi">-</strong></div><div><small>ADX</small><strong id="tfdayAdx">-</strong></div><div><small>추세</small><strong id="tfdayTrend">-</strong></div><div><small>국면</small><strong id="tfdayRegime">-</strong></div></div></article>
+      </div>
+      <div class="combine"><div><small style="color:var(--muted)">시간대별 종합</small><div style="font-weight:800;margin-top:4px" id="mtfVerdict">데이터 필요</div></div><div class="big" id="mtfTotal">-</div></div>
+    </section>
+
+
 
     <section id="scanner" class="pane">
       <div class="panel">
-        <div class="title"><h2>업비트 KRW Scanner</h2><span>안정모드 · 최대 30종목 · Upbit Rate Limit 보호</span></div>
+        <div class="title"><h2>업비트 KRW 종목 찾기</h2><span>안정모드 · 최대 30종목 · Upbit Rate Limit 보호</span></div>
         <div class="scannerControls">
-          <div class="field"><label>Scanner TF</label><select id="scanTf"><option value="60">1시간봉</option><option value="240" selected>4시간봉</option><option value="day">일봉</option></select></div>
+          <div class="field"><label>비교 시간</label><select id="scanTf"><option value="60">1시간봉</option><option value="240" selected>4시간봉</option><option value="day">일봉</option></select></div>
           <div class="field"><label>검색 종목 수</label><select id="scanN"><option>10</option><option selected>20</option><option>30</option></select></div>
-          <div class="field"><label>최소 Score</label><input id="scanMinScore" type="number" value="0"></div>
+          <div class="field"><label>최소 점수</label><input id="scanMinScore" type="number" value="0"></div>
           <div class="field"><label>최소 거래량비</label><input id="scanMinVol" type="number" step="0.1" value="0"></div>
-          <div class="field wide"><label>실행</label><button id="runScanner" class="btn primary" style="width:100%">Scanner 실행</button></div>
+          <div class="field wide"><label>실행</label><button id="runScanner" class="btn primary" style="width:100%">종목 찾아보기</button></div>
         </div>
         <div class="scannerCards">
           <div class="scanCard"><small>검색 대상</small><strong id="scanTarget">-</strong></div>
           <div class="scanCard"><small>조건 통과</small><strong id="scanPass">-</strong></div>
-          <div class="scanCard"><small>최고 Score</small><strong id="scanBest">-</strong></div>
+          <div class="scanCard"><small>최고 점수</small><strong id="scanBest">-</strong></div>
           <div class="scanCard"><small>강한 상승 국면</small><strong id="scanTrendN">-</strong></div>
-          <div class="scanCard"><small>MA20 위 Breadth</small><strong id="scanBreadthMa">-</strong></div>
-          <div class="scanCard"><small>Positive Score</small><strong id="scanBreadthScore">-</strong></div>
+          <div class="scanCard"><small>MA20 위 종목</small><strong id="scanBreadthMa">-</strong></div>
+          <div class="scanCard"><small>상승 점수 종목</small><strong id="scanBreadthScore">-</strong></div>
           <div class="scanCard"><small>완료 시간</small><strong id="scanTime">-</strong></div>
         </div>
-        <div class="tableWrap"><table><thead><tr><th>순위</th><th>마켓</th><th>한글명</th><th>현재가</th><th>24H%</th><th>Score</th><th>Quality*</th><th>BTC대비 RS</th><th>국면</th><th>RSI</th><th>ADX</th><th>거래량비</th></tr></thead><tbody id="scannerBody"></tbody></table></div>
+        <div class="tableWrap"><table><thead><tr><th>순위</th><th>종목</th><th>이름</th><th>현재가</th><th>24H%</th><th>점수</th><th>품질*</th><th>BTC 대비 강도</th><th>흐름</th><th>RSI</th><th>ADX</th><th>거래량비</th></tr></thead><tbody id="scannerBody"></tbody></table></div>
       </div>
     </section>
 
     <section id="ai" class="pane">
       <div class="aiGrid">
         <div class="panel">
-          <div class="title"><h2>AI 분석 요청</h2><span>현재 계산값만 전달</span></div>
+          <div class="title"><h2>AI 해설 요청</h2><span>현재 계산값만 전달</span></div>
           <div class="pillRow">
-            <button class="pill" data-q="현재 시장 국면과 신호 신뢰도를 중심으로 핵심만 분석해줘.">시장 국면</button>
-            <button class="pill" data-q="지지/저항과 ATR Risk Plan을 어떻게 해석해야 하는지 설명해줘.">Risk Plan</button>
-            <button class="pill" data-q="1시간, 4시간, 일봉 신호 충돌 여부와 우선순위를 설명해줘.">멀티TF</button>
-            <button class="pill" data-q="자동 백테스트 비교와 Walk-Forward 결과가 있으면 과최적화 관점에서 평가해줘.">Walk-Forward</button>
+            <button class="pill" data-q="현재 시장 흐름, 점수, 품질을 함께 보고 지금 신호가 얼마나 일치하는지 쉽게 설명해줘.">지금 흐름</button>
+            <button class="pill" data-q="현재 지지·저항과 손절 후보, 목표가를 쉽게 설명해줘.">손절·목표</button>
+            <button class="pill" data-q="1시간, 4시간, 일봉을 비교해서 어느 시간대 흐름을 더 중요하게 봐야 하는지 설명해줘.">시간대 비교</button>
+            <button class="pill" data-q="과거 성과와 구간별 재확인 결과를 보고 조건이 특정 구간에만 맞춰진 것은 아닌지 쉽게 평가해줘.">과거 성과</button><button class="pill" data-q="신호 겹침, 일목 흐름, 돌파·재확인, 반전 신호와 파동 규칙 후보를 함께 보고 현재 구조를 쉽게 설명해줘.">신호 겹침</button>
           </div>
-          <textarea id="question" rows="5" maxlength="800" placeholder="예: 현재 +5점인데 신뢰도가 낮은 이유가 뭐야?"></textarea>
-          <div class="aiActions"><button id="aiSummary" class="btn primary" disabled>AI 종합 분석</button><button id="aiAsk" class="btn secondary" disabled>질문하기</button></div>
+          <textarea id="question" rows="5" maxlength="800" placeholder="예: 지금 상승 신호가 강한 편이야? 비트코인과 테더 흐름까지 같이 설명해줘."></textarea>
+          <div class="aiActions"><button id="aiSummary" class="btn primary" disabled>AI 종합 해설</button><button id="aiAsk" class="btn secondary" disabled>질문하기</button></div>
           <div class="hint">OpenAI API Key는 Vercel 환경변수에만 저장됩니다. AI는 계산 결과를 설명하며 가격을 확정적으로 예측하지 않습니다.</div>
         </div>
-        <div class="panel"><div class="title"><h2>AI 분석 결과</h2><span id="aiModel">-</span></div><div class="aiOutput" id="aiOutput">데이터를 먼저 불러온 뒤 AI 분석을 실행하세요.</div></div>
+        <div class="panel"><div class="title"><h2>AI 해설 결과</h2><span id="aiModel">-</span></div><div class="aiOutput" id="aiOutput">데이터를 먼저 불러온 뒤 AI 해설을 실행하세요.</div></div>
       </div>
     </section>
 
     <section id="personal" class="pane">
       <div class="personalGrid">
         <div class="panel full">
-          <div class="title"><h2>V15 서버 자동 알림</h2><span>Supabase DB + Vercel Cron + Web Push</span></div>
+          <div class="title"><h2>자동 알림</h2><span>조건 저장 · 자동 확인 · 휴대폰 알림</span></div>
           <div class="cloudStatus">
-            <div class="info"><small>Database</small><strong id="cloudDb">확인 중</strong></div>
-            <div class="info"><small>Web Push</small><strong id="cloudPush">확인 중</strong></div>
-            <div class="info"><small>Cron</small><strong id="cloudCron">확인 중</strong></div>
-            <div class="info"><small>Device ID</small><strong id="cloudDevice">-</strong></div>
+            <div class="info"><small>조건 저장</small><strong id="cloudDb">확인 중</strong></div>
+            <div class="info"><small>휴대폰 알림</small><strong id="cloudPush">확인 중</strong></div>
+            <div class="info"><small>자동 확인</small><strong id="cloudCron">확인 중</strong></div>
+            <div class="info"><small>내 기기</small><strong id="cloudDevice">-</strong></div>
           </div>
           <div class="cloudForm">
-            <div class="field"><label>TF</label><select id="cloudTf"><option value="60">1시간</option><option value="240" selected>4시간</option><option value="day">일봉</option></select></div>
-            <div class="field"><label>Score ≥</label><input id="cloudScore" type="number" value="5"></div>
-            <div class="field"><label>Signal Quality ≥</label><input id="cloudQuality" type="number" value="75"></div>
+            <div class="field"><label>시간</label><select id="cloudTf"><option value="60">1시간</option><option value="240" selected>4시간</option><option value="day">일봉</option></select></div>
+            <div class="field"><label>점수 ≥</label><input id="cloudScore" type="number" value="5"></div>
+            <div class="field"><label>품질 ≥</label><input id="cloudQuality" type="number" value="75"></div>
             <div class="field"><label>ADX ≥</label><input id="cloudAdx" type="number" value="25"></div>
             <div class="field"><label>거래량비 ≥</label><input id="cloudVol" type="number" step="0.1" value="0"></div>
-            <div class="field"><label>시장 국면</label><select id="cloudRegime"><option value="ANY">상관없음</option><option>상승 추세</option><option>하락 추세</option><option>횡보</option><option>전환 / 혼조</option></select></div>
-            <div class="field"><label>재알림 제한</label><select id="cloudCooldown"><option value="60">60분</option><option value="240" selected>4시간</option><option value="720">12시간</option><option value="1440">24시간</option></select></div>
-            <div class="field"><label>현재 마켓</label><input id="cloudMarket" value="KRW-BTC" readonly></div>
+            <div class="field"><label>시장 흐름</label><select id="cloudRegime"><option value="ANY">상관없음</option><option>상승 추세</option><option>하락 추세</option><option>횡보</option><option>전환 / 혼조</option></select></div>
+            <div class="field"><label>같은 알림 다시 받기</label><select id="cloudCooldown"><option value="60">60분</option><option value="240" selected>4시간</option><option value="720">12시간</option><option value="1440">24시간</option></select></div>
+            <div class="field"><label>현재 종목</label><input id="cloudMarket" value="KRW-BTC" readonly></div>
           </div>
           <div class="cloudActions">
-            <button id="cloudSubscribe" class="btn primary">① 서버 Push 등록</button>
-            <button id="cloudSaveRule" class="btn primary">② 서버 알림조건 저장</button>
-            <button id="cloudTestPush" class="btn secondary">③ 테스트 Push</button>
-            <button id="cloudCheckNow" class="btn secondary">④ 서버 조건 지금 검사</button>
+            <button id="cloudSubscribe" class="btn primary">① 휴대폰 알림 연결</button>
+            <button id="cloudSaveRule" class="btn primary">② 자동 알림 저장</button>
+            <button id="cloudTestPush" class="btn secondary">③ 시험 알림</button>
+            <button id="cloudCheckNow" class="btn secondary">④ 지금 한 번 확인</button>
           </div>
-          <div class="notice" style="margin-top:8px">Vercel Hobby 기본 Cron은 하루 1회입니다. V15는 Hobby에서도 배포되도록 하루 1회로 설정되어 있습니다. 더 자주 자동 감시하려면 Vercel Pro에서 Cron 주기를 변경하거나 외부 스케줄러가 필요합니다.</div>
-          <div class="cloudCode" style="margin-top:7px">Push를 받으려면 HTTPS 배포 주소에서 알림 권한을 허용해야 합니다.</div>
-          <div class="title" style="margin-top:12px"><h3>서버 알림 조건</h3><span>Supabase에 저장</span></div>
-          <div class="tableWrap"><table><thead><tr><th>마켓</th><th>TF</th><th>Score</th><th>Quality</th><th>ADX</th><th>Vol</th><th>Regime</th><th>Cooldown</th><th>최근 발동</th><th></th></tr></thead><tbody id="cloudRuleBody"></tbody></table></div>
-          <div class="title" style="margin-top:12px"><h3>최근 서버 Signal Events</h3><div style="display:flex;gap:6px;align-items:center"><span>최근 30개</span><button id="evaluateOutcomes" class="miniBtn outcomeBtn">Outcome 업데이트</button></div></div>
-          <div class="tableWrap" style="max-height:260px"><table><thead><tr><th>시각</th><th>마켓</th><th>TF</th><th>Score</th><th>Quality</th><th>ADX</th><th>Regime</th><th>가격</th><th>6봉</th><th>MFE</th><th>MAE</th><th>Push</th></tr></thead><tbody id="cloudEventBody"></tbody></table></div>
+          <div class="notice" style="margin-top:8px">유료 서버를 전제로 하지 않습니다. 동봉된 GitHub Actions 자동확인 파일을 연결하면 외부 스케줄러처럼 사용할 수 있습니다. 사용 가능한 무료 한도는 GitHub 계정/저장소 정책에 따라 달라질 수 있습니다.</div>
+          <div class="cloudCode" style="margin-top:7px">휴대폰 알림을 받으려면 HTTPS 배포 주소에서 알림 권한을 허용하고, GitHub Actions 자동확인을 연결하세요.</div>
+          <div class="title" style="margin-top:12px"><h3>자동 알림 조건</h3><span>내 알림 조건</span></div>
+          <div class="tableWrap"><table><thead><tr><th>종목</th><th>시간</th><th>점수</th><th>품질</th><th>ADX</th><th>거래량</th><th>흐름</th><th>재알림</th><th>최근 발동</th><th></th></tr></thead><tbody id="cloudRuleBody"></tbody></table></div>
+          <div class="title" style="margin-top:12px"><h3>최근 자동 신호</h3><div style="display:flex;gap:6px;align-items:center"><span>최근 30개</span><button id="evaluateOutcomes" class="miniBtn outcomeBtn">결과 업데이트</button></div></div>
+          <div class="tableWrap" style="max-height:260px"><table><thead><tr><th>시각</th><th>종목</th><th>시간</th><th>점수</th><th>품질</th><th>ADX</th><th>흐름</th><th>가격</th><th>6봉</th><th>MFE</th><th>MAE</th><th>푸시</th></tr></thead><tbody id="cloudEventBody"></tbody></table></div>
         </div>
         <div class="panel">
-          <div class="title"><h2>Watchlist</h2><span>이 기기에 저장</span></div>
-          <button id="addWatch" class="btn primary" style="width:100%;margin-bottom:8px">현재 마켓 Watchlist 추가</button>
+          <div class="title"><h2>관심종목</h2><span>이 기기에 저장</span></div>
+          <button id="addWatch" class="btn primary" style="width:100%;margin-bottom:8px">현재 종목 관심종목 추가</button>
           <div id="watchList" class="list"></div>
         </div>
         <div class="panel">
-          <div class="title"><h2>조건 알림</h2><span>앱이 열려 있을 때 확인</span></div>
+          <div class="title"><h2>앱에서 직접 확인</h2><span>앱이 열려 있을 때 확인</span></div>
           <div class="personalForm">
-            <div class="field"><label>Score ≥</label><input id="alertScore" type="number" value="5"></div>
-            <div class="field"><label>Quality ≥</label><input id="alertQuality" type="number" value="70"></div>
-            <div class="field"><label>TF</label><select id="alertTf"><option value="60">1H</option><option value="240" selected>4H</option><option value="day">1D</option></select></div>
+            <div class="field"><label>점수 ≥</label><input id="alertScore" type="number" value="5"></div>
+            <div class="field"><label>품질 ≥</label><input id="alertQuality" type="number" value="70"></div>
+            <div class="field"><label>시간</label><select id="alertTf"><option value="60">1H</option><option value="240" selected>4H</option><option value="day">1D</option></select></div>
           </div>
-          <div style="display:flex;gap:7px;margin-top:8px"><button id="saveAlert" class="btn primary" style="flex:1">현재 마켓 알림 저장</button><button id="notifyPerm" class="btn secondary" style="flex:1">알림 권한</button></div>
-          <div class="notice" style="margin-top:8px">브라우저가 닫힌 상태의 24시간 백그라운드 알림은 Vercel + LocalStorage만으로 보장할 수 없습니다. V14는 페이지가 열려 있거나 사용자가 Watchlist 알림 확인을 실행할 때 알립니다.</div>
-          <button id="checkAlerts" class="btn secondary" style="width:100%;margin-top:8px">Watchlist 알림 지금 확인</button>
+          <div style="display:flex;gap:7px;margin-top:8px"><button id="saveAlert" class="btn primary" style="flex:1">현재 종목 조건 저장</button><button id="notifyPerm" class="btn secondary" style="flex:1">알림 권한</button></div>
+          <div class="notice" style="margin-top:8px">브라우저가 닫힌 상태의 24시간 백그라운드 알림은 Vercel + LocalStorage만으로 보장할 수 없습니다. V14는 페이지가 열려 있거나 사용자가 관심종목 알림 확인을 실행할 때 알립니다.</div>
+          <button id="checkAlerts" class="btn secondary" style="width:100%;margin-top:8px">지금 조건 확인</button>
           <div id="alertList" class="list" style="margin-top:8px"></div>
         </div>
-        <div class="panel full">
-          <div class="title"><h2>Analysis Snapshots</h2><span>Score 변화 기록</span></div>
-          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px"><button id="saveSnapshot" class="btn primary">현재 분석 저장</button><button id="exportData" class="btn secondary">개인데이터 JSON 백업</button><label class="btn secondary" style="display:inline-flex;align-items:center;cursor:pointer">JSON 복원<input id="importData" type="file" accept=".json,application/json" style="display:none"></label></div>
-          <div class="tableWrap"><table><thead><tr><th>저장 시각</th><th>마켓</th><th>TF</th><th>가격</th><th>Score</th><th>Quality</th><th>Historical Win</th><th>국면</th><th></th></tr></thead><tbody id="snapshotBody"></tbody></table></div>
+        <div class="panel full legacyPersonal">
+          <div class="title"><h2>분석기록</h2><span>점수 변화 기록</span></div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px"><button id="saveSnapshot" class="btn primary">지금 분석 저장</button><button id="exportData" class="btn secondary">개인데이터 JSON 백업</button><label class="btn secondary" style="display:inline-flex;align-items:center;cursor:pointer">JSON 복원<input id="importData" type="file" accept=".json,application/json" style="display:none"></label></div>
+          <div class="tableWrap"><table><thead><tr><th>저장 시각</th><th>종목</th><th>시간</th><th>가격</th><th>점수</th><th>품질</th><th>적중률</th><th>흐름</th><th></th></tr></thead><tbody id="snapshotBody"></tbody></table></div>
         </div>
-        <div class="panel">
-          <div class="title"><h2>Trading Journal</h2><span>수동 매매 기록</span></div>
+        <div class="panel legacyPersonal">
+          <div class="title"><h2>매매기록</h2><span>수동 매매 기록</span></div>
           <div class="personalForm">
-            <div class="field"><label>마켓</label><input id="jMarket" value="KRW-BTC"></div>
+            <div class="field"><label>종목</label><input id="jMarket" value="KRW-BTC"></div>
             <div class="field"><label>진입가</label><input id="jEntry" type="number"></div>
             <div class="field"><label>청산가</label><input id="jExit" type="number"></div>
             <div class="field"><label>수량</label><input id="jQty" type="number" step="0.000001"></div>
             <div class="field"><label>방향</label><select id="jSide"><option value="LONG">LONG</option></select></div>
             <div class="field"><label>메모</label><input id="jNote" placeholder="진입 이유"></div>
           </div>
-          <button id="saveJournal" class="btn primary" style="width:100%;margin-top:8px">Journal 저장</button>
+          <button id="saveJournal" class="btn primary" style="width:100%;margin-top:8px">매매기록 저장</button>
           <div id="journalList" class="list" style="margin-top:8px"></div>
         </div>
-        <div class="panel">
-          <div class="title"><h2>Portfolio</h2><span>현재 Upbit 가격으로 평가</span></div>
+        <div class="panel legacyPersonal">
+          <div class="title"><h2>보유자산</h2><span>현재 Upbit 가격으로 평가</span></div>
           <div class="personalForm">
-            <div class="field"><label>마켓</label><input id="pMarket" value="KRW-BTC"></div>
+            <div class="field"><label>종목</label><input id="pMarket" value="KRW-BTC"></div>
             <div class="field"><label>수량</label><input id="pQty" type="number" step="0.000001"></div>
             <div class="field"><label>평균단가</label><input id="pAvg" type="number"></div>
           </div>
@@ -849,19 +1006,19 @@ details.secondaryBox[open] > summary::after{content:"－"}
 
   
 <nav class="mobileDock" id="mobileDock" aria-label="모바일 빠른 메뉴">
-  <button type="button" data-mobile-pane="overview" class="active"><span class="ico">⌁</span><span>현재분석</span></button>
-  <button type="button" data-mobile-pane="scanner"><span class="ico">⌕</span><span>Scanner</span></button>
-  <button type="button" data-mobile-pane="ai"><span class="ico">✦</span><span>AI</span></button>
-  <button type="button" data-mobile-pane="personal"><span class="ico">◎</span><span>My</span></button>
+  <button type="button" data-mobile-pane="overview" class="active"><span class="ico">⌁</span><span>분석</span></button>
+  <button type="button" data-mobile-pane="scanner"><span class="ico">⌕</span><span>종목찾기</span></button>
+  <button type="button" data-mobile-pane="ai"><span class="ico">✦</span><span>AI해설</span></button>
+  <button type="button" data-mobile-pane="personal"><span class="ico">◎</span><span>설정</span></button>
 </nav>
 
-<footer class="footer">연구·교육용 도구입니다. Signal Quality는 성공확률이 아니며 Historical Win은 과거 표본 통계입니다. 서버 알림은 조건 감시 기능이며 매매 권유가 아닙니다. 모든 분석·백테스트 결과는 미래 수익을 보장하지 않습니다.</footer>
+<footer class="footer">연구·교육용 도구입니다. 품질·신호 겹침·일목 흐름·다이버전스·파동 후보는 성공확률이 아닙니다. 과거 적중률은 과거 표본 통계이며 미래 수익을 보장하지 않습니다.</footer>
 </div>
 
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
-const state={candles:[],multi:{},bt:null,advBt:null,compare:null,scanner:[],scannerBreadth:null,loaded:false,levels:null,marketData:[],chartMarkers:[],replayIndex:null};
+const state={candles:[],multi:{},bt:null,advBt:null,compare:null,scanner:[],scannerBreadth:null,marketEnv:null,divergence:{},ichimoku:null,breakout:null,reversal:null,wave:null,confluence:null,loaded:false,levels:null,marketData:[],chartMarkers:[],replayIndex:null};
 const TF_NAMES={"60":"1시간봉","240":"4시간봉","day":"일봉"};
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 function num(v,d=0){const x=Number(v);return Number.isFinite(x)?x:d}
@@ -871,6 +1028,19 @@ function kst(d){return new Intl.DateTimeFormat("ko-KR",{timeZone:"Asia/Seoul",mo
 function setStatus(t,p=0){$("statusText").textContent=t;$("progressBar").style.width=Math.max(0,Math.min(100,p))+"%"}
 function verdict(s){return s>=6?"강한 매수 우위":s>=3?"매수 우위":s<=-6?"강한 매도 우위":s<=-3?"매도 우위":"중립 / 방향 확인"}
 function cls(s){return s>=3?"good":s<=-3?"bad":"warn"}
+
+
+async function fetchMarketEnvironment(){
+  try{
+    const r=await fetch("/api/market-env",{cache:"no-store"}),d=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(d.error||`HTTP ${r.status}`);
+    state.marketEnv=d;
+  }catch(e){
+    console.warn("market-env",e);
+    state.marketEnv={error:e.message};
+  }
+  renderMarketEnvironment();
+}
 
 async function apiCandles(market,tf,count,to=""){
   const u=new URL("/api/candles",location.origin);u.searchParams.set("market",market);u.searchParams.set("tf",tf);u.searchParams.set("count",count);if(to)u.searchParams.set("to",to);
@@ -892,6 +1062,11 @@ async function fetchCandles(market,tf,total,onProgress){
 function sma(v,p){const o=Array(v.length).fill(null);let s=0;for(let i=0;i<v.length;i++){s+=v[i];if(i>=p)s-=v[i-p];if(i>=p-1)o[i]=s/p}return o}
 function ema(v,p){const o=Array(v.length).fill(null),a=2/(p+1);let x=null;for(let i=0;i<v.length;i++){x=x===null?v[i]:a*v[i]+(1-a)*x;o[i]=x}return o}
 function wilder(v,p){const o=Array(v.length).fill(null),a=1/p;let x=null;for(let i=0;i<v.length;i++){x=x===null?v[i]:a*v[i]+(1-a)*x;if(i>=p-1)o[i]=x}return o}
+function rollingMidHL(a,p){
+  const o=Array(a.length).fill(null);
+  for(let i=p-1;i<a.length;i++){const w=a.slice(i-p+1,i+1),hi=Math.max(...w.map(x=>x.high)),lo=Math.min(...w.map(x=>x.low));o[i]=(hi+lo)/2}
+  return o
+}
 function indicators(a){
   if(!a.length)return a;const c=a.map(x=>x.close),v=a.map(x=>x.volume),m20=sma(c,20),m60=sma(c,60),m120=sma(c,120),vm=sma(v,20),e12=ema(c,12),e26=ema(c,26),macd=c.map((_,i)=>e12[i]-e26[i]),sig=ema(macd,9);
   const gains=[0],loss=[0];for(let i=1;i<c.length;i++){const d=c[i]-c[i-1];gains.push(Math.max(d,0));loss.push(Math.max(-d,0))}
@@ -900,7 +1075,8 @@ function indicators(a){
   const atr=wilder(tr,14),pdm=wilder(plusDM,14),mdm=wilder(minusDM,14),pdi=atr.map((x,i)=>x?100*pdm[i]/x:null),mdi=atr.map((x,i)=>x?100*mdm[i]/x:null),dx=pdi.map((x,i)=>x!=null&&mdi[i]!=null&&(x+mdi[i])?100*Math.abs(x-mdi[i])/(x+mdi[i]):null),adx=wilder(dx.map(x=>x??0),14);
   const bbU=Array(c.length).fill(null),bbL=Array(c.length).fill(null);
   for(let i=19;i<c.length;i++){const w=c.slice(i-19,i+1),m=m20[i],sd=Math.sqrt(w.reduce((s,x)=>s+(x-m)*(x-m),0)/20);bbU[i]=m+2*sd;bbL[i]=m-2*sd}
-  for(let i=0;i<a.length;i++){let r=null;if(ag[i]!=null&&al[i]!=null)r=al[i]===0?100:ag[i]===0?0:100-100/(1+ag[i]/al[i]);Object.assign(a[i],{ma20:m20[i],ma60:m60[i],ma120:m120[i],rsi:r,macd:macd[i],signal:sig[i],hist:macd[i]-sig[i],bbU:bbU[i],bbL:bbL[i],volma:vm[i],volRatio:vm[i]?v[i]/vm[i]:null,atr:atr[i],atrPct:atr[i]?atr[i]/c[i]*100:null,adx:adx[i],score:null})}
+  const ichTenkan=rollingMidHL(a,9),ichKijun=rollingMidHL(a,26),ichSpanBraw=rollingMidHL(a,52),ichSpanAraw=c.map((_,i)=>ichTenkan[i]!=null&&ichKijun[i]!=null?(ichTenkan[i]+ichKijun[i])/2:null);
+  for(let i=0;i<a.length;i++){let r=null;if(ag[i]!=null&&al[i]!=null)r=al[i]===0?100:ag[i]===0?0:100-100/(1+ag[i]/al[i]);Object.assign(a[i],{ma20:m20[i],ma60:m60[i],ma120:m120[i],rsi:r,macd:macd[i],signal:sig[i],hist:macd[i]-sig[i],bbU:bbU[i],bbL:bbL[i],volma:vm[i],volRatio:vm[i]?v[i]/vm[i]:null,atr:atr[i],atrPct:atr[i]?atr[i]/c[i]*100:null,adx:adx[i],ichTenkan:ichTenkan[i],ichKijun:ichKijun[i],ichSpanA:i>=26?ichSpanAraw[i-26]:null,ichSpanB:i>=26?ichSpanBraw[i-26]:null,ichFutureA:ichSpanAraw[i],ichFutureB:ichSpanBraw[i],ichChikouRef:i>=26?c[i-26]:null,score:null})}
   for(let i=1;i<a.length;i++){const x=a[i],p=a[i-1];if([x.ma20,x.ma60,x.ma120,x.rsi,x.bbU,x.bbL,x.volRatio,x.adx].some(z=>z==null))continue;let s=0;s+=x.close>x.ma20?1:-1;s+=x.ma20>x.ma60?1:-1;s+=x.ma60>x.ma120?1:-1;if(x.rsi<30)s++;else if(x.rsi>70)s--;const g=x.macd>x.signal&&p.macd<=p.signal,d=x.macd<x.signal&&p.macd>=p.signal;if(g)s+=2;else if(d)s-=2;else s+=x.macd>x.signal?1:-1;if(x.volRatio>=1.5){if(x.close>p.close)s++;else if(x.close<p.close)s--}if(x.close<=x.bbL)s++;else if(x.close>=x.bbU)s--;x.score=s}
   return a;
 }
@@ -927,6 +1103,119 @@ function confidence(){
 }
 function confidenceText(c){return c>=80?"높음":c>=65?"보통 이상":c>=50?"보통":"낮음"}
 
+
+const DIV_NAMES={
+  regularBull:"일반 상승",
+  regularBear:"일반 하락",
+  hiddenBull:"히든 상승",
+  hiddenBear:"히든 하락"
+};
+function divClass(type){return type?.includes("Bull")?"divBull":type?.includes("Bear")?"divBear":"divNone"}
+function pivotIdx(a,side,left=3,right=3){
+  const out=[];for(let i=left;i<a.length-right;i++){
+    const v=side==="low"?a[i].low:a[i].high;let ok=true;
+    for(let k=1;k<=left;k++){if(side==="low"&&a[i-k].low<=v)ok=false;if(side==="high"&&a[i-k].high>=v)ok=false}
+    for(let k=1;k<=right;k++){if(side==="low"&&a[i+k].low<v)ok=false;if(side==="high"&&a[i+k].high>v)ok=false}
+    if(ok)out.push(i)
+  }return out
+}
+function oscThreshold(a,key,i1,i2){
+  if(key==="rsi")return 2;
+  const from=Math.max(0,i1-30),to=Math.min(a.length,i2+1),vals=a.slice(from,to).map(x=>x[key]).filter(Number.isFinite);
+  if(!vals.length)return 0;const range=Math.max(...vals)-Math.min(...vals);return Math.max(range*.04,Math.max(Math.abs(a[i1]?.[key]||0),Math.abs(a[i2]?.[key]||0))*.03,1e-9)
+}
+function latestDivForOsc(a,key){
+  if(!a?.length||a.length<50)return null;
+  const lows=pivotIdx(a,"low"),highs=pivotIdx(a,"high"),candidates=[],priceTol=.001;
+  function scan(piv,side){
+    for(let p=Math.max(1,piv.length-10);p<piv.length;p++){
+      const i1=piv[p-1],i2=piv[p];if(i2<a.length-36)continue;
+      const o1=a[i1][key],o2=a[i2][key];if(!Number.isFinite(o1)||!Number.isFinite(o2))continue;
+      const th=oscThreshold(a,key,i1,i2);
+      if(side==="low"){
+        if(a[i2].low<a[i1].low*(1-priceTol)&&o2>o1+th)candidates.push({type:"regularBull",i:i2,i1,key});
+        if(a[i2].low>a[i1].low*(1+priceTol)&&o2<o1-th)candidates.push({type:"hiddenBull",i:i2,i1,key})
+      }else{
+        if(a[i2].high>a[i1].high*(1+priceTol)&&o2<o1-th)candidates.push({type:"regularBear",i:i2,i1,key});
+        if(a[i2].high<a[i1].high*(1-priceTol)&&o2>o1+th)candidates.push({type:"hiddenBear",i:i2,i1,key})
+      }
+    }
+  }
+  scan(lows,"low");scan(highs,"high");
+  return candidates.sort((x,y)=>y.i-x.i)[0]||null
+}
+function divergenceForTf(a){
+  const r=latestDivForOsc(a,"rsi"),m=latestDivForOsc(a,"macd"),latestI=a.length-1;
+  const list=[r,m].filter(Boolean);if(!list.length)return{type:null,rsi:null,macd:null,strength:0,trend:"-"};
+  const counts={};for(const x of list)counts[x.type]=(counts[x.type]||0)+1;
+  let type=Object.keys(counts).sort((x,y)=>counts[y]-counts[x]||Math.max(...list.filter(z=>z.type===y).map(z=>z.i))-Math.max(...list.filter(z=>z.type===x).map(z=>z.i)))[0];
+  const sigs=list.filter(x=>x.type===type),idx=Math.max(...sigs.map(x=>x.i)),age=latestI-idx,q=latest(a),rg=q?regime(a,q.i):"-";
+  let trend="반전 가능";
+  if(type==="hiddenBull")trend=rg==="상승 추세"?"기존 흐름 일치":"상승 지속 가능";
+  if(type==="hiddenBear")trend=rg==="하락 추세"?"기존 흐름 일치":"하락 지속 가능";
+  let strength=2;if(sigs.length===2)strength++;if(age<=8)strength++;
+  if((type==="hiddenBull"&&rg==="상승 추세")||(type==="hiddenBear"&&rg==="하락 추세"))strength++;
+  strength=Math.max(1,Math.min(5,strength));
+  return{type,rsi:r?.type===type?r:null,macd:m?.type===type?m:null,strength,trend,index:idx,age}
+}
+function renderDivergence(){
+  let weighted=0,found=0;
+  for(const tf of ["60","240","day"]){
+    const a=state.multi[tf]||[],d=divergenceForTf(a);state.divergence[tf]=d;
+    const typeEl=$(`div${tf}Type`),rsiEl=$(`div${tf}Rsi`),macdEl=$(`div${tf}Macd`),trendEl=$(`div${tf}Trend`),strEl=$(`div${tf}Strength`);
+    if(!typeEl)continue;
+    if(!d.type){typeEl.innerHTML='<span class="divBadge divNone">없음</span>';rsiEl.textContent="-";macdEl.textContent="-";trendEl.textContent="-";strEl.textContent="-";continue}
+    typeEl.innerHTML=`<span class="divBadge ${divClass(d.type)}">${DIV_NAMES[d.type]}</span>`;
+    rsiEl.textContent=d.rsi?"확인":"-";macdEl.textContent=d.macd?"확인":"-";trendEl.textContent=d.trend;strEl.innerHTML=`<span class="strengthDots">${"●".repeat(d.strength)}${"○".repeat(5-d.strength)}</span>`;
+    const w=tf==="day"?3:tf==="240"?2:1,dir=d.type.includes("Bull")?1:-1;weighted+=w*dir*d.strength;found++
+  }
+  $("divSummary").textContent=!found?"최근 확정 다이버전스 없음":weighted>=6?"상승 다이버전스 우세":weighted<=-6?"하락 다이버전스 우세":"시간봉별 혼조";
+}
+
+
+function signDir(n,th=0){return n>th?1:n<-th?-1:0}
+function directionText(d){return d>0?"상승":d<0?"하락":"중립"}
+function ichimokuState(a,i){
+  const x=a?.[i];if(!x||[x.ichTenkan,x.ichKijun,x.ichSpanA,x.ichSpanB,x.ichFutureA,x.ichFutureB,x.ichChikouRef].some(v=>!Number.isFinite(v)))return null;
+  const top=Math.max(x.ichSpanA,x.ichSpanB),bottom=Math.min(x.ichSpanA,x.ichSpanB),prev=a[Math.max(0,i-1)];
+  const pricePos=x.close>top?"구름 위":x.close<bottom?"구름 아래":"구름 안",tk=x.ichTenkan>x.ichKijun?"전환선 우위":x.ichTenkan<x.ichKijun?"기준선 우위":"같은 위치",future=x.ichFutureA>x.ichFutureB?"상승 구름":x.ichFutureA<x.ichFutureB?"하락 구름":"구름 경계",chikou=x.close>x.ichChikouRef?"과거 가격 위":x.close<x.ichChikouRef?"과거 가격 아래":"과거 가격 부근";
+  const tSlope=prev?.ichTenkan!=null?signDir(x.ichTenkan-prev.ichTenkan):0,kSlope=prev?.ichKijun!=null?signDir(x.ichKijun-prev.ichKijun):0,aSlope=prev?.ichFutureA!=null?signDir(x.ichFutureA-prev.ichFutureA):0,bSlope=prev?.ichFutureB!=null?signDir(x.ichFutureB-prev.ichFutureB):0;
+  let bull=0,bear=0;if(pricePos==="구름 위")bull++;else if(pricePos==="구름 아래")bear++;if(x.ichTenkan>x.ichKijun)bull++;else if(x.ichTenkan<x.ichKijun)bear++;if(tSlope>0)bull++;else if(tSlope<0)bear++;if(kSlope>0)bull++;else if(kSlope<0)bear++;if(future==="상승 구름")bull++;else if(future==="하락 구름")bear++;if(x.close>x.ichChikouRef)bull++;else if(x.close<x.ichChikouRef)bear++;
+  const dir=bull>=4&&bull>bear?1:bear>=4&&bear>bull?-1:0,opposite=(aSlope&&bSlope&&aSlope!==bSlope),prev52=a.slice(Math.max(0,i-52),i),max52=prev52.length?Math.max(...prev52.map(z=>z.high)):null,min52=prev52.length?Math.min(...prev52.map(z=>z.low)):null;
+  const spanMotion=opposite?"선행선 반대 움직임":aSlope>0&&bSlope>0?"두 선 상승":aSlope<0&&bSlope<0?"두 선 하락":"한쪽 정체";
+  return{dir,bull,bear,pricePos,tk,future,chikou,opposite,high52:max52!=null&&x.high>max52,low52:min52!=null&&x.low<min52,spanMotion}
+}
+function priorPivotLevel(a,j,side,look=90){
+  const start=Math.max(3,j-look),vals=[];for(let k=start;k<=j-3;k++){if(side==="high"&&a[k].high>a[k-1].high&&a[k].high>a[k-2].high&&a[k].high>=a[k+1].high&&a[k].high>=a[k+2].high)vals.push(a[k].high);if(side==="low"&&a[k].low<a[k-1].low&&a[k].low<a[k-2].low&&a[k].low<=a[k+1].low&&a[k].low<=a[k+2].low)vals.push(a[k].low)}
+  if(!vals.length)return null;const px=a[j-1]?.close;if(side==="high"){const above=vals.filter(v=>v>=px*.995).sort((x,y)=>x-y);return above[0]??vals.sort((x,y)=>y-x)[0]}const below=vals.filter(v=>v<=px*1.005).sort((x,y)=>y-x);return below[0]??vals.sort((x,y)=>x-y)[0]
+}
+function breakoutState(a,i){
+  if(!a||i<25)return null;let evt=null;
+  for(let j=Math.max(6,i-14);j<=i;j++){const res=priorPivotLevel(a,j,"high"),sup=priorPivotLevel(a,j,"low"),p=a[j-1],x=a[j];if(res&&p.close<=res&&x.close>res*1.001)evt={dir:1,index:j,level:res,vol:x.volRatio||0,type:"상승 돌파"};if(sup&&p.close>=sup&&x.close<sup*.999)evt={dir:-1,index:j,level:sup,vol:x.volRatio||0,type:"하락 이탈"}}
+  if(!evt){const lv=levels(a,i),distR=(lv.resistance/a[i].close-1)*100,distS=(a[i].close/lv.support-1)*100;return{dir:0,type:"주요 가격대 안",level:distR<distS?lv.resistance:lv.support,retest:false,vol:a[i].volRatio||0,detail:distR<distS?`저항까지 ${Math.max(0,distR).toFixed(1)}%`:`지지까지 ${Math.max(0,distS).toFixed(1)}%`}}
+  let retest=false,held=true;for(let k=evt.index+1;k<=i;k++){const x=a[k];if(evt.dir>0){if(x.low<=evt.level*1.008&&x.high>=evt.level*.995)retest=true;if(x.close<evt.level*.992)held=false}else{if(x.high>=evt.level*.992&&x.low<=evt.level*1.005)retest=true;if(x.close>evt.level*1.008)held=false}}
+  const confirmed=evt.dir>0?a[i].close>=evt.level:a[i].close<=evt.level,type=retest&&held&&confirmed?(evt.dir>0?"상승 돌파 후 재확인":"하락 이탈 후 재확인"):evt.type;return{...evt,type,retest,held,confirmed,detail:`${i-evt.index}봉 전 발생`}
+}
+function reversalSignal(a,i){
+  if(!a||i<15)return null;for(let j=i;j>=Math.max(1,i-3);j--){const p=a[j-1],x=a[j],w=a.slice(Math.max(0,j-10),j+1),overSold=w.some(z=>Number.isFinite(z.rsi)&&z.rsi<=30),overBought=w.some(z=>Number.isFinite(z.rsi)&&z.rsi>=70),bull=x.macd>x.signal&&p.macd<=p.signal,bear=x.macd<x.signal&&p.macd>=p.signal;if(overSold&&bull)return{dir:1,type:"상승 반전 후보",index:j,age:i-j,basis:"최근 10봉 과매도 + MACD 상승교차"};if(overBought&&bear)return{dir:-1,type:"하락 반전 후보",index:j,age:i-j,basis:"최근 10봉 과매수 + MACD 하락교차"}}return{dir:0,type:"뚜렷한 반전 신호 없음",age:null,basis:"과매수·과매도 + MACD 교차 대기"}
+}
+function alternatingPivots(a){const lows=new Set(pivotIdx(a,"low")),highs=new Set(pivotIdx(a,"high")),pts=[];for(let i=3;i<a.length-3;i++){if(lows.has(i))pts.push({i,type:"L",price:a[i].low});if(highs.has(i))pts.push({i,type:"H",price:a[i].high})}pts.sort((x,y)=>x.i-y.i);const out=[];for(const p of pts){const last=out.at(-1);if(!last||last.type!==p.type)out.push(p);else if((p.type==="H"&&p.price>last.price)||(p.type==="L"&&p.price<last.price))out[out.length-1]=p}return out}
+function waveCandidate(a,i){
+  if(!a||i<60)return null;const pts=alternatingPivots(a),candidates=[];
+  for(let s=Math.max(0,pts.length-16);s<=pts.length-6;s++){const p=pts.slice(s,s+6),types=p.map(x=>x.type).join("");if(types==="LHLHLH"){const w1=p[1].price-p[0].price,w3=p[3].price-p[2].price,w5=p[5].price-p[4].price,r2=p[2].price>p[0].price,r3=w3>=Math.min(w1,w5)*.999,r4=p[4].price>p[1].price,structure=p[3].price>p[1].price&&p[4].price>p[2].price;candidates.push({dir:1,r2,r3,r4,structure,score:[r2,r3,r4,structure].filter(Boolean).length,last:p[5].i})}if(types==="HLHLHL"){const w1=p[0].price-p[1].price,w3=p[2].price-p[3].price,w5=p[4].price-p[5].price,r2=p[2].price<p[0].price,r3=w3>=Math.min(w1,w5)*.999,r4=p[4].price<p[1].price,structure=p[3].price<p[1].price&&p[4].price<p[2].price;candidates.push({dir:-1,r2,r3,r4,structure,score:[r2,r3,r4,structure].filter(Boolean).length,last:p[5].i})}}
+  const best=candidates.filter(x=>i-x.last<=45).sort((a,b)=>b.score-a.score||b.last-a.last)[0];if(!best||best.score<3)return{dir:0,type:"명확한 5파 구조 없음",r2:null,r3:null,r4:null,score:0,age:null};const valid=best.r2&&best.r3&&best.r4;return{dir:valid?best.dir:0,type:valid?(best.dir>0?"상승 5파 구조 후보":"하락 5파 구조 후보"):"5파처럼 보이나 규칙 미충족",r2:best.r2,r3:best.r3,r4:best.r4,score:best.score,age:i-best.last}
+}
+function divergenceDirection(){let v=0;for(const [tf,w] of [["60",1],["240",2],["day",3]]){const d=state.divergence[tf];if(d?.type)v+=(d.type.includes("Bull")?1:-1)*w*d.strength}return signDir(v,2)}
+function mtfDirection(){let total=0,n=0;for(const tf of ["60","240","day"]){const q=latest(state.multi[tf]||[]);if(q){total+=q.x.score;n++}}return n?signDir(total,4):0}
+function environmentDirection(){if(!state.marketEnv||state.marketEnv.error)return 0;const v=marketEnvVerdict(),market=$("market")?.value||"KRW-BTC",isBtc=market==="KRW-BTC";if(v.verdict==="위험회피 환경")return -1;if(v.verdict==="시장 전체 위험선호")return 1;if(v.verdict==="비트코인 우위")return isBtc?1:0;if(v.verdict==="알트코인 우호")return isBtc?0:1;return 0}
+function renderDecisionPack(){
+  const q=latest(state.candles);if(!q||!$("confluenceMain"))return;const{x,i}=q,ich=ichimokuState(state.candles,i),br=breakoutState(state.candles,i),rev=reversalSignal(state.candles,i),wave=waveCandidate(state.candles,i);state.ichimoku=ich;state.breakout=br;state.reversal=rev;state.wave=wave;
+  if(ich){$("ichVerdict").textContent=ich.dir>0?"상승 흐름 우세":ich.dir<0?"하락 흐름 우세":"방향 혼조";$("ichStrength").textContent=`상승 ${ich.bull}/6 · 하락 ${ich.bear}/6`;$("ichWarning").textContent=ich.opposite?"추세전환 주의":"선행선 안정";$("ichPrice").textContent=ich.pricePos;$("ichTk").textContent=ich.tk;$("ichFuture").textContent=ich.future;$("ichChikou").textContent=ich.chikou;$("ich52").textContent=ich.high52?"52기간 신고가":ich.low52?"52기간 신저가":"갱신 없음";$("ichSpanMotion").textContent=ich.spanMotion}else{["ichVerdict","ichStrength","ichWarning","ichPrice","ichTk","ichFuture","ichChikou","ich52","ichSpanMotion"].forEach(id=>$(id).textContent="-")}
+  if(br){$("breakoutVerdict").textContent=br.type;$("breakoutDetail").textContent=br.detail||"-";$("breakoutLevel").textContent=Number.isFinite(br.level)?Math.round(br.level).toLocaleString()+"원":"-";$("breakoutRetest").textContent=br.retest?(br.held?"재확인 유지":"재확인 후 실패"):"아직 없음";$("breakoutVol").textContent=Number.isFinite(br.vol)?`거래량 ${br.vol.toFixed(2)}x`:"거래량 -"}$("reversalSignal").textContent=rev?.type||"-";
+  if(wave){$("waveVerdict").textContent=wave.type;$("waveAge").textContent=wave.age==null?"최근 확정 피벗 기준":`${wave.age}봉 전 마지막 피벗`;$("waveConfidence").textContent=wave.score?`규칙 ${Math.min(3,[wave.r2,wave.r3,wave.r4].filter(Boolean).length)}/3`:"후보 없음";const mark=v=>v==null?"-":v?"충족":"위반";$("waveRule2").textContent=mark(wave.r2);$("waveRule3").textContent=mark(wave.r3);$("waveRule4").textContent=mark(wave.r4)}
+  const mtf=mtfDirection(),div=divergenceDirection(),env=environmentDirection(),dirs=[{name:"기술 점수",dir:signDir(x.score,2),text:`${x.score>=0?"+":""}${x.score}`},{name:"시간대 흐름",dir:mtf,text:directionText(mtf)},{name:"다이버전스",dir:div,text:directionText(div)},{name:"일목 흐름",dir:ich?.dir||0,text:ich?directionText(ich.dir):"대기"},{name:"돌파·거래량",dir:br?.dir&&br.vol>=1.2?br.dir:0,text:br?.dir?(br.vol>=1.2?directionText(br.dir):"거래량 약함"):"중립"},{name:"시장 전체 흐름",dir:env,text:directionText(env)}],bull=dirs.filter(z=>z.dir>0).length,bear=dirs.filter(z=>z.dir<0).length,neutral=dirs.length-bull-bear,net=bull-bear,dir=signDir(net,1);state.confluence={bull,bear,neutral,dir,items:dirs};$("confluenceMain").textContent=dir>0?`상승 ${bull}/6`:dir<0?`하락 ${bear}/6`:"혼조";$("confluenceSub").textContent=`상승 ${bull} · 하락 ${bear} · 중립 ${neutral}`;const box=$("confluenceChecks");box.innerHTML="";for(const z of dirs){const d=document.createElement("div");d.className=`signalCheck ${z.dir>0?"good":z.dir<0?"bad":"neutral"}`;d.innerHTML=`<small>${z.name}</small><b>${z.dir>0?"▲ ":z.dir<0?"▼ ":"• "}${z.text}</b>`;box.appendChild(d)}
+}
+
 function historicalWinRate(a,i){
   const s=a[i]?.score;if(s==null||Math.abs(s)<3)return{rate:null,n:0,horizon:6};
   const threshold=Math.max(3,Math.min(6,Math.abs(s))),dir=Math.sign(s),h=6;let hit=0,n=0;
@@ -947,10 +1236,10 @@ function reasons(a,i){const x=a[i],p=a[i-1],good=[],bad=[];(x.close>x.ma20?good:
 async function loadAll(){
   $("load").disabled=true;["runBt","runAdvBt","calcRisk","runCompare","aiSummary","aiAsk"].forEach(id=>$(id).disabled=true);state.loaded=false;state.bt=null;state.compare=null;state.replayIndex=null;state.chartMarkers=[];renderReplay();updateModeUi();
   try{
-    const market=$("market").value,tf=$("tf").value,total=Number($("count").value);setStatus("기준 데이터를 불러오는 중…",5);
+    const market=$("market").value,tf=$("tf").value,total=Number($("count").value),envPromise=fetchMarketEnvironment();setStatus("기준 데이터를 불러오는 중…",5);
     state.candles=await fetchCandles(market,tf,total,(p,ps,n)=>setStatus(`기준 데이터 ${p}/${ps} · ${n}개`,5+32*(p-1)/ps));
-    const r=await Promise.all(["60","240","day"].map(async(t,idx)=>{const d=await fetchCandles(market,t,220);setStatus(`멀티TF ${idx+1}/3`,50+10*idx);return[t,d]}));state.multi=Object.fromEntries(r);
-    const q=latest(state.candles);if(!q)throw new Error("지표 계산에 필요한 데이터가 부족합니다.");state.levels=levels(state.candles,q.i);state.loaded=true;updateOverview();updateMulti();updateRisk();runBacktest();drawAll();
+    const r=await Promise.all(["60","240","day"].map(async(t,idx)=>{const d=await fetchCandles(market,t,220);setStatus(`시간대 비교 ${idx+1}/3`,50+10*idx);return[t,d]}));state.multi=Object.fromEntries(r);
+    const q=latest(state.candles);if(!q)throw new Error("지표 계산에 필요한 데이터가 부족합니다.");state.levels=levels(state.candles,q.i);state.loaded=true;updateOverview();updateMulti();renderDivergence();renderDecisionPack();updateRisk();runBacktest();drawAll();await envPromise;renderMarketEnvironment();renderDecisionPack();
     ["runBt","runAdvBt","calcRisk","runCompare","aiSummary","aiAsk"].forEach(id=>$(id).disabled=false);$("cloudState").textContent="Vercel 정상";setStatus(`완료 · ${market} · ${TF_NAMES[tf]} · ${state.candles.length}개`,100)
   }catch(e){console.error(e);setStatus("오류: "+e.message,0);$("cloudState").textContent="연결 오류";alert("데이터를 불러오지 못했습니다.\n\n"+e.message)}finally{$("load").disabled=false}
 }
@@ -1005,6 +1294,41 @@ function updateOverview(){
   updateVisualOverview();
 }
 
+
+function arrowDelta(v,eps=.015){if(!Number.isFinite(Number(v)))return"";const x=Number(v);return x>eps?" ↑":x<-eps?" ↓":" →"}
+function marketEnvVerdict(){
+  const env=state.marketEnv||{},q=latest(state.multi["240"]||[]),btcScore=q?.x?.score||0,btcReg=q?regime(state.multi["240"],q.i):"";
+  const bdom=Number(env.btcDominanceDeltaPp),udom=Number(env.usdtDominanceDeltaPp),cap=Number(env.totalMarketCapChange24h);
+  const breadth=state.scannerBreadth||{},pos=Number(breadth.positiveScorePct),ma=Number(breadth.aboveMA20Pct);
+  let risk=0;if(btcScore>=3)risk+=2;else if(btcScore<=-3)risk-=2;
+  if(Number.isFinite(udom)){if(udom<-.03)risk+=2;else if(udom>.03)risk-=2}
+  if(Number.isFinite(cap)){if(cap>1)risk++;else if(cap<-1)risk--}
+  if(Number.isFinite(pos)){if(pos>=60)risk++;else if(pos<=40)risk--}
+  if(Number.isFinite(ma)){if(ma>=60)risk++;else if(ma<=40)risk--}
+  let verdict="혼조",sub="방향 확인 필요";
+  if(risk<=-3){verdict="위험회피 환경";sub="현금·스테이블 선호 가능성"}
+  else if(btcScore>=3&&Number.isFinite(bdom)&&bdom>.04&&(!Number.isFinite(udom)||udom<=.03)){verdict="비트코인 우위";sub="BTC로 자금 집중 가능성"}
+  else if(btcScore>=0&&Number.isFinite(bdom)&&bdom<-.04&&Number.isFinite(udom)&&udom<0&&(!Number.isFinite(pos)||pos>=50)){verdict="알트코인 우호";sub="BTC 외 시장으로 확산 가능성"}
+  else if(risk>=3){verdict="시장 전체 위험선호";sub="BTC·알트 동반 우호 가능성"}
+  return{verdict,sub,risk,btcScore,btcReg}
+}
+function renderMarketEnvironment(){
+  const e=state.marketEnv||{},v=marketEnvVerdict();
+  if(!$("envVerdict"))return;
+  $("envVerdict").textContent=e.error?"환경자료 일부 오류":v.verdict;$("envSubVerdict").textContent=e.error?e.error:v.sub;
+  const q=latest(state.multi["240"]||[]);$("envBtcFlow").textContent=q?(q.x.score>=3?"상승 우세":q.x.score<=-3?"하락 우세":"중립"):"-";$("envBtcScore").textContent=q?`4시간 점수 ${q.x.score>=0?"+":""}${q.x.score} · ${regime(state.multi["240"],q.i)}`:"-";
+  $("envBtcDom").textContent=Number.isFinite(Number(e.btcDominance))?Number(e.btcDominance).toFixed(2)+"%":"-";$("envBtcDomDelta").textContent=Number.isFinite(Number(e.btcDominanceDeltaPp))?`24H ${Number(e.btcDominanceDeltaPp)>=0?"+":""}${Number(e.btcDominanceDeltaPp).toFixed(2)}%p${arrowDelta(e.btcDominanceDeltaPp)}`:"24H 변화 -";
+  $("envUsdtDom").textContent=Number.isFinite(Number(e.usdtDominance))?Number(e.usdtDominance).toFixed(2)+"%":"-";$("envUsdtDomDelta").textContent=Number.isFinite(Number(e.usdtDominanceDeltaPp))?`24H ${Number(e.usdtDominanceDeltaPp)>=0?"+":""}${Number(e.usdtDominanceDeltaPp).toFixed(2)}%p${arrowDelta(e.usdtDominanceDeltaPp)}`:"24H 변화 -";
+  const ud=Number(e.usdtDominanceDeltaPp);$("envTetherImpact").textContent=!Number.isFinite(ud)?"-":ud>.03?"위험회피 압력":ud<-.03?"위험선호 보조":"중립";
+  const b=state.scannerBreadth;$("envBreadth").textContent=b?`양(+)점수 ${Number(b.positiveScorePct||0).toFixed(0)}% · MA20위 ${Number(b.aboveMA20Pct||0).toFixed(0)}%`:"종목 찾아보기 전";
+  $("envTotalCap").textContent=Number.isFinite(Number(e.totalMarketCapChange24h))?`${Number(e.totalMarketCapChange24h)>=0?"+":""}${Number(e.totalMarketCapChange24h).toFixed(2)}%`:"-";
+  const mac=e.macro||{};
+  $("envVix").textContent=mac.vix?.value!=null?`${Number(mac.vix.value).toFixed(1)} ${mac.vix.change>0?"↑":mac.vix.change<0?"↓":"→"}`:"-";
+  $("envUs10y").textContent=mac.us10y?.value!=null?`${Number(mac.us10y.value).toFixed(2)}% · ${mac.us10y.changeBp>=0?"+":""}${Number(mac.us10y.changeBp).toFixed(0)}bp`:"-";
+  $("envDollar").textContent=mac.dollar?.value!=null?`${Number(mac.dollar.value).toFixed(1)} · ${mac.dollar.changePct>=0?"+":""}${Number(mac.dollar.changePct).toFixed(2)}%`:"-";
+  $("envUpdated").textContent=e.updatedAt?`갱신 ${new Date(e.updatedAt).toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"})} · CoinPaprika/FRED`:"BTC · 도미넌스 · 테더 · 매크로 보조";
+}
+
 function sparkCanvas(id,values,kind="line"){
   const c=$(id);if(!c||!values?.length)return;const rect=c.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2),w=Math.max(120,rect.width),h=86;
   c.width=Math.floor(w*ratio);c.height=Math.floor(h*ratio);c.style.height=h+"px";const ctx=c.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,w,h);
@@ -1015,7 +1339,7 @@ function sparkCanvas(id,values,kind="line"){
 }
 function overviewSummaryLines(){
   const q=latest(state.candles);if(!q)return[];const x=q.x,rg=regime(state.candles,q.i),lv=state.levels,lines=[];
-  lines.push(`시장 국면은 ${rg}이며 현재 Score는 ${x.score>=0?"+":""}${x.score}, Signal Quality는 ${confidence()}/100입니다.`);
+  lines.push(`시장 흐름은 ${rg}이며 현재 Score는 ${x.score>=0?"+":""}${x.score}, 신호 품질는 ${confidence()}/100입니다.`);
   if(x.ma20>x.ma60&&x.ma60>x.ma120)lines.push("MA20 > MA60 > MA120의 상승 정렬이 확인됩니다.");else if(x.ma20<x.ma60&&x.ma60<x.ma120)lines.push("MA20 < MA60 < MA120의 하락 정렬이 확인됩니다.");else lines.push("이동평균 배열은 혼조 상태라 추세 확인이 더 필요합니다.");
   lines.push(`현재가는 1차 지지 ${Math.round(lv.support).toLocaleString()}원과 1차 저항 ${Math.round(lv.resistance).toLocaleString()}원 사이에 있습니다.`);
   if(x.adx>=25)lines.push(`ADX ${x.adx.toFixed(1)}로 현재 추세 강도는 비교적 뚜렷한 편입니다.`);else lines.push(`ADX ${x.adx.toFixed(1)}로 강한 추세보다는 방향 확인이 중요합니다.`);
@@ -1029,7 +1353,7 @@ function updateVisualOverview(){
   $("overviewR2").textContent=lv.resistance2?Math.round(lv.resistance2).toLocaleString():"-";$("overviewS2").textContent=lv.support2?Math.round(lv.support2).toLocaleString():"-";$("overviewCurrent").textContent=Math.round(x.close).toLocaleString();
   const ul=$("overviewSummary");ul.innerHTML="";for(const t of overviewSummaryLines()){const li=document.createElement("li");li.textContent=t;ul.appendChild(li)}
   const n=Math.min(42,state.candles.length),tail=state.candles.slice(-n);sparkCanvas("rsiMini",tail.map(z=>z.rsi),"line");sparkCanvas("adxMini",tail.map(z=>z.adx),"adx");sparkCanvas("volMini",tail.map(z=>z.volRatio),"bar");sparkCanvas("atrMini",tail.map(z=>z.atrPct),"atr");
-  updateOverviewMtf();updateOverviewRisk();updateOverviewBacktest();renderOverviewScanner();renderOverviewPersonal();
+  updateOverviewMtf();renderDivergence();renderMarketEnvironment();renderDecisionPack();updateOverviewRisk();updateOverviewBacktest();renderOverviewScanner();renderMarketEnvironment();renderDecisionPack();renderOverviewPersonal();
 }
 function updateOverviewMtf(){
   const body=$("overviewMtfBody");if(!body)return;body.innerHTML="";let total=0,n=0;
@@ -1037,7 +1361,7 @@ function updateOverviewMtf(){
     const hid=$(`heroTf${tf}`);if(hid){hid.textContent=(x.score>=0?"+":"")+x.score;hid.className=cls(x.score)}
     const tr=document.createElement("tr");tr.innerHTML=`<td>${TF_NAMES[tf]}</td><td class="${cls(x.score)}">${x.score>=0?"+":""}${x.score}</td><td>${qual}/100</td><td>${regime(state.multi[tf],q.i)}</td><td>${x.rsi.toFixed(1)}</td><td>${x.adx.toFixed(1)}</td>`;body.appendChild(tr)
   }
-  $("overviewMtfTotal").textContent=n?((total>=0?"+":"")+total):"-";$("overviewMtfVerdict").textContent=n?(total>=10?"강한 상승 정합":total>=5?"상승 우위":total<=-10?"강한 하락 정합":total<=-5?"하락 우위":"TF 혼조"):"-";
+  $("overviewMtfTotal").textContent=n?((total>=0?"+":"")+total):"-";$("overviewMtfVerdict").textContent=n?(total>=10?"강한 상승 일치":total>=5?"상승 우세":total<=-10?"강한 하락 일치":total<=-5?"하락 우세":"시간대별 혼조"):"-";
 }
 function updateOverviewRisk(){
   if(!state.risk)return;$("overviewStop").textContent=Math.round(state.risk.stop).toLocaleString();$("overviewTp1").textContent=Math.round(state.risk.tp1).toLocaleString();$("overviewTp2").textContent=Math.round(state.risk.tp2).toLocaleString();$("overviewRR").textContent="1 : "+state.risk.rr.toFixed(2);
@@ -1046,7 +1370,7 @@ function updateOverviewBacktest(){
   if(!state.bt)return;const b=state.bt.summary;$("overviewBtRet").textContent=fmtPct(b.ret);$("overviewBtRet").className=b.ret>=0?"good":"bad";$("overviewBtWin").textContent=b.win.toFixed(1)+"%";$("overviewBtPf").textContent=b.pf===Infinity?"∞":b.pf.toFixed(2);$("overviewBtMdd").textContent=b.mdd.toFixed(1)+"%";$("overviewBtMdd").className="bad";
 }
 function renderOverviewScanner(){
-  const box=$("overviewScanner");if(!box)return;box.innerHTML="";const rows=state.scanner.slice(0,5);if(!rows.length){box.innerHTML='<div class="hint">Scanner 탭에서 실행하면 상위 결과가 여기에 표시됩니다.</div>';return}
+  const box=$("overviewScanner");if(!box)return;box.innerHTML="";const rows=state.scanner.slice(0,5);if(!rows.length){box.innerHTML='<div class="hint">종목 찾기에서 실행하면 상위 결과가 여기에 표시됩니다.</div>';return}
   rows.forEach((x,i)=>{const d=document.createElement("div");d.className="listItem";d.innerHTML=`<div class="meta"><strong>${i+1}. ${x.market}</strong><small>${x.name||""}</small></div><div style="text-align:right"><strong class="${cls(x.score)}">${x.score>=0?"+":""}${x.score}</strong><small style="display:block;color:var(--muted)">${x.quality||x.confidence||"-"}/100</small></div>`;box.appendChild(d)})
 }
 function renderOverviewPersonal(){
@@ -1054,9 +1378,9 @@ function renderOverviewPersonal(){
   let value=0,cost=0;for(const h of d.portfolio){const md=state.marketData.find(x=>x.market===h.market),px=md?.trade_price||0;value+=px*h.qty;cost+=h.avg*h.qty}$("overviewPortfolioValue").textContent=fmtKRW(value);$("overviewPortfolioPnl").textContent=cost?`${fmtKRW(value-cost)} (${fmtPct((value/cost-1)*100)})`:"보유자산 없음";$("overviewPortfolioPnl").className="detail "+(value-cost>=0?"good":"bad");
 }
 
-function updateMulti(){let total=0,n=0;for(const tf of ["60","240","day"]){const q=latest(state.multi[tf]||[]);if(!q)continue;const x=q.x;total+=x.score;n++;const e=$(`tf${tf}Score`);e.textContent=(x.score>=0?"+":"")+x.score;e.className="tfScore "+cls(x.score);$(`tf${tf}Rsi`).textContent=x.rsi.toFixed(1);$(`tf${tf}Adx`).textContent=x.adx.toFixed(1);$(`tf${tf}Trend`).textContent=trendText(x);$(`tf${tf}Regime`).textContent=regime(state.multi[tf],q.i)}$("mtfTotal").textContent=n?(total>=0?"+":"")+total:"-";$("mtfVerdict").textContent=n?(total>=10?"강한 상승 정합":total>=5?"상승 우위":total<=-10?"강한 하락 정합":total<=-5?"하락 우위":"TF 혼조"):"데이터 필요";if(state.loaded)updateOverviewMtf()}
-function updateRisk(){const q=latest(state.candles);if(!q)return;const x=q.x,lv=state.levels,stop=Math.min(lv.support,x.close-1.5*x.atr),tp1=Math.max(lv.resistance,x.close+x.atr),tp2=Math.max(lv.resistance2||0,x.close+2*x.atr),risk=x.close-stop,reward=tp2-x.close,rr=risk>0?reward/risk:0;state.risk={price:x.close,atr:x.atr,stop,tp1,tp2,rr,support:lv.support,resistance:lv.resistance};$("riskPrice").textContent=fmtKRW(x.close);$("riskAtr").textContent=x.atrPct.toFixed(2)+"%";$("riskSupport").textContent=fmtKRW(lv.support);$("riskResist").textContent=fmtKRW(lv.resistance);$("riskStop").textContent=fmtKRW(stop);$("riskTp1").textContent=fmtKRW(tp1);$("riskTp2").textContent=fmtKRW(tp2);$("riskRR").textContent="1 : "+rr.toFixed(2);if(state.loaded)updateOverviewRisk()}
-function calcRisk(){if(!state.risk)return;const cap=num($("riskCapital").value),pct=num($("riskPct").value)/100,maxLoss=cap*pct,unitRisk=Math.max(1,state.risk.price-state.risk.stop),qty=maxLoss/unitRisk,value=qty*state.risk.price,weight=value/cap*100;$("maxLoss").textContent=fmtKRW(maxLoss);$("positionValue").textContent=fmtKRW(value);$("positionQty").textContent=qty.toFixed(6)+" BTC";$("positionPct").textContent=weight.toFixed(1)+"%"}
+function updateMulti(){let total=0,n=0;for(const tf of ["60","240","day"]){const q=latest(state.multi[tf]||[]);if(!q)continue;const x=q.x;total+=x.score;n++;const e=$(`tf${tf}Score`);e.textContent=(x.score>=0?"+":"")+x.score;e.className="tfScore "+cls(x.score);$(`tf${tf}Rsi`).textContent=x.rsi.toFixed(1);$(`tf${tf}Adx`).textContent=x.adx.toFixed(1);$(`tf${tf}Trend`).textContent=trendText(x);$(`tf${tf}Regime`).textContent=regime(state.multi[tf],q.i)}$("mtfTotal").textContent=n?(total>=0?"+":"")+total:"-";$("mtfVerdict").textContent=n?(total>=10?"강한 상승 일치":total>=5?"상승 우세":total<=-10?"강한 하락 일치":total<=-5?"하락 우세":"시간대별 혼조"):"데이터 필요";if(state.loaded)updateOverviewMtf()}
+function updateRisk(){const q=latest(state.candles);if(!q)return;const x=q.x,lv=state.levels,stop=Math.min(lv.support,x.close-1.5*x.atr),tp1=Math.max(lv.resistance,x.close+x.atr),tp2=Math.max(lv.resistance2||0,x.close+2*x.atr),risk=x.close-stop,reward=tp2-x.close,rr=risk>0?reward/risk:0;state.risk={price:x.close,atr:x.atr,stop,tp1,tp2,rr,support:lv.support,resistance:lv.resistance};$("riskPrice").textContent=fmtKRW(x.close);$("riskAtr").textContent=x.atrPct.toFixed(2)+"%";$("riskSupport").textContent=fmtKRW(lv.support);$("riskResist").textContent=fmtKRW(lv.resistance);$("riskStop").textContent=fmtKRW(stop);$("riskTp1").textContent=fmtKRW(tp1);$("riskTp2").textContent=fmtKRW(tp2);$("riskRR").textContent="1 : "+rr.toFixed(2);if($("riskInvalidation"))$("riskInvalidation").value=Math.round(stop);if(state.loaded)updateOverviewRisk()}
+function calcRisk(){if(!state.risk)return;const cap=num($("riskCapital").value),pct=num($("riskPct").value)/100,maxLoss=cap*pct,inv=num($("riskInvalidation")?.value||state.risk.stop),unitRisk=Math.max(1,state.risk.price-inv);if(inv>=state.risk.price)return alert("무효화 가격은 현재가보다 낮게 입력하세요.");const rawQty=maxLoss/unitRisk,rawValue=rawQty*state.risk.price,value=Math.min(cap,rawValue),qty=value/state.risk.price,weight=cap?value/cap*100:0,symbol=($("market").value||"KRW-BTC").replace("KRW-","");$("maxLoss").textContent=fmtKRW(maxLoss);$("positionValue").textContent=fmtKRW(value)+(rawValue>cap?" · 현물한도 적용":"");$("positionQty").textContent=qty.toFixed(6)+" "+symbol;$("positionPct").textContent=weight.toFixed(1)+"%"}
 
 function btCalc(src,entry,exit,init,fee,slip){
   const a=src.filter(x=>x.score!=null);if(a.length<5)return null;let cash=init,qty=0,en=null,trades=[],eq=[];
@@ -1096,7 +1420,7 @@ async function runScanner(){
   $("runScanner").disabled=true;const body=$("scannerBody");body.innerHTML="";
   try{
     const tf=$("scanTf").value,n=Math.min(30,Number($("scanN").value)),minScore=num($("scanMinScore").value),minVol=num($("scanMinVol").value);
-    setStatus("V15.5.2 서버 Scanner 실행 중…",10);
+    setStatus("V15.5.2 서버 종목 찾아보기 중…",10);
 
     const u=new URL("/api/scanner",location.origin);
     u.searchParams.set("tf",tf);u.searchParams.set("n",n);u.searchParams.set("minScore",minScore);u.searchParams.set("minVol",minVol);
@@ -1211,22 +1535,22 @@ function saveDb(d){storeSave(d);renderPersonal()}
 function addWatch(){const d=db(),m=$("market").value;if(!d.watchlist.includes(m))d.watchlist.push(m);saveDb(d)}
 function renderPersonal(){
   const d=db(),wl=$("watchList");if(!wl)return;wl.innerHTML="";for(const m of d.watchlist){const x=state.marketData.find(z=>z.market===m),e=document.createElement("div");e.className="listItem";e.innerHTML=`<div class="meta"><strong>${m}</strong><small>${x?x.korean_name:""} ${x?fmtKRW(x.trade_price):""}</small></div><button class="miniBtn" data-rw="${m}">삭제</button>`;wl.appendChild(e)}document.querySelectorAll("[data-rw]").forEach(b=>b.onclick=()=>{const z=db();z.watchlist=z.watchlist.filter(x=>x!==b.dataset.rw);saveDb(z)});
-  const al=$("alertList");al.innerHTML="";d.alerts.forEach((a,i)=>{const e=document.createElement("div");e.className="listItem";e.innerHTML=`<div class="meta"><strong>${a.market} · ${TF_NAMES[a.tf]}</strong><small>Score ≥ ${a.score} · Quality ≥ ${a.quality}</small></div><button class="miniBtn" data-ra="${i}">삭제</button>`;al.appendChild(e)});document.querySelectorAll("[data-ra]").forEach(b=>b.onclick=()=>{const z=db();z.alerts.splice(Number(b.dataset.ra),1);saveDb(z)});
+  const al=$("alertList");al.innerHTML="";d.alerts.forEach((a,i)=>{const e=document.createElement("div");e.className="listItem";e.innerHTML=`<div class="meta"><strong>${a.market} · ${TF_NAMES[a.tf]}</strong><small>점수 ≥ ${a.score} · 품질 ≥ ${a.quality}</small></div><button class="miniBtn" data-ra="${i}">삭제</button>`;al.appendChild(e)});document.querySelectorAll("[data-ra]").forEach(b=>b.onclick=()=>{const z=db();z.alerts.splice(Number(b.dataset.ra),1);saveDb(z)});
   const sb=$("snapshotBody");sb.innerHTML="";d.snapshots.slice().reverse().slice(0,40).forEach((s,ri)=>{const idx=d.snapshots.length-1-ri,tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${new Date(s.savedAt).toLocaleString("ko-KR")}</td><td>${s.market}</td><td>${s.tf}</td><td>${Math.round(s.price).toLocaleString()}</td><td>${s.score>=0?"+":""}${s.score}</td><td>${s.quality}</td><td>${s.histWin==null?"N/A":s.histWin.toFixed(1)+"%"}</td><td>${s.regime}</td><td><button class="miniBtn" data-rs="${idx}">삭제</button></td>`;sb.appendChild(tr)});document.querySelectorAll("[data-rs]").forEach(b=>b.onclick=()=>{const z=db();z.snapshots.splice(Number(b.dataset.rs),1);saveDb(z)});
   const jl=$("journalList");jl.innerHTML="";d.journal.slice().reverse().slice(0,30).forEach((j,ri)=>{const idx=d.journal.length-1-ri,pnl=(j.exit&&j.entry&&j.qty)?(j.exit-j.entry)*j.qty:null,e=document.createElement("div");e.className="listItem";e.innerHTML=`<div class="meta"><strong>${j.market} · ${j.side}</strong><small>${Number(j.entry).toLocaleString()} → ${j.exit?Number(j.exit).toLocaleString():"OPEN"} · ${pnl==null?"":("손익 "+Math.round(pnl).toLocaleString()+"원")} · ${j.note||""}</small></div><button class="miniBtn" data-rj="${idx}">삭제</button>`;jl.appendChild(e)});document.querySelectorAll("[data-rj]").forEach(b=>b.onclick=()=>{const z=db();z.journal.splice(Number(b.dataset.rj),1);saveDb(z)});
-  renderPortfolio(d);if($("overviewWatchlist"))renderOverviewPersonal();
+  render보유자산(d);if($("overviewWatchlist"))renderOverviewPersonal();
 }
 function saveAlert(){const d=db();d.alerts.push({market:$("market").value,tf:$("alertTf").value,score:num($("alertScore").value,5),quality:num($("alertQuality").value,70)});saveDb(d)}
 async function requestNotify(){if(!("Notification"in window))return alert("이 브라우저는 Notification API를 지원하지 않습니다.");const p=await Notification.requestPermission();alert("알림 권한: "+p)}
 function notifyUser(title,body){if("Notification"in window&&Notification.permission==="granted")new Notification(title,{body})}
 async function checkAlerts(){
-  const d=db();if(!d.alerts.length)return alert("저장된 알림 조건이 없습니다.");setStatus("Watchlist 알림 확인 중…",10);let hits=0;
-  for(let i=0;i<d.alerts.length;i++){const a=d.alerts[i];try{const c=await fetchCandles(a.market,a.tf,160),q=latest(c);if(q){const qual=Math.round(Math.max(30,Math.min(95,40+Math.min(25,q.x.adx/40*25)+(Math.abs(q.x.score)>=5?15:5)+(q.x.volRatio>=1.5?10:0))));if(q.x.score>=a.score&&qual>=a.quality){hits++;notifyUser(`${a.market} Signal`,`Score +${q.x.score} · Quality ${qual} · ${regime(c,q.i)}`)}}await sleep(140)}catch(e){console.warn(e)}}setStatus(`알림 확인 완료 · ${hits}개 조건 충족`,100);alert(`알림 확인 완료: ${hits}개 조건 충족`);
+  const d=db();if(!d.alerts.length)return alert("저장된 알림 조건이 없습니다.");setStatus("관심종목 알림 확인 중…",10);let hits=0;
+  for(let i=0;i<d.alerts.length;i++){const a=d.alerts[i];try{const c=await fetchCandles(a.market,a.tf,160),q=latest(c);if(q){const qual=Math.round(Math.max(30,Math.min(95,40+Math.min(25,q.x.adx/40*25)+(Math.abs(q.x.score)>=5?15:5)+(q.x.volRatio>=1.5?10:0))));if(q.x.score>=a.score&&qual>=a.quality){hits++;notifyUser(`${a.market} Signal`,`점수 +${q.x.score} · 신품 ${qual} · ${regime(c,q.i)}`)}}await sleep(140)}catch(e){console.warn(e)}}setStatus(`알림 확인 완료 · ${hits}개 조건 충족`,100);alert(`알림 확인 완료: ${hits}개 조건 충족`);
 }
 function saveSnapshot(){if(!state.loaded)return;const d=db(),q=latest(state.candles),hw=historicalWinRate(state.candles,q.i);d.snapshots.push({savedAt:new Date().toISOString(),market:$("market").value,tf:TF_NAMES[$("tf").value],price:q.x.close,score:q.x.score,quality:confidence(),histWin:hw.rate,regime:regime(state.candles,q.i)});if(d.snapshots.length>200)d.snapshots=d.snapshots.slice(-200);saveDb(d)}
 function saveJournal(){const d=db(),entry=num($("jEntry").value),exit=num($("jExit").value),qty=num($("jQty").value);if(!entry||!qty)return alert("진입가와 수량을 입력하세요.");d.journal.push({savedAt:new Date().toISOString(),market:$("jMarket").value.trim().toUpperCase(),entry,exit:exit||null,qty,side:$("jSide").value,note:$("jNote").value.trim()});saveDb(d)}
-function saveHolding(){const d=db(),m=$("pMarket").value.trim().toUpperCase(),qty=num($("pQty").value),avg=num($("pAvg").value);if(!m||qty<=0||avg<=0)return alert("마켓, 수량, 평균단가를 입력하세요.");const old=d.portfolio.find(x=>x.market===m);if(old){old.qty=qty;old.avg=avg}else d.portfolio.push({market:m,qty,avg});saveDb(d)}
-function renderPortfolio(d=db()){const box=$("portfolioList");if(!box)return;box.innerHTML="";let value=0,cost=0;for(const h of d.portfolio){const md=state.marketData.find(x=>x.market===h.market),px=md?.trade_price||0,v=px*h.qty,c=h.avg*h.qty;value+=v;cost+=c;const e=document.createElement("div");e.className="listItem";e.innerHTML=`<div class="meta"><strong>${h.market} · ${h.qty}</strong><small>평단 ${Math.round(h.avg).toLocaleString()} · 현재 ${px?Math.round(px).toLocaleString():"가격 미조회"} · ${px?("수익률 "+((px/h.avg-1)*100).toFixed(2)+"%"):""}</small></div><button class="miniBtn" data-rp="${h.market}">삭제</button>`;box.appendChild(e)}document.querySelectorAll("[data-rp]").forEach(b=>b.onclick=()=>{const z=db();z.portfolio=z.portfolio.filter(x=>x.market!==b.dataset.rp);saveDb(z)});$("pValue").textContent=fmtKRW(value);$("pCost").textContent=fmtKRW(cost);$("pPnl").textContent=fmtKRW(value-cost);$("pRet").textContent=cost?fmtPct((value/cost-1)*100):"-"}
+function saveHolding(){const d=db(),m=$("pMarket").value.trim().toUpperCase(),qty=num($("pQty").value),avg=num($("pAvg").value);if(!m||qty<=0||avg<=0)return alert("종목, 수량, 평균단가를 입력하세요.");const old=d.portfolio.find(x=>x.market===m);if(old){old.qty=qty;old.avg=avg}else d.portfolio.push({market:m,qty,avg});saveDb(d)}
+function render보유자산(d=db()){const box=$("portfolioList");if(!box)return;box.innerHTML="";let value=0,cost=0;for(const h of d.portfolio){const md=state.marketData.find(x=>x.market===h.market),px=md?.trade_price||0,v=px*h.qty,c=h.avg*h.qty;value+=v;cost+=c;const e=document.createElement("div");e.className="listItem";e.innerHTML=`<div class="meta"><strong>${h.market} · ${h.qty}</strong><small>평단 ${Math.round(h.avg).toLocaleString()} · 현재 ${px?Math.round(px).toLocaleString():"가격 미조회"} · ${px?("수익률 "+((px/h.avg-1)*100).toFixed(2)+"%"):""}</small></div><button class="miniBtn" data-rp="${h.market}">삭제</button>`;box.appendChild(e)}document.querySelectorAll("[data-rp]").forEach(b=>b.onclick=()=>{const z=db();z.portfolio=z.portfolio.filter(x=>x.market!==b.dataset.rp);saveDb(z)});$("pValue").textContent=fmtKRW(value);$("pCost").textContent=fmtKRW(cost);$("pPnl").textContent=fmtKRW(value-cost);$("pRet").textContent=cost?fmtPct((value/cost-1)*100):"-"}
 function exportPersonal(){const blob=new Blob([JSON.stringify(db(),null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="crypto_analyzer_v14_backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
 async function importPersonal(ev){const f=ev.target.files?.[0];if(!f)return;try{const obj=JSON.parse(await f.text());storeSave(obj);renderPersonal();alert("복원 완료")}catch(e){alert("JSON 복원 실패: "+e.message)}ev.target.value=""}
 
@@ -1236,15 +1560,15 @@ function cloudDeviceId(){let id=localStorage.getItem(CLOUD_DEVICE_KEY);if(!id){i
 function b64ToUint8Array(s){const padding="=".repeat((4-s.length%4)%4),b=(s+padding).replace(/-/g,"+").replace(/_/g,"/"),raw=atob(b),out=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return out}
 async function cloudJson(url,options={}){const r=await fetch(url,options),d=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(d.error||`HTTP ${r.status}`);e.setupRequired=d.setupRequired;throw e}return d}
 async function cloudRefreshStatus(){$("cloudDevice").textContent=cloudDeviceId().slice(0,8)+"…";$('cloudMarket').value=$("market").value;try{const h=await cloudJson("/api/health",{cache:"no-store"});$("cloudDb").textContent=h.dbConfigured?"연결됨":"설정 필요";$("cloudDb").className=h.dbConfigured?"good":"warn";$("cloudPush").textContent=h.pushConfigured?"설정됨":"설정 필요";$("cloudPush").className=h.pushConfigured?"good":"warn";$("cloudCron").textContent=h.cronConfigured?"설정됨":"설정 필요";$("cloudCron").className=h.cronConfigured?"good":"warn"}catch(e){$("cloudDb").textContent="확인 실패"}await Promise.allSettled([cloudLoadRules(),cloudLoadEvents()])}
-async function cloudSubscribe(){if(!("serviceWorker"in navigator)||!("PushManager"in window))return alert("이 브라우저는 Web Push를 지원하지 않습니다.");try{const perm=await Notification.requestPermission();if(perm!=="granted")return alert("알림 권한이 필요합니다.");const reg=await navigator.serviceWorker.register("/sw.js"),{publicKey}=await cloudJson("/api/push-public-key",{cache:"no-store"});let sub=await reg.pushManager.getSubscription();if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToUint8Array(publicKey)});await cloudJson("/api/push-subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId(),subscription:sub.toJSON()})});alert("서버 Push 등록 완료");await cloudRefreshStatus()}catch(e){alert("Push 등록 실패: "+e.message)}}
-async function cloudSaveRule(){try{const body={deviceId:cloudDeviceId(),market:$("market").value,tf:$("cloudTf").value,minScore:num($("cloudScore").value,5),minQuality:num($("cloudQuality").value,75),minAdx:num($("cloudAdx").value,25),minVolRatio:num($("cloudVol").value,0),regime:$("cloudRegime").value,cooldownMinutes:num($("cloudCooldown").value,240)};await cloudJson("/api/cloud-alerts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});alert("서버 알림 조건 저장 완료");await cloudLoadRules()}catch(e){alert("서버 조건 저장 실패: "+e.message)}}
+async function cloudSubscribe(){if(!("serviceWorker"in navigator)||!("푸시Manager"in window))return alert("이 브라우저는 휴대폰 알림를 지원하지 않습니다.");try{const perm=await Notification.requestPermission();if(perm!=="granted")return alert("알림 권한이 필요합니다.");const reg=await navigator.serviceWorker.register("/sw.js"),{publicKey}=await cloudJson("/api/push-public-key",{cache:"no-store"});let sub=await reg.pushManager.getSubscription();if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToUint8Array(publicKey)});await cloudJson("/api/push-subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId(),subscription:sub.toJSON()})});alert("휴대폰 알림 연결 완료");await cloudRefreshStatus()}catch(e){alert("푸시 등록 실패: "+e.message)}}
+async function cloudSaveRule(){try{const body={deviceId:cloudDeviceId(),market:$("market").value,tf:$("cloudTf").value,minScore:num($("cloudScore").value,5),minQuality:num($("cloudQuality").value,75),minAdx:num($("cloudAdx").value,25),minVolRatio:num($("cloudVol").value,0),regime:$("cloudRegime").value,cooldownMinutes:num($("cloudCooldown").value,240)};await cloudJson("/api/cloud-alerts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});alert("자동 알림 조건 저장 완료");await cloudLoadRules()}catch(e){alert("알림 저장 실패: "+e.message)}}
 async function cloudLoadRules(){const body=$("cloudRuleBody");if(!body)return;body.innerHTML="";try{const d=await cloudJson(`/api/cloud-alerts?deviceId=${encodeURIComponent(cloudDeviceId())}`,{cache:"no-store"});if($("overviewCloudRules"))$("overviewCloudRules").textContent=(d.rules||[]).length+"개";for(const r of d.rules||[]){const tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${r.market}</td><td>${TF_NAMES[r.tf]||r.tf}</td><td>≥ ${r.min_score}</td><td>≥ ${r.min_quality}</td><td>≥ ${Number(r.min_adx).toFixed(0)}</td><td>≥ ${Number(r.min_vol_ratio).toFixed(1)}x</td><td>${r.require_regime}</td><td>${r.cooldown_minutes}분</td><td>${r.last_triggered_at?new Date(r.last_triggered_at).toLocaleString("ko-KR"):"-"}</td><td><button class="miniBtn" data-cloud-del="${r.id}">삭제</button></td>`;body.appendChild(tr)}document.querySelectorAll("[data-cloud-del]").forEach(b=>b.onclick=()=>cloudDeleteRule(b.dataset.cloudDel))}catch(e){if(e.setupRequired){const tr=document.createElement("tr");tr.innerHTML='<td colspan="10" style="text-align:left">Supabase 환경변수 설정 후 사용할 수 있습니다.</td>';body.appendChild(tr)}}}
-async function cloudDeleteRule(id){if(!confirm("이 서버 알림 조건을 삭제할까요?"))return;try{await cloudJson(`/api/cloud-alerts?deviceId=${encodeURIComponent(cloudDeviceId())}&id=${encodeURIComponent(id)}`,{method:"DELETE"});await cloudLoadRules()}catch(e){alert("삭제 실패: "+e.message)}}
-async function cloudTest(){try{const d=await cloudJson("/api/push-test",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});alert(`테스트 Push 요청 완료 · 전송 ${d.sent||0}개`)}catch(e){alert("테스트 Push 실패: "+e.message)}}
-async function cloudCheck(){try{setStatus("V15 서버 알림 조건 검사 중…",20);const d=await cloudJson("/api/check-alerts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});setStatus(`서버 검사 완료 · ${d.triggered||0}개 발동 · Push ${d.pushSent||0}개`,100);alert(`검사 완료\
+async function cloudDeleteRule(id){if(!confirm("이 자동 알림 조건을 삭제할까요?"))return;try{await cloudJson(`/api/cloud-alerts?deviceId=${encodeURIComponent(cloudDeviceId())}&id=${encodeURIComponent(id)}`,{method:"DELETE"});await cloudLoadRules()}catch(e){alert("삭제 실패: "+e.message)}}
+async function cloudTest(){try{const d=await cloudJson("/api/push-test",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});alert(`시험 알림 요청 완료 · 전송 ${d.sent||0}개`)}catch(e){alert("시험 알림 실패: "+e.message)}}
+async function cloudCheck(){try{setStatus("V15 자동 알림 조건 검사 중…",20);const d=await cloudJson("/api/check-alerts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});setStatus(`자동 확인 완료 · ${d.triggered||0}개 발동 · 푸시 ${d.pushSent||0}개`,100);alert(`검사 완료\
 조건 ${d.evaluated||0}개\
 발동 ${d.triggered||0}개\
-Push ${d.pushSent||0}개`);await Promise.allSettled([cloudLoadRules(),cloudLoadEvents()])}catch(e){setStatus("서버 검사 오류: "+e.message,0);alert("서버 검사 실패: "+e.message)}}
+푸시 ${d.pushSent||0}개`);await Promise.allSettled([cloudLoadRules(),cloudLoadEvents()])}catch(e){setStatus("서버 검사 오류: "+e.message,0);alert("서버 검사 실패: "+e.message)}}
 async function cloudLoadEvents(){
   const body=$("cloudEventBody");if(!body)return;body.innerHTML="";
   try{
@@ -1265,8 +1589,8 @@ async function evaluateServerOutcomes(){
   }finally{$("evaluateOutcomes").disabled=false}
 }
 
-function aiContext(){const q=latest(state.candles),multi={};for(const tf of ["60","240","day"]){const z=latest(state.multi[tf]||[]);if(z)multi[TF_NAMES[tf]]={score:z.x.score,rsi:+z.x.rsi.toFixed(1),adx:+z.x.adx.toFixed(1),regime:regime(state.multi[tf],z.i),trend:trendText(z.x)}}return{market:$("market").value,timeframe:TF_NAMES[$("tf").value],analysisMode:activeAnalysisMode(),scannerBreadth:state.scannerBreadth,current:q?{price:Math.round(q.x.close),score:q.x.score,signalQuality:confidence(),historicalWinRate:historicalWinRate(state.candles,q.i),regime:regime(state.candles,q.i),rsi:+q.x.rsi.toFixed(1),adx:+q.x.adx.toFixed(1),atrPct:+q.x.atrPct.toFixed(2),volumeRatio:+q.x.volRatio.toFixed(2),support:Math.round(state.levels.support),resistance:Math.round(state.levels.resistance)}:null,risk:state.risk||null,multi,backtest:state.bt?{...state.bt.summary,trades:state.bt.trades.length}:null,walkForward:state.compare||null,scannerTop:state.scanner.slice(0,8)}}
-async function callAi(mode,question=""){if(!state.loaded)return;$("aiSummary").disabled=true;$("aiAsk").disabled=true;$("aiOutput").textContent="AI 분석 중…";try{const r=await fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode,question,context:aiContext()})}),d=await r.json().catch(()=>({}));if(!r.ok){$("aiOutput").textContent=d.setupRequired?"AI 기능 설정이 필요합니다.\n\nVercel → Settings → Environment Variables → OPENAI_API_KEY 추가 → Redeploy":("AI 오류: "+(d.error||r.status));$("aiModel").textContent="설정 필요"}else{$("aiOutput").textContent=d.text||"응답 없음";$("aiModel").textContent=d.model||"OpenAI"}}catch(e){$("aiOutput").textContent="AI 연결 오류: "+e.message}finally{$("aiSummary").disabled=false;$("aiAsk").disabled=false}}
+function aiContext(){const q=latest(state.candles),multi={},divergence={};for(const tf of ["60","240","day"]){const z=latest(state.multi[tf]||[]);if(z)multi[TF_NAMES[tf]]={score:z.x.score,rsi:+z.x.rsi.toFixed(1),adx:+z.x.adx.toFixed(1),regime:regime(state.multi[tf],z.i),trend:trendText(z.x)};const dv=state.divergence[tf];if(dv)divergence[TF_NAMES[tf]]={type:dv.type?DIV_NAMES[dv.type]:"없음",rsi:Boolean(dv.rsi),macd:Boolean(dv.macd),strength:dv.strength,trend:dv.trend}}return{market:$("market").value,timeframe:TF_NAMES[$("tf").value],analysisMode:activeAnalysisMode(),scannerBreadth:state.scannerBreadth,divergence,marketEnvironment:state.marketEnv,ichimoku:state.ichimoku,breakout:state.breakout,reversal:state.reversal,elliottCandidate:state.wave,confluence:state.confluence,current:q?{price:Math.round(q.x.close),score:q.x.score,signalQuality:confidence(),historicalWinRate:historicalWinRate(state.candles,q.i),regime:regime(state.candles,q.i),rsi:+q.x.rsi.toFixed(1),adx:+q.x.adx.toFixed(1),atrPct:+q.x.atrPct.toFixed(2),volumeRatio:+q.x.volRatio.toFixed(2),support:Math.round(state.levels.support),resistance:Math.round(state.levels.resistance)}:null,risk:state.risk||null,multi,backtest:state.bt?{...state.bt.summary,trades:state.bt.trades.length}:null,walkForward:state.compare||null,scannerTop:state.scanner.slice(0,8)}}
+async function callAi(mode,question=""){if(!state.loaded)return;$("aiSummary").disabled=true;$("aiAsk").disabled=true;$("aiOutput").textContent="AI 해설 중…";try{const r=await fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode,question,context:aiContext()})}),d=await r.json().catch(()=>({}));if(!r.ok){$("aiOutput").textContent=d.setupRequired?"AI 기능 설정이 필요합니다.\n\nVercel → Settings → Environment Variables → OPENAI_API_KEY 추가 → Redeploy":("AI 오류: "+(d.error||r.status));$("aiModel").textContent="설정 필요"}else{$("aiOutput").textContent=d.text||"응답 없음";$("aiModel").textContent=d.model||"OpenAI"}}catch(e){$("aiOutput").textContent="AI 연결 오류: "+e.message}finally{$("aiSummary").disabled=false;$("aiAsk").disabled=false}}
 
 async function loadMarketsSelect(){try{const r=await fetch("/api/markets",{cache:"no-store"});if(!r.ok)return;const d=await r.json();state.marketData=d.markets||[];const sel=$("market"),keep=sel.value;sel.innerHTML="";for(const m of d.markets){const o=document.createElement("option");o.value=m.market;o.textContent=`${m.market} · ${m.korean_name}`;sel.appendChild(o)}if([...sel.options].some(o=>o.value===keep))sel.value=keep;renderPersonal()}catch{}}
 
