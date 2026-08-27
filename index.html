@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Crypto Analyzer">
 <link rel="manifest" href="/manifest.json">
-<title>Crypto Analyzer V15.8</title>
+<title>Crypto Analyzer V15.8.1</title>
 <style>
 :root{
   --bg:#0a0f15;--panel:#101822;--panel2:#151f2a;--soft:#0d141d;--line:#223041;
@@ -489,12 +489,206 @@ details.secondaryBox[open] > summary::after{content:"－"}
 @media(max-width:620px){
   .app{padding:9px}.brand h1{font-size:18px}.toolbar{grid-template-columns:1fr 1fr;padding:8px}.toolbar .wide{grid-column:span 2}.metrics{grid-template-columns:1fr 1fr}.metric .v{font-size:16px}.tabs{grid-template-columns:repeat(4,1fr);gap:4px}.tab{font-size:10px;padding:5px 2px}.panel{padding:9px}.two{grid-template-columns:1fr}.hero{grid-template-columns:1fr 1fr}.formGrid{grid-template-columns:1fr 1fr}.formGrid .wide{grid-column:span 2}.btMetrics{grid-template-columns:1fr 1fr}.riskRows{grid-template-columns:1fr 1fr}.scannerCards{grid-template-columns:1fr 1fr}.aiActions{flex-direction:column}.aiActions .btn{width:100%}.status{flex-wrap:wrap}.progress{width:100%}.infoGrid{grid-template-columns:1fr 1fr}input,select,textarea{font-size:16px}
 }
+
+/* =========================================================
+   V15.8.1 Mobile-first UI optimization
+   Target checks: 360 / 390 / 412 px
+   ========================================================= */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+.app,main,.pane,.panel,.chartHero,.v156Card,.sourceCard,.insightCard,.bottomCard,
+.utilityCard,.toolbar,.status,.visualTop,.indicatorStrip,.foldRow,.sourceGrid,
+.v156Grid,.analysisDetails,.replayPanel{min-width:0;max-width:100%}
+canvas,img,svg{max-width:100%;display:block}
+.brand,.brandLine,.brand p,.sourceTitle,.sourceTitle h3,.sourceTitle span,
+.title,.title h2,.title h3,.title span,.statusHero,.statusHero>div{min-width:0}
+.brandLine{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.releaseTag{
+  display:inline-flex;align-items:center;border:1px solid rgba(95,168,255,.35);
+  background:rgba(95,168,255,.10);color:#9bc7ff;border-radius:999px;
+  padding:4px 7px;font-size:9px;font-weight:800;white-space:nowrap
+}
+.mobileSnapshot{display:none}
+.mobileSignalCard{display:none}
+.analysisDetails>summary{display:none}
+@media(min-width:761px){
+  details.analysisDetails:not([open]) > :not(summary){display:block}
+}
+@media(max-width:760px){
+  .app{
+    width:100%;max-width:100%;padding:8px;
+    padding-left:max(8px,env(safe-area-inset-left));
+    padding-right:max(8px,env(safe-area-inset-right));
+    overflow:hidden
+  }
+  .top{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px;margin-bottom:8px}
+  .brand h1{font-size:16px!important;line-height:1.15}
+  .brand p{
+    font-size:9px;line-height:1.35;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;max-width:100%
+  }
+  .releaseTag{font-size:8px;padding:3px 6px}
+  .top>.badge{
+    max-width:112px;min-width:0;padding:6px 8px;font-size:9px;
+    overflow:hidden;white-space:nowrap
+  }
+  .top>.badge span{overflow:hidden;text-overflow:ellipsis}
+
+  /* Compact controls, but every field still touchable */
+  .toolbar{grid-template-columns:1fr 1fr!important;padding:7px!important;gap:6px!important}
+  .toolbar .field{min-width:0}
+  .toolbar .field:first-child{grid-column:1/-1}
+  .toolbar .field.wide{grid-column:1/-1}
+  .field label{font-size:9px;margin-bottom:3px}
+  .field select,.field input,.toolbar .btn{width:100%;max-width:100%;min-width:0}
+  .status{padding:7px 8px;margin-bottom:7px;gap:6px}
+  .status #statusText{min-width:0;overflow-wrap:anywhere}
+  .progress{min-width:0;width:100%;flex-basis:100%}
+
+  /* Replace the old four dashboard cards with a tighter mobile summary */
+  .visualTop{display:none!important}
+  .mobileSnapshot{
+    display:grid!important;grid-template-columns:1fr 1fr;
+    gap:6px;margin:0 0 7px
+  }
+  .mobileSnapCard{
+    min-width:0;background:linear-gradient(180deg,var(--panel),var(--soft));
+    border:1px solid var(--line);border-radius:11px;padding:9px
+  }
+  .mobileSnapCard small{display:block;color:var(--muted);font-size:8.5px}
+  .mobileSnapCard strong{
+    display:block;margin-top:4px;font-size:18px;line-height:1.08;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+  }
+  .mobileSnapCard.price strong{font-size:16px;letter-spacing:-.35px}
+  .mobileSnapCard span{
+    display:block;color:var(--muted);font-size:8.5px;margin-top:4px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+  }
+
+  .tabs{margin-bottom:7px}
+  .tab{min-width:76px!important;min-height:38px!important;padding:7px 9px!important}
+
+  .chartHero{width:100%;overflow:hidden}
+  .chartHeroHead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px}
+  .chartHeroHead .left{min-width:0}
+  .chartHeroHead .left h2{
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%
+  }
+  #priceChart{width:100%!important;max-width:100%!important}
+  .legend{max-width:100%}
+  .replayPanel{max-width:100%;overflow:hidden}
+  .replayMetrics{min-width:0}
+  .replayMetric strong{max-width:100%}
+
+  /* New "what matters now" panel immediately after chart */
+  .mobileSignalCard{
+    display:block!important;margin-top:7px;background:var(--panel);
+    border:1px solid var(--line);border-radius:11px;padding:9px;min-width:0
+  }
+  .mobileSignalHead{
+    display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px
+  }
+  .mobileSignalHead>div{min-width:0}
+  .mobileSignalHead b{display:block;font-size:11px}
+  .mobileSignalHead span{display:block;color:var(--muted);font-size:8.5px;margin-top:2px}
+  .mobileVersionBadge{
+    flex:0 0 auto!important;margin:0!important;padding:4px 6px;border-radius:999px;
+    border:1px solid rgba(95,168,255,.30);background:rgba(95,168,255,.08);
+    color:#9bc7ff!important;font-size:8px!important
+  }
+  .mobileSignalRows{display:grid;gap:1px}
+  .mobileSignalRow{
+    display:grid;grid-template-columns:88px minmax(0,1fr);align-items:center;
+    gap:8px;padding:7px 2px;border-bottom:1px solid var(--line)
+  }
+  .mobileSignalRow:last-child{border-bottom:0}
+  .mobileSignalRow span{color:var(--muted);font-size:9.5px}
+  .mobileSignalRow b{
+    min-width:0;font-size:10.5px;text-align:right;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+  }
+  .mobileDetailBtn{
+    width:100%;min-height:39px;margin-top:7px;border:1px solid var(--line);
+    background:var(--soft);color:var(--text);border-radius:9px;font-size:10px;font-weight:800
+  }
+
+  /* Advanced V15.6/V15.8 panels are collapsed on phone by default */
+  .analysisDetails{
+    display:block;width:100%;margin-top:7px;border:1px solid var(--line);
+    border-radius:11px;background:var(--panel);overflow:hidden
+  }
+  .analysisDetails>summary{
+    display:flex!important;align-items:center;justify-content:space-between;gap:8px;
+    list-style:none;padding:10px;cursor:pointer;font-weight:800;font-size:10.5px
+  }
+  .analysisDetails>summary::-webkit-details-marker{display:none}
+  .analysisDetails>summary small{
+    color:var(--muted);font-size:8px;font-weight:500;min-width:0;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+  }
+  .analysisDetails>summary::after{content:"＋";color:var(--muted);font-size:15px}
+  .analysisDetails[open]>summary::after{content:"－"}
+  .analysisDetails .v156Grid,
+  .analysisDetails .sourceGrid{margin:0;padding:0 7px 7px}
+  .analysisDetails .sourceGrid{padding-top:0}
+
+  /* Divergence becomes stacked cards instead of a horizontally squeezed table */
+  .divTable{display:block;width:100%;min-width:0!important}
+  .divTable thead{display:none}
+  .divTable tbody{display:grid;gap:6px;width:100%}
+  .divTable tr{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    background:var(--soft);border:1px solid var(--line);border-radius:9px;
+    padding:4px 6px;min-width:0
+  }
+  .divTable td{
+    display:flex;align-items:center;justify-content:space-between;gap:5px;
+    min-width:0;border-bottom:1px solid rgba(34,48,65,.7)!important;
+    padding:6px 4px!important;text-align:right!important
+  }
+  .divTable td:nth-last-child(-n+2){border-bottom:0!important}
+  .divTable td::before{
+    content:attr(data-label);color:var(--muted);font-size:8px;flex:0 0 auto
+  }
+  .divTable td>*{max-width:100%}
+  .divBadge{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+  .strengthDots{font-size:8.5px}
+
+  /* No accidental full-page overflow from dense components */
+  .sourceTitle span{max-width:48%;overflow-wrap:anywhere}
+  .confluenceHero{grid-template-columns:78px minmax(0,1fr)!important}
+  .signalChecks,.ichGrid,.structureGrid{min-width:0}
+  .signalCheck b,.ichItem b,.structureItem b,.envRow b,
+  .statusHero strong,.statusHero span,.ruleLine span,.ruleLine b{
+    overflow-wrap:anywhere;white-space:normal
+  }
+  .envBox strong{white-space:normal;overflow-wrap:anywhere}
+  .tableWrap{width:100%;max-width:100%;overflow-x:auto!important}
+  .scannerControls,.cloudForm,.cloudStatus,.infoGrid,.personalForm{min-width:0}
+  input,select,textarea,button{max-width:100%}
+
+  /* Lower-priority sections remain compact */
+  .indicatorStrip{margin-top:7px!important}
+  .foldRow,.insightRow,.bottomSummary,.utilitySummary{max-width:100%}
+  details.secondaryBox>summary span{
+    min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+  }
+}
+@media(max-width:420px){
+  .app{padding-left:6px;padding-right:6px}
+  .mobileSnapCard{padding:8px}
+  .mobileSnapCard strong{font-size:17px}
+  .mobileSnapCard.price strong{font-size:14.5px}
+  .mobileSignalRow{grid-template-columns:78px minmax(0,1fr)}
+  .top>.badge{max-width:96px}
+}
+
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><h1>₿ Crypto Analyzer V15.8</h1><p>업비트 · 지금 분석 · 신호 겹침 · 일목 흐름 · 다이버전스 · 시장환경</p></div>
+    <div class="brand"><div class="brandLine"><h1>₿ Crypto Analyzer V15.8.1</h1><span class="releaseTag">모바일 UI 개선</span></div><p>업비트 · 지금 분석 · 신호 겹침 · 일목 흐름 · 다이버전스 · 시장환경</p></div>
     <div class="badge"><i class="dot"></i><span id="cloudState">Vercel 연결 대기</span></div>
   </header>
 
@@ -507,6 +701,30 @@ details.secondaryBox[open] > summary::after{content:"－"}
   </section>
 
   <div class="status"><span id="statusText">데이터를 불러오면 분석이 시작됩니다.</span><span class="grow"></span><div class="progress"><i id="progressBar"></i></div></div>
+
+
+  <section class="mobileSnapshot mobileOnly" aria-label="모바일 핵심 요약">
+    <div class="mobileSnapCard price">
+      <small>현재가</small>
+      <strong id="mobilePrice">-</strong>
+      <span id="mobileChange">-</span>
+    </div>
+    <div class="mobileSnapCard">
+      <small>점수</small>
+      <strong id="mobileScore">-</strong>
+      <span id="mobileVerdict">-</span>
+    </div>
+    <div class="mobileSnapCard">
+      <small>신호 겹침</small>
+      <strong id="mobileConfluence">-</strong>
+      <span id="mobileConfluenceSub">여러 조건 확인</span>
+    </div>
+    <div class="mobileSnapCard">
+      <small>시장 판단</small>
+      <strong id="mobileEnv">-</strong>
+      <span id="mobileEnvSub">BTC·USDT 포함</span>
+    </div>
+  </section>
 
   <section class="visualTop">
     <div class="visualCard">
@@ -568,9 +786,24 @@ details.secondaryBox[open] > summary::after{content:"－"}
             <div class="replayMetric"><small>6봉 결과</small><strong id="replayOutcome">-</strong></div>
             <div class="replayMetric"><small>최대유리(MFE) / 최대불리(MAE)</small><strong id="replayExcursion">-</strong></div>
           </div>
-          <div class="markerLegend">* 재현 품질은 해당 시점의 단일 시간봉 정합성입니다. 상단 신품과 계산 목적이 다릅니다.</div>
+          <div class="markerLegend">* 재현 품질은 해당 시점의 단일 시간봉 정합성입니다. 상단 품질과 계산 목적이 다릅니다.</div>
         </div>
       </div>
+
+      <section class="mobileSignalCard mobileOnly" aria-label="핵심 신호">
+        <div class="mobileSignalHead">
+          <div><b>핵심 신호</b><span>지금 필요한 판단만 먼저 표시</span></div>
+          <span class="mobileVersionBadge">V15.8.1</span>
+        </div>
+        <div class="mobileSignalRows">
+          <div class="mobileSignalRow"><span>다이버전스</span><b id="mobileDiv">-</b></div>
+          <div class="mobileSignalRow"><span>일목</span><b id="mobileIch">-</b></div>
+          <div class="mobileSignalRow"><span>돌파</span><b id="mobileBreakout">-</b></div>
+          <div class="mobileSignalRow"><span>반전</span><b id="mobileReversal">-</b></div>
+          <div class="mobileSignalRow"><span>파동</span><b id="mobileWave">-</b></div>
+        </div>
+        <button type="button" id="mobileOpenDetails" class="mobileDetailBtn">상세 분석 보기</button>
+      </section>
 
       <div class="indicatorStrip">
         <div class="indicatorViz"><div class="head"><span>RSI (14)</span><strong id="mRsi">-</strong></div><canvas id="rsiMini"></canvas></div>
@@ -580,6 +813,8 @@ details.secondaryBox[open] > summary::after{content:"－"}
       </div>
 
 
+      <details class="analysisDetails" id="analysisDetails">
+        <summary><span>상세 분석</span><small>다이버전스 · 시장환경 · 일목 · 돌파 · 파동</small></summary>
       <div class="v156Grid">
         <div class="v156Card">
           <div class="title"><h3>다이버전스</h3><span id="divSummary">확정된 고점·저점 기준 · RSI + MACD</span></div>
@@ -587,9 +822,9 @@ details.secondaryBox[open] > summary::after{content:"－"}
             <table class="divTable">
               <thead><tr><th>시간봉</th><th>판정</th><th>RSI</th><th>MACD</th><th>추세</th><th>강도</th></tr></thead>
               <tbody>
-                <tr><td>1시간</td><td id="div60Type">-</td><td id="div60Rsi">-</td><td id="div60Macd">-</td><td id="div60Trend">-</td><td id="div60Strength">-</td></tr>
-                <tr><td>4시간</td><td id="div240Type">-</td><td id="div240Rsi">-</td><td id="div240Macd">-</td><td id="div240Trend">-</td><td id="div240Strength">-</td></tr>
-                <tr><td>일봉</td><td id="divdayType">-</td><td id="divdayRsi">-</td><td id="divdayMacd">-</td><td id="divdayTrend">-</td><td id="divdayStrength">-</td></tr>
+                <tr><td data-label="시간">1시간</td><td data-label="판정" id="div60Type">-</td><td data-label="RSI" id="div60Rsi">-</td><td data-label="MACD" id="div60Macd">-</td><td data-label="의미" id="div60Trend">-</td><td data-label="강도" id="div60Strength">-</td></tr>
+                <tr><td data-label="시간">4시간</td><td data-label="판정" id="div240Type">-</td><td data-label="RSI" id="div240Rsi">-</td><td data-label="MACD" id="div240Macd">-</td><td data-label="의미" id="div240Trend">-</td><td data-label="강도" id="div240Strength">-</td></tr>
+                <tr><td data-label="시간">일봉</td><td data-label="판정" id="divdayType">-</td><td data-label="RSI" id="divdayRsi">-</td><td data-label="MACD" id="divdayMacd">-</td><td data-label="의미" id="divdayTrend">-</td><td data-label="강도" id="divdayStrength">-</td></tr>
               </tbody>
             </table>
           </div>
@@ -660,6 +895,8 @@ details.secondaryBox[open] > summary::after{content:"－"}
           <div class="sourceNote">자동 파동 카운팅은 해석 차이가 커 “후보”만 표시합니다. 세 기본 규칙을 모두 충족해야 유효 후보로 봅니다.</div>
         </div>
       </div>
+
+      </details>
 
       <div class="foldRow">
         <details class="secondaryBox">
@@ -1170,6 +1407,7 @@ function renderDivergence(){
     const w=tf==="day"?3:tf==="240"?2:1,dir=d.type.includes("Bull")?1:-1;weighted+=w*dir*d.strength;found++
   }
   $("divSummary").textContent=!found?"최근 확정 다이버전스 없음":weighted>=6?"상승 다이버전스 우세":weighted<=-6?"하락 다이버전스 우세":"시간봉별 혼조";
+  syncMobileUi();
 }
 
 
@@ -1207,13 +1445,70 @@ function waveCandidate(a,i){
 }
 function divergenceDirection(){let v=0;for(const [tf,w] of [["60",1],["240",2],["day",3]]){const d=state.divergence[tf];if(d?.type)v+=(d.type.includes("Bull")?1:-1)*w*d.strength}return signDir(v,2)}
 function mtfDirection(){let total=0,n=0;for(const tf of ["60","240","day"]){const q=latest(state.multi[tf]||[]);if(q){total+=q.x.score;n++}}return n?signDir(total,4):0}
-function environmentDirection(){if(!state.marketEnv||state.marketEnv.error)return 0;const v=marketEnvVerdict(),market=$("market")?.value||"KRW-BTC",isBtc=market==="KRW-BTC";if(v.verdict==="위험회피 환경")return -1;if(v.verdict==="시장 전체 위험선호")return 1;if(v.verdict==="비트코인 우위")return isBtc?1:0;if(v.verdict==="알트코인 우호")return isBtc?0:1;return 0}
+function environmentDirection(){if(!state.marketEnv||state.marketEnv.error)return 0;const v=marketEnvVerdict(),market=$("market")?.value||"KRW-BTC",isBtc=market==="KRW-BTC";if(v.verdict==="시장 전체 약세 · 위험회피")return -1;if(v.verdict==="시장 전체 강세")return 1;if(v.verdict==="비트코인 우위")return isBtc?1:0;if(v.verdict==="알트코인 우호")return isBtc?0:1;return 0}
 function renderDecisionPack(){
   const q=latest(state.candles);if(!q||!$("confluenceMain"))return;const{x,i}=q,ich=ichimokuState(state.candles,i),br=breakoutState(state.candles,i),rev=reversalSignal(state.candles,i),wave=waveCandidate(state.candles,i);state.ichimoku=ich;state.breakout=br;state.reversal=rev;state.wave=wave;
   if(ich){$("ichVerdict").textContent=ich.dir>0?"상승 흐름 우세":ich.dir<0?"하락 흐름 우세":"방향 혼조";$("ichStrength").textContent=`상승 ${ich.bull}/6 · 하락 ${ich.bear}/6`;$("ichWarning").textContent=ich.opposite?"추세전환 주의":"선행선 안정";$("ichPrice").textContent=ich.pricePos;$("ichTk").textContent=ich.tk;$("ichFuture").textContent=ich.future;$("ichChikou").textContent=ich.chikou;$("ich52").textContent=ich.high52?"52기간 신고가":ich.low52?"52기간 신저가":"갱신 없음";$("ichSpanMotion").textContent=ich.spanMotion}else{["ichVerdict","ichStrength","ichWarning","ichPrice","ichTk","ichFuture","ichChikou","ich52","ichSpanMotion"].forEach(id=>$(id).textContent="-")}
   if(br){$("breakoutVerdict").textContent=br.type;$("breakoutDetail").textContent=br.detail||"-";$("breakoutLevel").textContent=Number.isFinite(br.level)?Math.round(br.level).toLocaleString()+"원":"-";$("breakoutRetest").textContent=br.retest?(br.held?"재확인 유지":"재확인 후 실패"):"아직 없음";$("breakoutVol").textContent=Number.isFinite(br.vol)?`거래량 ${br.vol.toFixed(2)}x`:"거래량 -"}$("reversalSignal").textContent=rev?.type||"-";
   if(wave){$("waveVerdict").textContent=wave.type;$("waveAge").textContent=wave.age==null?"최근 확정 피벗 기준":`${wave.age}봉 전 마지막 피벗`;$("waveConfidence").textContent=wave.score?`규칙 ${Math.min(3,[wave.r2,wave.r3,wave.r4].filter(Boolean).length)}/3`:"후보 없음";const mark=v=>v==null?"-":v?"충족":"위반";$("waveRule2").textContent=mark(wave.r2);$("waveRule3").textContent=mark(wave.r3);$("waveRule4").textContent=mark(wave.r4)}
   const mtf=mtfDirection(),div=divergenceDirection(),env=environmentDirection(),dirs=[{name:"기술 점수",dir:signDir(x.score,2),text:`${x.score>=0?"+":""}${x.score}`},{name:"시간대 흐름",dir:mtf,text:directionText(mtf)},{name:"다이버전스",dir:div,text:directionText(div)},{name:"일목 흐름",dir:ich?.dir||0,text:ich?directionText(ich.dir):"대기"},{name:"돌파·거래량",dir:br?.dir&&br.vol>=1.2?br.dir:0,text:br?.dir?(br.vol>=1.2?directionText(br.dir):"거래량 약함"):"중립"},{name:"시장 전체 흐름",dir:env,text:directionText(env)}],bull=dirs.filter(z=>z.dir>0).length,bear=dirs.filter(z=>z.dir<0).length,neutral=dirs.length-bull-bear,net=bull-bear,dir=signDir(net,1);state.confluence={bull,bear,neutral,dir,items:dirs};$("confluenceMain").textContent=dir>0?`상승 ${bull}/6`:dir<0?`하락 ${bear}/6`:"혼조";$("confluenceSub").textContent=`상승 ${bull} · 하락 ${bear} · 중립 ${neutral}`;const box=$("confluenceChecks");box.innerHTML="";for(const z of dirs){const d=document.createElement("div");d.className=`signalCheck ${z.dir>0?"good":z.dir<0?"bad":"neutral"}`;d.innerHTML=`<small>${z.name}</small><b>${z.dir>0?"▲ ":z.dir<0?"▼ ":"• "}${z.text}</b>`;box.appendChild(d)}
+  syncMobileUi();
+}
+
+
+function setMobileTone(el,dir){
+  if(!el)return;
+  el.classList.remove("good","bad","warn");
+  el.classList.add(dir>0?"good":dir<0?"bad":"warn");
+}
+function syncMobileUi(){
+  const q=latest(state.candles);
+  if(q){
+    const x=q.x,p=state.candles[q.i-1],chg=p?(x.close/p.close-1)*100:0;
+    if($("mobilePrice"))$("mobilePrice").textContent=fmtKRW(x.close);
+    if($("mobileChange")){$("mobileChange").textContent=fmtPct(chg);setMobileTone($("mobileChange"),Math.sign(chg))}
+    if($("mobileScore")){$("mobileScore").textContent=(x.score>=0?"+":"")+x.score;setMobileTone($("mobileScore"),Math.sign(x.score))}
+    if($("mobileVerdict"))$("mobileVerdict").textContent=verdict(x.score);
+  }
+  const cf=state.confluence;
+  if($("mobileConfluence")){
+    $("mobileConfluence").textContent=cf?(cf.dir>0?`상승 ${cf.bull}/6`:cf.dir<0?`하락 ${cf.bear}/6`:"혼조"):"-";
+    setMobileTone($("mobileConfluence"),cf?.dir||0);
+  }
+  if($("mobileConfluenceSub")&&cf)$("mobileConfluenceSub").textContent=`상승 ${cf.bull} · 하락 ${cf.bear} · 중립 ${cf.neutral}`;
+
+  const env=state.marketEnv&&!state.marketEnv.error?marketEnvVerdict():null;
+  if($("mobileEnv")){
+    $("mobileEnv").textContent=env?.verdict||"-";
+    const edir=environmentDirection();setMobileTone($("mobileEnv"),edir);
+  }
+  if($("mobileEnvSub"))$("mobileEnvSub").textContent=env?.sub||"BTC·USDT 포함";
+
+  const tf=$("tf")?.value||"240",dv=state.divergence?.[tf];
+  if($("mobileDiv")){
+    $("mobileDiv").textContent=dv?.type?`${DIV_NAMES[dv.type]} · ${dv.trend}`:"최근 신호 없음";
+    setMobileTone($("mobileDiv"),dv?.type?.includes("Bull")?1:dv?.type?.includes("Bear")?-1:0);
+  }
+  if($("mobileIch")){
+    const z=state.ichimoku;
+    $("mobileIch").textContent=z?(z.dir>0?"상승 흐름":z.dir<0?"하락 흐름":"방향 혼조"):"-";
+    setMobileTone($("mobileIch"),z?.dir||0);
+  }
+  if($("mobileBreakout")){
+    const z=state.breakout;
+    $("mobileBreakout").textContent=z?.type||"-";
+    setMobileTone($("mobileBreakout"),z?.dir||0);
+  }
+  if($("mobileReversal")){
+    const z=state.reversal;
+    $("mobileReversal").textContent=z?.type||"없음";
+    setMobileTone($("mobileReversal"),z?.dir||0);
+  }
+  if($("mobileWave")){
+    const z=state.wave;
+    $("mobileWave").textContent=z?.type||"-";
+    setMobileTone($("mobileWave"),z?.dir||0);
+  }
 }
 
 function historicalWinRate(a,i){
@@ -1291,7 +1586,7 @@ function updateOverview(){
   $("mPrice").textContent=fmtKRW(x.close);$("mChange").textContent=fmtPct(chg);$("mChange").className="s "+(chg>=0?"good":"bad");$("mScore").textContent=(x.score>=0?"+":"")+x.score;$("mScore").className="v "+cls(x.score);$("mVerdict").textContent=verdict(x.score);$("mConfidence").textContent=c+"/100";$("mConfidence").className="v "+(c>=75?"good":c<50?"bad":"warn");const hw=historicalWinRate(state.candles,i);$("mHistWin").textContent=hw.rate==null?"N/A":hw.rate.toFixed(1)+"%";$("mHistSample").textContent=hw.n?`${hw.n}개 표본 · ${hw.horizon}봉 후`:"강한 신호에서 계산";$("histWinBig").textContent=hw.rate==null?"N/A":hw.rate.toFixed(1)+"%";$("mRegime").textContent=rg;$("mRsi").textContent=x.rsi.toFixed(1);$("mAdx").textContent=x.adx.toFixed(1);$("mVol").textContent=x.volRatio.toFixed(2)+"x";$("mAtr").textContent=x.atrPct.toFixed(2)+"%";
   $("scoreBig").textContent=(x.score>=0?"+":"")+x.score;$("scoreBig").className="big "+cls(x.score);$("verdictBig").textContent=verdict(x.score);$("confidenceBig").textContent=c+"/100";$("confidenceBig").className="big "+(c>=75?"good":c<50?"bad":"warn");$("confidenceText").textContent=confidenceText(c);$("regimeBig").textContent=rg;$("adxBig").textContent=x.adx.toFixed(1);$("supportBig").textContent=Math.round(lv.support).toLocaleString();$("resistBig").textContent=Math.round(lv.resistance).toLocaleString();$("tfBadge").textContent=TF_NAMES[$("tf").value];updateScoreHistory();
   const rr=reasons(state.candles,i),box=$("reasons");box.innerHTML="";for(const t of rr.good){const d=document.createElement("div");d.className="reason good";d.innerHTML="<b>▲</b><span>"+t+"</span>";box.appendChild(d)}for(const t of rr.bad){const d=document.createElement("div");d.className="reason bad";d.innerHTML="<b>▼</b><span>"+t+"</span>";box.appendChild(d)}
-  updateVisualOverview();
+  updateVisualOverview();syncMobileUi();
 }
 
 
@@ -1306,10 +1601,10 @@ function marketEnvVerdict(){
   if(Number.isFinite(pos)){if(pos>=60)risk++;else if(pos<=40)risk--}
   if(Number.isFinite(ma)){if(ma>=60)risk++;else if(ma<=40)risk--}
   let verdict="혼조",sub="방향 확인 필요";
-  if(risk<=-3){verdict="위험회피 환경";sub="현금·스테이블 선호 가능성"}
+  if(risk<=-3){verdict="시장 전체 약세 · 위험회피";sub="현금·스테이블 선호 가능성"}
   else if(btcScore>=3&&Number.isFinite(bdom)&&bdom>.04&&(!Number.isFinite(udom)||udom<=.03)){verdict="비트코인 우위";sub="BTC로 자금 집중 가능성"}
   else if(btcScore>=0&&Number.isFinite(bdom)&&bdom<-.04&&Number.isFinite(udom)&&udom<0&&(!Number.isFinite(pos)||pos>=50)){verdict="알트코인 우호";sub="BTC 외 시장으로 확산 가능성"}
-  else if(risk>=3){verdict="시장 전체 위험선호";sub="BTC·알트 동반 우호 가능성"}
+  else if(risk>=3){verdict="시장 전체 강세";sub="BTC·알트 동반 우호 가능성"}
   return{verdict,sub,risk,btcScore,btcReg}
 }
 function renderMarketEnvironment(){
@@ -1327,6 +1622,7 @@ function renderMarketEnvironment(){
   $("envUs10y").textContent=mac.us10y?.value!=null?`${Number(mac.us10y.value).toFixed(2)}% · ${mac.us10y.changeBp>=0?"+":""}${Number(mac.us10y.changeBp).toFixed(0)}bp`:"-";
   $("envDollar").textContent=mac.dollar?.value!=null?`${Number(mac.dollar.value).toFixed(1)} · ${mac.dollar.changePct>=0?"+":""}${Number(mac.dollar.changePct).toFixed(2)}%`:"-";
   $("envUpdated").textContent=e.updatedAt?`갱신 ${new Date(e.updatedAt).toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"})} · CoinPaprika/FRED`:"BTC · 도미넌스 · 테더 · 매크로 보조";
+  syncMobileUi();
 }
 
 function sparkCanvas(id,values,kind="line"){
@@ -1339,7 +1635,7 @@ function sparkCanvas(id,values,kind="line"){
 }
 function overviewSummaryLines(){
   const q=latest(state.candles);if(!q)return[];const x=q.x,rg=regime(state.candles,q.i),lv=state.levels,lines=[];
-  lines.push(`시장 흐름은 ${rg}이며 현재 Score는 ${x.score>=0?"+":""}${x.score}, 신호 품질는 ${confidence()}/100입니다.`);
+  lines.push(`시장 흐름은 ${rg}이며 현재 Score는 ${x.score>=0?"+":""}${x.score}, 신호 품질은 ${confidence()}/100입니다.`);
   if(x.ma20>x.ma60&&x.ma60>x.ma120)lines.push("MA20 > MA60 > MA120의 상승 정렬이 확인됩니다.");else if(x.ma20<x.ma60&&x.ma60<x.ma120)lines.push("MA20 < MA60 < MA120의 하락 정렬이 확인됩니다.");else lines.push("이동평균 배열은 혼조 상태라 추세 확인이 더 필요합니다.");
   lines.push(`현재가는 1차 지지 ${Math.round(lv.support).toLocaleString()}원과 1차 저항 ${Math.round(lv.resistance).toLocaleString()}원 사이에 있습니다.`);
   if(x.adx>=25)lines.push(`ADX ${x.adx.toFixed(1)}로 현재 추세 강도는 비교적 뚜렷한 편입니다.`);else lines.push(`ADX ${x.adx.toFixed(1)}로 강한 추세보다는 방향 확인이 중요합니다.`);
@@ -1596,6 +1892,10 @@ async function loadMarketsSelect(){try{const r=await fetch("/api/markets",{cache
 
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".pane").forEach(x=>x.classList.remove("active"));b.classList.add("active");$(b.dataset.pane).classList.add("active");if(b.dataset.pane==="backtest"&&state.bt)drawEquity()}));
 document.querySelectorAll(".pill").forEach(b=>b.addEventListener("click",()=>{$("question").value=b.dataset.q}));
+$("mobileOpenDetails")?.addEventListener("click",()=>{
+  const d=$("analysisDetails");if(!d)return;d.open=true;
+  setTimeout(()=>d.scrollIntoView({behavior:"smooth",block:"start"}),30);
+});
 $("load").addEventListener("click",loadAll);$("analysisMode").addEventListener("change",()=>{updateModeUi();setStatus("신호 기준이 변경되었습니다. 데이터 불러오기를 눌러 다시 계산하세요.",0)});$("priceChart").addEventListener("click",chartMarkerClick);
 
 $("runAdvBt").addEventListener("click",runAdvBacktest);
