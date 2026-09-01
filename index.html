@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Crypto Analyzer">
 <link rel="manifest" href="/manifest.json">
-<title>Crypto Analyzer V15.8.1</title>
+<title>Crypto Analyzer V15.11</title>
 <style>
 :root{
   --bg:#0a0f15;--panel:#101822;--panel2:#151f2a;--soft:#0d141d;--line:#223041;
@@ -450,7 +450,7 @@ details.secondaryBox[open] > summary::after{content:"－"}
 
 
 
-/* V15.8 source-enhanced decision panels */
+/* V15.11.0 source-enhanced decision panels */
 .sourceGrid{display:grid;grid-template-columns:1.15fr 1fr;gap:9px;margin-top:9px}
 .sourceCard{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:11px;min-width:0}
 .sourceCard.wide{grid-column:1/-1}
@@ -491,7 +491,7 @@ details.secondaryBox[open] > summary::after{content:"－"}
 }
 
 /* =========================================================
-   V15.8.1 Mobile-first UI optimization
+   V15.11.0 Mobile-first UI optimization
    Target checks: 360 / 390 / 412 px
    ========================================================= */
 html,body{width:100%;max-width:100%;overflow-x:hidden}
@@ -612,7 +612,7 @@ canvas,img,svg{max-width:100%;display:block}
     background:var(--soft);color:var(--text);border-radius:9px;font-size:10px;font-weight:800
   }
 
-  /* Advanced V15.6/V15.8 panels are collapsed on phone by default */
+  /* Advanced V15.6/V15.11.0 panels are collapsed on phone by default */
   .analysisDetails{
     display:block;width:100%;margin-top:7px;border:1px solid var(--line);
     border-radius:11px;background:var(--panel);overflow:hidden
@@ -683,14 +683,56 @@ canvas,img,svg{max-width:100%;display:block}
   .top>.badge{max-width:96px}
 }
 
+
+/* V15.11.0 deployment stability + self diagnostics */
+.versionGuard{margin:0 0 8px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);display:flex;align-items:center;justify-content:space-between;gap:9px;min-width:0}
+.versionGuard[hidden]{display:none!important}.versionGuard>div{min-width:0}.versionGuard b{display:block;font-size:10.5px}.versionGuard span{display:block;color:var(--muted);font-size:9px;margin-top:2px;white-space:normal;overflow-wrap:anywhere}
+.versionGuard.warn{border-color:rgba(255,188,91,.45);background:rgba(255,188,91,.06)}.versionGuard.bad{border-color:rgba(255,98,98,.45);background:rgba(255,98,98,.06)}.versionGuard.good{border-color:rgba(72,205,142,.35);background:rgba(72,205,142,.05)}
+.diagIntro{font-size:9px;line-height:1.55;color:var(--muted);margin-bottom:8px}.diagGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.diagItem{min-width:0;border:1px solid var(--line);background:var(--soft);border-radius:9px;padding:8px}.diagItem small{display:block;color:var(--muted);font-size:8.5px}.diagItem strong{display:block;margin-top:4px;font-size:10px;line-height:1.3;white-space:normal;overflow-wrap:anywhere}.diagItem strong.good{color:var(--good)}.diagItem strong.warn{color:var(--warn)}.diagItem strong.bad{color:var(--bad)}
+@media(max-width:760px){.versionGuard{padding:8px;margin-bottom:7px}.versionGuard .miniBtn{flex:0 0 auto;min-height:34px}.diagGrid{grid-template-columns:1fr 1fr;gap:6px}.diagItem{padding:8px}.diagItem strong{font-size:9.5px}}
+
+
+/* V15.11 smart validation */
+.calibrationHero{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:8px}
+.calItem{min-width:0;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:9px}
+.calItem small{display:block;color:var(--muted);font-size:8.5px}
+.calItem strong{display:block;margin-top:4px;font-size:15px;white-space:normal;overflow-wrap:anywhere}
+@media(max-width:760px){
+  .calibrationHero{grid-template-columns:1fr 1fr;gap:6px}
+  .validationPanelV1510{padding:9px!important}
+}
+
+
+/* V15.11 local-first mobile storage */
+.localModeHero{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-bottom:8px}
+.localModeItem{min-width:0;border:1px solid var(--line);background:var(--soft);border-radius:9px;padding:9px}
+.localModeItem small{display:block;color:var(--muted);font-size:8.5px}
+.localModeItem strong{display:block;margin-top:4px;font-size:11px;line-height:1.3;white-space:normal;overflow-wrap:anywhere}
+.localActions{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-top:9px}
+.localActions .btn{width:100%;min-width:0}
+@media(max-width:760px){
+  .localModeHero{grid-template-columns:1fr 1fr;gap:6px}
+  .localModeItem:last-child{grid-column:1/-1}
+  .localActions{grid-template-columns:1fr 1fr;gap:6px}
+  .localActions>*:last-child{grid-column:1/-1}
+}
+
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><div class="brandLine"><h1>₿ Crypto Analyzer V15.8.1</h1><span class="releaseTag">모바일 UI 개선</span></div><p>업비트 · 지금 분석 · 신호 겹침 · 일목 흐름 · 다이버전스 · 시장환경</p></div>
+    <div class="brand"><div class="brandLine"><h1>₿ Crypto Analyzer V15.11</h1><span class="releaseTag">개인 로컬저장 · 모바일 최적화</span></div><p>업비트 · 지금 분석 · 신호 겹침 · 일목 흐름 · 다이버전스 · 시장환경</p></div>
     <div class="badge"><i class="dot"></i><span id="cloudState">Vercel 연결 대기</span></div>
   </header>
+
+  <div id="versionGuard" class="versionGuard" hidden>
+    <div>
+      <b id="versionGuardTitle">배포 버전을 확인하고 있습니다.</b>
+      <span id="versionGuardText">화면과 서버가 같은 버전인지 자동 확인합니다.</span>
+    </div>
+    <button type="button" id="applyUpdate" class="miniBtn">새 버전 적용</button>
+  </div>
 
   <section class="toolbar">
     <div class="field"><label>기준 종목</label><select id="market"><option value="KRW-BTC">KRW-BTC</option></select></div>
@@ -793,7 +835,7 @@ canvas,img,svg{max-width:100%;display:block}
       <section class="mobileSignalCard mobileOnly" aria-label="핵심 신호">
         <div class="mobileSignalHead">
           <div><b>핵심 신호</b><span>지금 필요한 판단만 먼저 표시</span></div>
-          <span class="mobileVersionBadge">V15.8.1</span>
+          <span class="mobileVersionBadge">V15.11.0</span>
         </div>
         <div class="mobileSignalRows">
           <div class="mobileSignalRow"><span>다이버전스</span><b id="mobileDiv">-</b></div>
@@ -978,8 +1020,8 @@ canvas,img,svg{max-width:100%;display:block}
 
       <div class="utilitySummary">
         <div class="utilityCard">
-          <div><div class="title2">자동 알림</div><div class="detail"><span id="overviewCloudState">연결 상태 확인 중</span> · 저장 조건 <b id="overviewCloudRules">-</b></div></div>
-          <strong class="good" id="overviewCloudOn">-</strong>
+          <div><div class="title2">개인 로컬저장</div><div class="detail"><span id="overviewCloudState">저장소 확인 중</span> · 신호 기록 <b id="overviewCloudRules">-</b></div></div>
+          <strong class="good" id="overviewCloudOn">자동</strong>
         </div>
         <div class="utilityCard">
           <div><div class="title2">관심종목 빠른 보기</div><div class="detail">알림·설정에 저장된 관심종목</div></div>
@@ -1070,6 +1112,24 @@ canvas,img,svg{max-width:100%;display:block}
         <div class="title" style="margin-top:12px"><h3>거래 내역</h3><span id="btPeriod">-</span></div>
         <div class="tableWrap"><table><thead><tr><th>매수</th><th>매도</th><th>매수가</th><th>매도가</th><th>수익률</th><th>손익</th><th>보유봉</th></tr></thead><tbody id="tradeBody"></tbody></table></div>
       </div>
+
+      <div class="panel validationPanelV1510" style="margin-top:10px">
+        <div class="title"><h2>신호 성과 자동검증</h2><span>6 · 12 · 24봉 결과</span></div>
+        <div class="calibrationHero">
+          <div class="calItem"><small>현재 원점수</small><strong id="calRaw">-</strong></div>
+          <div class="calItem"><small>자동 보정점수</small><strong id="calScore">-</strong></div>
+          <div class="calItem"><small>보정 표본</small><strong id="calSample">-</strong></div>
+          <div class="calItem"><small>검증 상태</small><strong id="calStatus">-</strong></div>
+        </div>
+        <div class="notice">원점수는 그대로 보존합니다. 보정점수는 <b>현재 시점 이전 데이터만</b> 사용하고, 동일 방향 6봉 표본이 30개 이상일 때만 적용합니다. 성공확률이 아닙니다.</div>
+        <div class="tableWrap" style="margin-top:8px">
+          <table>
+            <thead><tr><th>점수 강도</th><th>6봉 적중</th><th>12봉 적중</th><th>24봉 적중</th><th>표본</th></tr></thead>
+            <tbody id="validationBodyV1510"></tbody>
+          </table>
+        </div>
+      </div>
+
       <details class="secondaryBox integratedTool" style="margin-top:10px">
         <summary><span>조건별로 더 확인하기</span><span style="color:var(--muted);font-weight:500">조건 안정성 · 구간별 재확인</span></summary>
         <div class="secondaryContent integratedContent">
@@ -1093,7 +1153,7 @@ canvas,img,svg{max-width:100%;display:block}
         </div>
         <div class="title" style="margin-top:12px"><h3>시장 흐름별 거래 성과</h3><span>기본 백테스트 거래를 진입 당시 흐름으로 분류</span></div>
         <div class="tableWrap"><table><thead><tr><th>흐름</th><th>거래수</th><th>승률</th><th>평균 수익률</th><th>총 손익</th><th>손익비율</th></tr></thead><tbody id="regimeBody"></tbody></table></div>
-        <div class="hint">구간별 재확인는 각 기준 구간에서 진입점수 +3~+6 중 위험조정 점수가 가장 높은 조건을 선택한 뒤, 바로 다음 미사용 확인 구간에 적용합니다.</div>
+        <div class="hint">구간별 재확인은 각 기준 구간에서 진입점수 +3~+6 중 위험조정 점수가 가장 높은 조건을 선택한 뒤, 바로 다음 미사용 확인 구간에 적용합니다.</div>
       </div>
         </div>
       </details>
@@ -1128,7 +1188,7 @@ canvas,img,svg{max-width:100%;display:block}
           <div class="scanCard"><small>강한 상승 국면</small><strong id="scanTrendN">-</strong></div>
           <div class="scanCard"><small>MA20 위 종목</small><strong id="scanBreadthMa">-</strong></div>
           <div class="scanCard"><small>상승 점수 종목</small><strong id="scanBreadthScore">-</strong></div>
-          <div class="scanCard"><small>완료 시간</small><strong id="scanTime">-</strong></div>
+          <div class="scanCard"><small>처리 상태</small><strong id="scanTime">-</strong></div>
         </div>
         <div class="tableWrap"><table><thead><tr><th>순위</th><th>종목</th><th>이름</th><th>현재가</th><th>24H%</th><th>점수</th><th>품질*</th><th>BTC 대비 강도</th><th>흐름</th><th>RSI</th><th>ADX</th><th>거래량비</th></tr></thead><tbody id="scannerBody"></tbody></table></div>
       </div>
@@ -1154,36 +1214,54 @@ canvas,img,svg{max-width:100%;display:block}
 
     <section id="personal" class="pane">
       <div class="personalGrid">
-        <div class="panel full">
-          <div class="title"><h2>자동 알림</h2><span>조건 저장 · 자동 확인 · 휴대폰 알림</span></div>
-          <div class="cloudStatus">
-            <div class="info"><small>조건 저장</small><strong id="cloudDb">확인 중</strong></div>
-            <div class="info"><small>휴대폰 알림</small><strong id="cloudPush">확인 중</strong></div>
-            <div class="info"><small>자동 확인</small><strong id="cloudCron">확인 중</strong></div>
-            <div class="info"><small>내 기기</small><strong id="cloudDevice">-</strong></div>
+        <div class="panel full diagnosticsPanel">
+          <div class="title"><h2>전체 자체진단</h2><span id="diagOverall">점검 전</span></div>
+          <div class="diagIntro">배포 버전, Router, Upbit 연결과 <b>휴대폰 로컬 저장소</b>를 한 번에 확인합니다. Supabase는 사용하지 않는 개인모드입니다.</div>
+          <div class="diagGrid">
+            <div class="diagItem"><small>화면 버전</small><strong id="diagFrontend">V15.11.0</strong></div>
+            <div class="diagItem"><small>서버 버전</small><strong id="diagServer">확인 전</strong></div>
+            <div class="diagItem"><small>단일 Router</small><strong id="diagRouter">확인 전</strong></div>
+            <div class="diagItem"><small>Upbit API</small><strong id="diagUpbit">확인 전</strong></div>
+            <div class="diagItem"><small>시장환경 API</small><strong id="diagMarketEnv">확인 전</strong></div>
+            <div class="diagItem"><small>AI</small><strong id="diagAi">확인 전</strong></div>
+            <div class="diagItem"><small>로컬 저장</small><strong id="diagDb">확인 전</strong></div>
+            <div class="diagItem"><small>브라우저 알림</small><strong id="diagPush">확인 전</strong></div>
+            <div class="diagItem"><small>자동 확인</small><strong id="diagCron">앱 실행 중</strong></div><div class="diagItem"><small>성과 저장</small><strong id="diagSmart">로컬 자동저장</strong></div>
+            <div class="diagItem"><small>업데이트 처리</small><strong id="diagSw">확인 전</strong></div>
           </div>
-          <div class="cloudForm">
-            <div class="field"><label>시간</label><select id="cloudTf"><option value="60">1시간</option><option value="240" selected>4시간</option><option value="day">일봉</option></select></div>
-            <div class="field"><label>점수 ≥</label><input id="cloudScore" type="number" value="5"></div>
-            <div class="field"><label>품질 ≥</label><input id="cloudQuality" type="number" value="75"></div>
-            <div class="field"><label>ADX ≥</label><input id="cloudAdx" type="number" value="25"></div>
-            <div class="field"><label>거래량비 ≥</label><input id="cloudVol" type="number" step="0.1" value="0"></div>
-            <div class="field"><label>시장 흐름</label><select id="cloudRegime"><option value="ANY">상관없음</option><option>상승 추세</option><option>하락 추세</option><option>횡보</option><option>전환 / 혼조</option></select></div>
-            <div class="field"><label>같은 알림 다시 받기</label><select id="cloudCooldown"><option value="60">60분</option><option value="240" selected>4시간</option><option value="720">12시간</option><option value="1440">24시간</option></select></div>
-            <div class="field"><label>현재 종목</label><input id="cloudMarket" value="KRW-BTC" readonly></div>
+          <button type="button" id="runDiagnostics" class="btn primary" style="width:100%;margin-top:9px">전체 자체진단 실행</button>
+          <div class="notice" id="diagNote" style="margin-top:8px">필수 항목은 화면/서버 버전, Router, Upbit 연결, 로컬 저장입니다. 브라우저 알림과 AI는 선택 기능입니다.</div>
+          <div class="cloudCode" style="margin-top:7px">마지막 점검: <span id="diagTime">-</span></div>
+        </div>
+        <div class="panel full localStoragePanel">
+          <div class="title"><h2>개인 로컬저장</h2><span>Supabase 없이 이 휴대폰에 자동 저장</span></div>
+          <div class="localModeHero">
+            <div class="localModeItem"><small>저장 방식</small><strong id="localMode">확인 중</strong></div>
+            <div class="localModeItem"><small>분석 기록</small><strong id="localAnalysisCount">-</strong></div>
+            <div class="localModeItem"><small>신호 기록</small><strong id="localSignalCount">-</strong></div>
+            <div class="localModeItem"><small>24봉 결과 완료</small><strong id="localOutcomeCount">-</strong></div>
+            <div class="localModeItem"><small>저장 사용량</small><strong id="localUsage">-</strong></div>
           </div>
-          <div class="cloudActions">
-            <button id="cloudSubscribe" class="btn primary">① 휴대폰 알림 연결</button>
-            <button id="cloudSaveRule" class="btn primary">② 자동 알림 저장</button>
-            <button id="cloudTestPush" class="btn secondary">③ 시험 알림</button>
-            <button id="cloudCheckNow" class="btn secondary">④ 지금 한 번 확인</button>
+          <div class="notice">
+            분석을 불러올 때마다 현재 분석과 강한 신호를 <b>IndexedDB</b>에 자동 저장합니다.
+            저장된 신호는 가능한 경우 6·12·24봉 결과까지 자동 갱신합니다.
+            브라우저 데이터 삭제나 휴대폰 교체에 대비해 JSON 백업을 권장합니다.
           </div>
-          <div class="notice" style="margin-top:8px">유료 서버를 전제로 하지 않습니다. 동봉된 GitHub Actions 자동확인 파일을 연결하면 외부 스케줄러처럼 사용할 수 있습니다. 사용 가능한 무료 한도는 GitHub 계정/저장소 정책에 따라 달라질 수 있습니다.</div>
-          <div class="cloudCode" style="margin-top:7px">휴대폰 알림을 받으려면 HTTPS 배포 주소에서 알림 권한을 허용하고, GitHub Actions 자동확인을 연결하세요.</div>
-          <div class="title" style="margin-top:12px"><h3>자동 알림 조건</h3><span>내 알림 조건</span></div>
-          <div class="tableWrap"><table><thead><tr><th>종목</th><th>시간</th><th>점수</th><th>품질</th><th>ADX</th><th>거래량</th><th>흐름</th><th>재알림</th><th>최근 발동</th><th></th></tr></thead><tbody id="cloudRuleBody"></tbody></table></div>
-          <div class="title" style="margin-top:12px"><h3>최근 자동 신호</h3><div style="display:flex;gap:6px;align-items:center"><span>최근 30개</span><button id="evaluateOutcomes" class="miniBtn outcomeBtn">결과 업데이트</button></div></div>
-          <div class="tableWrap" style="max-height:260px"><table><thead><tr><th>시각</th><th>종목</th><th>시간</th><th>점수</th><th>품질</th><th>ADX</th><th>흐름</th><th>가격</th><th>6봉</th><th>MFE</th><th>MAE</th><th>푸시</th></tr></thead><tbody id="cloudEventBody"></tbody></table></div>
+          <div class="localActions">
+            <button id="localBackup" class="btn primary">JSON 백업</button>
+            <label class="btn secondary" style="display:inline-flex;align-items:center;justify-content:center;cursor:pointer">JSON 복원<input id="localRestore" type="file" accept=".json,application/json" style="display:none"></label>
+            <button id="localUpdateOutcomes" class="btn secondary">결과 다시 계산</button>
+            <button id="localPersist" class="btn secondary">저장 보호 요청</button>
+            <button id="localClear" class="btn secondary">기록 비우기</button>
+          </div>
+          <div class="cloudCode" id="localPersistText" style="margin-top:7px">저장 보호 상태 확인 전</div>
+          <div class="title" style="margin-top:12px"><h3>최근 로컬 신호</h3><span>최근 30개</span></div>
+          <div class="tableWrap" style="max-height:300px">
+            <table>
+              <thead><tr><th>시각</th><th>종목</th><th>시간</th><th>점수</th><th>보정</th><th>6봉</th><th>12봉</th><th>24봉</th></tr></thead>
+              <tbody id="localSignalBody"></tbody>
+            </table>
+          </div>
         </div>
         <div class="panel">
           <div class="title"><h2>관심종목</h2><span>이 기기에 저장</span></div>
@@ -1198,7 +1276,7 @@ canvas,img,svg{max-width:100%;display:block}
             <div class="field"><label>시간</label><select id="alertTf"><option value="60">1H</option><option value="240" selected>4H</option><option value="day">1D</option></select></div>
           </div>
           <div style="display:flex;gap:7px;margin-top:8px"><button id="saveAlert" class="btn primary" style="flex:1">현재 종목 조건 저장</button><button id="notifyPerm" class="btn secondary" style="flex:1">알림 권한</button></div>
-          <div class="notice" style="margin-top:8px">브라우저가 닫힌 상태의 24시간 백그라운드 알림은 Vercel + LocalStorage만으로 보장할 수 없습니다. V14는 페이지가 열려 있거나 사용자가 관심종목 알림 확인을 실행할 때 알립니다.</div>
+          <div class="notice" style="margin-top:8px">개인 로컬모드에서는 앱이 열려 있을 때 조건을 확인하고 브라우저 알림을 표시합니다. 앱을 완전히 닫은 상태의 24시간 서버 감시는 사용하지 않습니다.</div>
           <button id="checkAlerts" class="btn secondary" style="width:100%;margin-top:8px">지금 조건 확인</button>
           <div id="alertList" class="list" style="margin-top:8px"></div>
         </div>
@@ -1253,9 +1331,12 @@ canvas,img,svg{max-width:100%;display:block}
 </div>
 
 <script>
+const APP_VERSION="15.11.0";
+const API_ROUTE=(name)=>`/api/router?__v15route=${encodeURIComponent(name)}`;
 "use strict";
 const $=id=>document.getElementById(id);
-const state={candles:[],multi:{},bt:null,advBt:null,compare:null,scanner:[],scannerBreadth:null,marketEnv:null,divergence:{},ichimoku:null,breakout:null,reversal:null,wave:null,confluence:null,loaded:false,levels:null,marketData:[],chartMarkers:[],replayIndex:null};
+const state={candles:[],multi:{},bt:null,advBt:null,compare:null,scanner:[],scannerBreadth:null,marketEnv:null,divergence:{},ichimoku:null,breakout:null,reversal:null,wave:null,confluence:null,calibration:null,loaded:false,levels:null,marketData:[],chartMarkers:[],replayIndex:null};
+const apiFallbackCache=new Map();
 const TF_NAMES={"60":"1시간봉","240":"4시간봉","day":"일봉"};
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 function num(v,d=0){const x=Number(v);return Number.isFinite(x)?x:d}
@@ -1267,21 +1348,44 @@ function verdict(s){return s>=6?"강한 매수 우위":s>=3?"매수 우위":s<=-
 function cls(s){return s>=3?"good":s<=-3?"bad":"warn"}
 
 
+
+async function browserFetchJson(url,{retries=2,timeout=7500,cacheKey=null,staleMs=15*60*1000}={}){
+  const key=cacheKey||String(url),cached=apiFallbackCache.get(key),now=Date.now();
+  let last=null;
+  for(let attempt=0;attempt<=retries;attempt++){
+    const ac=new AbortController(),timer=setTimeout(()=>ac.abort(),timeout);
+    try{
+      const r=await fetch(url,{cache:"no-store",signal:ac.signal});
+      const d=await r.json().catch(()=>null);clearTimeout(timer);
+      if(r.ok){apiFallbackCache.set(key,{at:Date.now(),data:d});return{data:d,stale:false,status:r.status}}
+      last=new Error(d?.detail||d?.error||`HTTP ${r.status}`);
+      if(r.status<500&&![418,429].includes(r.status))throw last
+    }catch(e){clearTimeout(timer);last=e}
+    if(attempt<retries)await sleep(250*(attempt+1))
+  }
+  if(cached&&now-cached.at<staleMs)return{data:cached.data,stale:true,status:200};
+  throw last||new Error("API 연결 실패")
+}
+
 async function fetchMarketEnvironment(){
+  const previous=state.marketEnv;
   try{
-    const r=await fetch("/api/market-env",{cache:"no-store"}),d=await r.json().catch(()=>({}));
-    if(!r.ok)throw new Error(d.error||`HTTP ${r.status}`);
-    state.marketEnv=d;
+    const x=await browserFetchJson(API_ROUTE("market-env"),{retries:2,timeout:9000,cacheKey:"market-env",staleMs:30*60*1000});
+    state.marketEnv=x.data||{};
+    if(x.stale)state.marketEnv={...state.marketEnv,_stale:true};
   }catch(e){
     console.warn("market-env",e);
-    state.marketEnv={error:e.message};
+    state.marketEnv=previous?{...previous,_stale:true,error:"새 데이터 연결 실패 · 이전 정상값 유지"}:{error:e.message};
   }
   renderMarketEnvironment();
 }
 
 async function apiCandles(market,tf,count,to=""){
-  const u=new URL("/api/candles",location.origin);u.searchParams.set("market",market);u.searchParams.set("tf",tf);u.searchParams.set("count",count);if(to)u.searchParams.set("to",to);
-  const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw new Error((await r.text()).slice(0,220));return r.json();
+  const u=new URL(API_ROUTE("candles"),location.origin);u.searchParams.set("market",market);u.searchParams.set("tf",tf);u.searchParams.set("count",count);if(to)u.searchParams.set("to",to);
+  const x=await browserFetchJson(u.toString(),{retries:2,timeout:8500,cacheKey:`candles:${market}:${tf}:${count}:${to}`,staleMs:15*60*1000});
+  const data=Array.isArray(x.data)?x.data:[];
+  if(x.stale)data._stale=true;
+  return data
 }
 
 function tfDurationMs(tf){return tf==="day"?86400000:Number(tf)*60000}
@@ -1511,6 +1615,53 @@ function syncMobileUi(){
   }
 }
 
+
+function validationForThreshold(a,endIndex,threshold,h){
+  let hit=0,n=0;
+  for(let k=120;k+h<=endIndex;k++){
+    const sc=Number(a[k]?.score);if(!Number.isFinite(sc)||Math.abs(sc)<threshold)continue;
+    const ret=a[k+h].close/a[k].close-1,dir=Math.sign(sc);if(!dir)continue;
+    n++;if(ret*dir>0)hit++
+  }
+  return{n,hit,rate:n?hit/n*100:null}
+}
+function currentCalibration(a,i){
+  const raw=Number(a[i]?.score);if(!Number.isFinite(raw)||Math.abs(raw)<3)return{raw,calibrated:raw,n:0,rate:null,applied:false,status:"중립 · 보정 없음"};
+  const threshold=Math.max(3,Math.min(6,Math.abs(raw))),dir=Math.sign(raw),h=6;let hit=0,n=0;
+  for(let k=120;k+h<=i;k++){
+    const sc=Number(a[k]?.score);if(!Number.isFinite(sc))continue;
+    const match=dir>0?sc>=threshold:sc<=-threshold;if(!match)continue;
+    const ret=a[k+h].close/a[k].close-1;n++;if(ret*dir>0)hit++
+  }
+  const rate=n?hit/n*100:null;
+  if(n<30)return{raw,calibrated:raw,n,rate,applied:false,status:`표본 부족 · ${n}/30`};
+  // 20개 가상 중립 표본으로 50% 쪽으로 수축하여 작은 표본 과민반응 완화.
+  const shrunk=(hit+10)/(n+20)*100;
+  const factor=Math.max(.85,Math.min(1.15,1+(shrunk-50)/100));
+  const calibrated=dir*Math.min(8,Math.round(Math.abs(raw)*factor*10)/10);
+  return{raw,calibrated,n,rate,shrunkRate:shrunk,factor,applied:true,status:"과거 표본 자동보정"}
+}
+function renderSignalValidation(){
+  const q=latest(state.candles),body=$("validationBodyV1510");if(!q||!body)return;
+  const rows=[];
+  for(const threshold of [3,4,5,6]){
+    const r6=validationForThreshold(state.candles,q.i,threshold,6),r12=validationForThreshold(state.candles,q.i,threshold,12),r24=validationForThreshold(state.candles,q.i,threshold,24);
+    rows.push({threshold,r6,r12,r24});
+  }
+  body.innerHTML="";
+  for(const z of rows){
+    const tr=document.createElement("tr"),fmt=r=>r.rate==null?"-":`${r.rate.toFixed(1)}% (${r.n})`;
+    tr.innerHTML=`<td>|점수| ≥ ${z.threshold}</td><td>${fmt(z.r6)}</td><td>${fmt(z.r12)}</td><td>${fmt(z.r24)}</td><td>${Math.max(z.r6.n,z.r12.n,z.r24.n)}개</td>`;
+    body.appendChild(tr)
+  }
+  const c=currentCalibration(state.candles,q.i);state.calibration=c;
+  $("calRaw").textContent=Number.isFinite(c.raw)?`${c.raw>=0?"+":""}${c.raw}`:"-";
+  $("calScore").textContent=Number.isFinite(c.calibrated)?`${c.calibrated>=0?"+":""}${c.calibrated.toFixed(1)}`:"-";
+  $("calSample").textContent=c.n?`${c.n}개`:"-";
+  $("calStatus").textContent=c.status;
+  $("calScore").className=c.applied?(c.calibrated>0?"good":c.calibrated<0?"bad":"warn"):"warn"
+}
+
 function historicalWinRate(a,i){
   const s=a[i]?.score;if(s==null||Math.abs(s)<3)return{rate:null,n:0,horizon:6};
   const threshold=Math.max(3,Math.min(6,Math.abs(s))),dir=Math.sign(s),h=6;let hit=0,n=0;
@@ -1529,14 +1680,21 @@ function updateScoreHistory(){
 function reasons(a,i){const x=a[i],p=a[i-1],good=[],bad=[];(x.close>x.ma20?good:bad).push(`현재가 ${x.close>x.ma20?">":"<"} MA20`);(x.ma20>x.ma60?good:bad).push(`MA20 ${x.ma20>x.ma60?">":"<"} MA60`);(x.ma60>x.ma120?good:bad).push(`MA60 ${x.ma60>x.ma120?">":"<"} MA120`);if(x.rsi<30)good.push(`RSI ${x.rsi.toFixed(1)} 과매도`);else if(x.rsi>70)bad.push(`RSI ${x.rsi.toFixed(1)} 과매수`);(x.macd>x.signal?good:bad).push(`MACD ${x.macd>x.signal?">":"<"} Signal`);if(x.volRatio>=1.5)(x.close>p.close?good:bad).push(`거래량 ${x.volRatio.toFixed(2)}x`);if(x.close<=x.bbL)good.push("볼린저 하단");else if(x.close>=x.bbU)bad.push("볼린저 상단");return{good,bad}}
 
 async function loadAll(){
-  $("load").disabled=true;["runBt","runAdvBt","calcRisk","runCompare","aiSummary","aiAsk"].forEach(id=>$(id).disabled=true);state.loaded=false;state.bt=null;state.compare=null;state.replayIndex=null;state.chartMarkers=[];renderReplay();updateModeUi();
+  const previous={candles:state.candles,multi:state.multi,marketEnv:state.marketEnv,levels:state.levels,loaded:state.loaded,calibration:state.calibration};$("load").disabled=true;["runBt","runAdvBt","calcRisk","runCompare","aiSummary","aiAsk"].forEach(id=>$(id).disabled=true);state.loaded=false;state.bt=null;state.compare=null;state.replayIndex=null;state.chartMarkers=[];renderReplay();updateModeUi();
   try{
     const market=$("market").value,tf=$("tf").value,total=Number($("count").value),envPromise=fetchMarketEnvironment();setStatus("기준 데이터를 불러오는 중…",5);
     state.candles=await fetchCandles(market,tf,total,(p,ps,n)=>setStatus(`기준 데이터 ${p}/${ps} · ${n}개`,5+32*(p-1)/ps));
     const r=await Promise.all(["60","240","day"].map(async(t,idx)=>{const d=await fetchCandles(market,t,220);setStatus(`시간대 비교 ${idx+1}/3`,50+10*idx);return[t,d]}));state.multi=Object.fromEntries(r);
     const q=latest(state.candles);if(!q)throw new Error("지표 계산에 필요한 데이터가 부족합니다.");state.levels=levels(state.candles,q.i);state.loaded=true;updateOverview();updateMulti();renderDivergence();renderDecisionPack();updateRisk();runBacktest();drawAll();await envPromise;renderMarketEnvironment();renderDecisionPack();
-    ["runBt","runAdvBt","calcRisk","runCompare","aiSummary","aiAsk"].forEach(id=>$(id).disabled=false);$("cloudState").textContent="Vercel 정상";setStatus(`완료 · ${market} · ${TF_NAMES[tf]} · ${state.candles.length}개`,100)
-  }catch(e){console.error(e);setStatus("오류: "+e.message,0);$("cloudState").textContent="연결 오류";alert("데이터를 불러오지 못했습니다.\n\n"+e.message)}finally{$("load").disabled=false}
+    ["runBt","runAdvBt","calcRisk","runCompare","aiSummary","aiAsk"].forEach(id=>$(id).disabled=false);$("cloudState").textContent="Vercel 정상";await localAutoSaveAnalysis();await saveUiLocalSettings();setStatus(`완료 · ${market} · ${TF_NAMES[tf]} · ${state.candles.length}개 · 로컬저장 완료`,100)
+  }catch(e){console.error(e);
+    if(previous.loaded&&previous.candles?.length){
+      state.candles=previous.candles;state.multi=previous.multi;state.marketEnv=previous.marketEnv;state.levels=previous.levels;state.loaded=true;state.calibration=previous.calibration;
+      updateOverview();updateMulti();renderDivergence();renderDecisionPack();updateRisk();drawAll();renderMarketEnvironment();
+      setStatus("새 데이터 연결 실패 · 이전 정상 데이터 유지",100);$("cloudState").textContent="이전 데이터 사용";
+    }else{
+      setStatus("오류: "+e.message,0);$("cloudState").textContent="연결 오류";alert("데이터를 불러오지 못했습니다.\n\n"+e.message)
+    }}finally{$("load").disabled=false}
 }
 
 function replayQuality(a,i){
@@ -1586,7 +1744,7 @@ function updateOverview(){
   $("mPrice").textContent=fmtKRW(x.close);$("mChange").textContent=fmtPct(chg);$("mChange").className="s "+(chg>=0?"good":"bad");$("mScore").textContent=(x.score>=0?"+":"")+x.score;$("mScore").className="v "+cls(x.score);$("mVerdict").textContent=verdict(x.score);$("mConfidence").textContent=c+"/100";$("mConfidence").className="v "+(c>=75?"good":c<50?"bad":"warn");const hw=historicalWinRate(state.candles,i);$("mHistWin").textContent=hw.rate==null?"N/A":hw.rate.toFixed(1)+"%";$("mHistSample").textContent=hw.n?`${hw.n}개 표본 · ${hw.horizon}봉 후`:"강한 신호에서 계산";$("histWinBig").textContent=hw.rate==null?"N/A":hw.rate.toFixed(1)+"%";$("mRegime").textContent=rg;$("mRsi").textContent=x.rsi.toFixed(1);$("mAdx").textContent=x.adx.toFixed(1);$("mVol").textContent=x.volRatio.toFixed(2)+"x";$("mAtr").textContent=x.atrPct.toFixed(2)+"%";
   $("scoreBig").textContent=(x.score>=0?"+":"")+x.score;$("scoreBig").className="big "+cls(x.score);$("verdictBig").textContent=verdict(x.score);$("confidenceBig").textContent=c+"/100";$("confidenceBig").className="big "+(c>=75?"good":c<50?"bad":"warn");$("confidenceText").textContent=confidenceText(c);$("regimeBig").textContent=rg;$("adxBig").textContent=x.adx.toFixed(1);$("supportBig").textContent=Math.round(lv.support).toLocaleString();$("resistBig").textContent=Math.round(lv.resistance).toLocaleString();$("tfBadge").textContent=TF_NAMES[$("tf").value];updateScoreHistory();
   const rr=reasons(state.candles,i),box=$("reasons");box.innerHTML="";for(const t of rr.good){const d=document.createElement("div");d.className="reason good";d.innerHTML="<b>▲</b><span>"+t+"</span>";box.appendChild(d)}for(const t of rr.bad){const d=document.createElement("div");d.className="reason bad";d.innerHTML="<b>▼</b><span>"+t+"</span>";box.appendChild(d)}
-  updateVisualOverview();syncMobileUi();
+  updateVisualOverview();syncMobileUi();renderSignalValidation();
 }
 
 
@@ -1713,12 +1871,12 @@ function hasNum(v){return v!==null&&v!==undefined&&v!==""&&Number.isFinite(Numbe
 function fixedOr(v,d=1,suffix=""){return hasNum(v)?Number(v).toFixed(d)+suffix:"-"}
 function signedFixedOr(v,d=2,suffix="%"){return hasNum(v)?`${Number(v)>=0?"+":""}${Number(v).toFixed(d)}${suffix}`:"-"}
 async function runScanner(){
-  $("runScanner").disabled=true;const body=$("scannerBody");body.innerHTML="";
+  $("runScanner").disabled=true;const body=$("scannerBody"),oldHtml=body.innerHTML,oldScanner=state.scanner,oldBreadth=state.scannerBreadth;
   try{
     const tf=$("scanTf").value,n=Math.min(30,Number($("scanN").value)),minScore=num($("scanMinScore").value),minVol=num($("scanMinVol").value);
-    setStatus("V15.5.2 서버 종목 찾아보기 중…",10);
+    setStatus("종목 찾기 · 서버 캐시/병렬 조회 확인 중…",10);
 
-    const u=new URL("/api/scanner",location.origin);
+    const u=new URL(API_ROUTE("scanner"),location.origin);
     u.searchParams.set("tf",tf);u.searchParams.set("n",n);u.searchParams.set("minScore",minScore);u.searchParams.set("minVol",minVol);
 
     const r=await fetch(u,{cache:"no-store"});
@@ -1749,7 +1907,7 @@ async function runScanner(){
     const b=d.breadth||{};
     $("scanBreadthMa").textContent=hasNum(b.aboveMA20Pct)?Number(b.aboveMA20Pct).toFixed(0)+"%":"-";
     $("scanBreadthScore").textContent=hasNum(b.positiveScorePct)?Number(b.positiveScorePct).toFixed(0)+"%":"-";
-    $("scanTime").textContent=new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
+    $("scanTime").textContent=`${d.cache?.stale?"이전값":d.cache?.hit?"캐시":"신규"} · ${Number(d.elapsedMs||0)}ms`;
 
     out.forEach((x,i)=>{
       const tr=document.createElement("tr");
@@ -1773,15 +1931,16 @@ async function runScanner(){
 
     const breadthText=hasNum(b.aboveMA20Pct)?Number(b.aboveMA20Pct).toFixed(0)+"%":"계산 없음";
     const failText=hasNum(d.failed)&&Number(d.failed)>0?` · 일부 실패 ${d.failed}개`:"";
-    setStatus(`Scanner 완료 · Breadth MA20 ${breadthText} · ${out.length}개 통과${failText}`,100);
+    setStatus(`종목 찾기 완료 · ${d.cache?.hit?"캐시 활용":"신규 계산"} · ${Number(d.elapsedMs||0)}ms · ${out.length}개 통과${failText}`,100);
     renderOverviewScanner();
 
     if(!out.length&&hasNum(d.failed)&&Number(d.failed)>0){
       alert(`Scanner 요청은 완료됐지만 계산된 종목이 없습니다.\n실패 ${d.failed}개\n\napi/scanner.js가 최신 버전인지 확인해 주세요.`);
     }
   }catch(e){
-    setStatus("Scanner 오류: "+e.message,0);
-    alert("Scanner 오류\n\n"+e.message+"\n\nGitHub의 api/scanner.js와 index.html을 이번 V15.5.2 파일로 같이 교체해 주세요.")
+    state.scanner=oldScanner;state.scannerBreadth=oldBreadth;body.innerHTML=oldHtml;
+    setStatus(oldScanner?.length?"종목 찾기 새 조회 실패 · 이전 결과 유지":"종목 찾기 오류: "+e.message,oldScanner?.length?100:0);
+    if(!oldScanner?.length)alert("종목 찾기 오류\n\n"+e.message);
   }finally{
     $("runScanner").disabled=false
   }
@@ -1823,11 +1982,238 @@ function drawEquity(){if(!state.bt)return;const{ctx,w,h}=setupCanvas("equityChar
 function drawAll(){drawPrice();drawLine("rsiChart","rsi",[0,100]);drawLine("macdChart","macd",null,["signal"]);drawVolume()}
 
 
+
+const LOCAL_DB_NAME="CryptoAnalyzerV1511";
+const LOCAL_DB_VERSION=1;
+const LOCAL_FALLBACK_KEY="cryptoAnalyzerV1511Fallback";
+let localDbHandle=null,localDbMode="확인 중";
+
+function fallbackLocalLoad(){
+  try{return JSON.parse(localStorage.getItem(LOCAL_FALLBACK_KEY))||{records:{},settings:{}}}
+  catch{return{records:{},settings:{}}}
+}
+function fallbackLocalSave(x){localStorage.setItem(LOCAL_FALLBACK_KEY,JSON.stringify(x))}
+function localDbOpen(){
+  if(localDbHandle)return Promise.resolve(localDbHandle);
+  if(!("indexedDB"in window)){localDbMode="LocalStorage 대체";return Promise.resolve(null)}
+  return new Promise(resolve=>{
+    try{
+      const req=indexedDB.open(LOCAL_DB_NAME,LOCAL_DB_VERSION);
+      req.onupgradeneeded=()=>{
+        const d=req.result;
+        if(!d.objectStoreNames.contains("records")){
+          const s=d.createObjectStore("records",{keyPath:"id"});
+          s.createIndex("type","type",{unique:false});
+          s.createIndex("createdAt","createdAt",{unique:false});
+          s.createIndex("market","market",{unique:false})
+        }
+        if(!d.objectStoreNames.contains("settings"))d.createObjectStore("settings",{keyPath:"key"})
+      };
+      req.onsuccess=()=>{localDbHandle=req.result;localDbMode="IndexedDB";resolve(localDbHandle)};
+      req.onerror=()=>{localDbMode="LocalStorage 대체";resolve(null)}
+    }catch{localDbMode="LocalStorage 대체";resolve(null)}
+  })
+}
+async function localPutRecord(record){
+  const d=await localDbOpen();
+  if(!d){const f=fallbackLocalLoad();f.records[record.id]=record;fallbackLocalSave(f);return record}
+  return new Promise((resolve,reject)=>{
+    const tx=d.transaction("records","readwrite");tx.objectStore("records").put(record);
+    tx.oncomplete=()=>resolve(record);tx.onerror=()=>reject(tx.error)
+  })
+}
+async function localGetRecord(id){
+  const d=await localDbOpen();
+  if(!d)return fallbackLocalLoad().records[id]||null;
+  return new Promise((resolve,reject)=>{
+    const r=d.transaction("records","readonly").objectStore("records").get(id);
+    r.onsuccess=()=>resolve(r.result||null);r.onerror=()=>reject(r.error)
+  })
+}
+async function localGetRecords(type=null,limit=5000){
+  const d=await localDbOpen();let rows=[];
+  if(!d)rows=Object.values(fallbackLocalLoad().records||{});
+  else rows=await new Promise((resolve,reject)=>{
+    const r=d.transaction("records","readonly").objectStore("records").getAll();
+    r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error)
+  });
+  if(type)rows=rows.filter(x=>x.type===type);
+  return rows.sort((a,b)=>String(b.createdAt||"").localeCompare(String(a.createdAt||""))).slice(0,limit)
+}
+async function localDeleteRecord(id){
+  const d=await localDbOpen();
+  if(!d){const f=fallbackLocalLoad();delete f.records[id];fallbackLocalSave(f);return}
+  return new Promise((resolve,reject)=>{
+    const tx=d.transaction("records","readwrite");tx.objectStore("records").delete(id);
+    tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error)
+  })
+}
+async function localClearRecords(){
+  const d=await localDbOpen();
+  if(!d){const f=fallbackLocalLoad();f.records={};fallbackLocalSave(f);return}
+  return new Promise((resolve,reject)=>{
+    const tx=d.transaction("records","readwrite");tx.objectStore("records").clear();
+    tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error)
+  })
+}
+async function localSettingSet(key,value){
+  const d=await localDbOpen();
+  if(!d){const f=fallbackLocalLoad();f.settings[key]=value;fallbackLocalSave(f);return}
+  return new Promise((resolve,reject)=>{
+    const tx=d.transaction("settings","readwrite");tx.objectStore("settings").put({key,value,updatedAt:new Date().toISOString()});
+    tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error)
+  })
+}
+async function localSettingGet(key){
+  const d=await localDbOpen();
+  if(!d)return fallbackLocalLoad().settings[key]??null;
+  return new Promise((resolve,reject)=>{
+    const r=d.transaction("settings","readonly").objectStore("settings").get(key);
+    r.onsuccess=()=>resolve(r.result?.value??null);r.onerror=()=>reject(r.error)
+  })
+}
+async function localAllSettings(){
+  const d=await localDbOpen();
+  if(!d)return fallbackLocalLoad().settings||{};
+  const rows=await new Promise((resolve,reject)=>{
+    const r=d.transaction("settings","readonly").objectStore("settings").getAll();
+    r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error)
+  });
+  return Object.fromEntries(rows.map(x=>[x.key,x.value]))
+}
+async function localDbSelfTest(){
+  try{
+    await localDbOpen();const token="ok-"+Date.now();
+    await localSettingSet("__selftest",token);
+    const back=await localSettingGet("__selftest");
+    if(back!==token)throw new Error("저장 후 읽기 불일치");
+    return{ok:true,mode:localDbMode}
+  }catch(e){return{ok:false,mode:localDbMode,error:String(e?.message||e)}}
+}
+function localOutcomeFromLoaded(i,h){
+  const a=state.candles;if(i<0||i+h>=a.length)return null;
+  const x=a[i],future=a.slice(i+1,i+h+1),end=a[i+h],ret=(end.close/x.close-1)*100;
+  const mfe=(Math.max(...future.map(z=>z.high))/x.close-1)*100,mae=(Math.min(...future.map(z=>z.low))/x.close-1)*100,dir=Math.sign(x.score||0);
+  return{horizon:h,returnPct:ret,mfePct:mfe,maePct:mae,hit:dir?ret*dir>0:null,evaluatedAt:new Date().toISOString()}
+}
+async function localSaveSignalAt(i,source="auto"){
+  const a=state.candles,x=a[i];if(!x||Math.abs(x.score||0)<5)return;
+  const market=$("market").value,tf=$("tf").value,candleTime=x.time.toISOString(),id=`signal:${market}:${tf}:${candleTime}`;
+  const old=await localGetRecord(id),outcomes={...(old?.outcomes||{})};
+  for(const h of [6,12,24]){const o=localOutcomeFromLoaded(i,h);if(o)outcomes[h]=o}
+  await localPutRecord({
+    ...(old||{}),id,type:"signal",source,createdAt:old?.createdAt||new Date().toISOString(),
+    market,tf,candleTime,price:x.close,rawScore:x.score,calibratedScore:i===a.length-1?state.calibration?.calibrated:null,
+    quality:i===a.length-1?confidence():replayQuality(a,i),regime:regime(a,i),rsi:x.rsi,adx:x.adx,volRatio:x.volRatio,outcomes
+  })
+}
+async function localAutoSaveAnalysis(){
+  if(!state.loaded)return;const q=latest(state.candles);if(!q)return;
+  const market=$("market").value,tf=$("tf").value,candleTime=q.x.time.toISOString();
+  await localPutRecord({
+    id:`analysis:${market}:${tf}:${candleTime}`,type:"analysis",createdAt:new Date().toISOString(),
+    market,tf,candleTime,price:q.x.close,rawScore:q.x.score,calibratedScore:state.calibration?.calibrated??q.x.score,
+    calibrationSample:state.calibration?.n||0,quality:confidence(),regime:regime(state.candles,q.i),
+    confluence:state.confluence,ichimoku:state.ichimoku,breakout:state.breakout,reversal:state.reversal,
+    marketEnvironment:state.marketEnv?{verdict:marketEnvVerdict()?.verdict||null,updatedAt:state.marketEnv.updatedAt||null}:null
+  });
+  const begin=Math.max(120,state.candles.length-180);
+  for(let i=begin;i<=q.i;i++)if(Math.abs(state.candles[i].score||0)>=5)await localSaveSignalAt(i,i===q.i?"current":"history");
+  await localSettingSet("lastAnalysis",{market,tf,candleTime,updatedAt:new Date().toISOString()});
+  await localPrune();await refreshLocalStoragePanel()
+}
+async function localUpdateOutcomes(){
+  if(!state.loaded)return alert("먼저 데이터를 불러오세요.");
+  const btn=$("localUpdateOutcomes");if(btn){btn.disabled=true;btn.textContent="계산 중…"}
+  try{
+    const rows=await localGetRecords("signal",2000),market=$("market").value,tf=$("tf").value;let changed=0;
+    for(const s of rows.filter(x=>x.market===market&&x.tf===tf)){
+      const t=new Date(s.candleTime).getTime();let idx=state.candles.findIndex(x=>Math.abs(x.time.getTime()-t)<1000);if(idx<0)continue;
+      const outcomes={...(s.outcomes||{})};let any=false;
+      for(const h of [6,12,24])if(!outcomes[h]){const o=localOutcomeFromLoaded(idx,h);if(o){outcomes[h]=o;any=true}}
+      if(any){await localPutRecord({...s,outcomes});changed++}
+    }
+    await refreshLocalStoragePanel();alert(`로컬 결과 업데이트 완료\n${changed}개 신호 갱신`)
+  }finally{if(btn){btn.disabled=false;btn.textContent="결과 다시 계산"}}
+}
+async function localPrune(){
+  const all=await localGetRecords(null,5000),groups={analysis:[],signal:[]};
+  for(const r of all)if(groups[r.type])groups[r.type].push(r);
+  for(const [type,max] of [["analysis",500],["signal",1500]]){
+    const list=groups[type]||[];if(list.length>max)for(const r of list.slice(max))await localDeleteRecord(r.id)
+  }
+}
+function localOutcomeText(s,h){
+  const o=s?.outcomes?.[h]||s?.outcomes?.[String(h)];if(!o)return"-";
+  return`${Number(o.returnPct)>=0?"+":""}${Number(o.returnPct).toFixed(2)}% ${o.hit===true?"✓":o.hit===false?"✕":""}`
+}
+async function refreshLocalStoragePanel(){
+  const records=await localGetRecords(null,2500),analyses=records.filter(x=>x.type==="analysis"),signals=records.filter(x=>x.type==="signal");
+  const done=signals.filter(x=>x.outcomes?.[24]||x.outcomes?.["24"]).length;
+  if($("localMode"))$("localMode").textContent=localDbMode;
+  if($("localAnalysisCount"))$("localAnalysisCount").textContent=analyses.length+"개";
+  if($("localSignalCount"))$("localSignalCount").textContent=signals.length+"개";
+  if($("localOutcomeCount"))$("localOutcomeCount").textContent=done+"개";
+  if($("overviewCloudState"))$("overviewCloudState").textContent=localDbMode;
+  if($("overviewCloudRules"))$("overviewCloudRules").textContent=signals.length+"개";
+  if($("overviewCloudOn"))$("overviewCloudOn").textContent="자동";
+  if($("localUsage")){try{const e=await navigator.storage?.estimate?.();$("localUsage").textContent=e?.usage!=null?(e.usage/1024/1024).toFixed(1)+" MB":"-"}catch{$("localUsage").textContent="-"}}
+  const body=$("localSignalBody");if(body){body.innerHTML="";
+    for(const s of signals.slice(0,30)){const tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${new Date(s.candleTime||s.createdAt).toLocaleString("ko-KR")}</td><td>${s.market}</td><td>${TF_NAMES[s.tf]||s.tf}</td><td class="${cls(s.rawScore)}">${s.rawScore>=0?"+":""}${s.rawScore}</td><td>${s.calibratedScore==null?"-":(s.calibratedScore>=0?"+":"")+Number(s.calibratedScore).toFixed(1)}</td><td>${localOutcomeText(s,6)}</td><td>${localOutcomeText(s,12)}</td><td>${localOutcomeText(s,24)}</td>`;body.appendChild(tr)}
+    if(!signals.length){const tr=document.createElement("tr");tr.innerHTML='<td colspan="8" style="text-align:left">아직 저장된 강한 신호가 없습니다. 데이터를 불러오면 자동 저장됩니다.</td>';body.appendChild(tr)}
+  }
+}
+async function exportLocalBackup(){
+  const records=await localGetRecords(null,5000),settings=await localAllSettings();
+  const payload={format:"crypto-analyzer-local",version:APP_VERSION,exportedAt:new Date().toISOString(),storageMode:localDbMode,records,settings,legacyPersonal:db()};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}),a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=`crypto_analyzer_v15_11_backup_${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)
+}
+async function importLocalBackup(ev){
+  const f=ev.target.files?.[0];if(!f)return;
+  try{
+    const obj=JSON.parse(await f.text());if(obj?.format!=="crypto-analyzer-local"||!Array.isArray(obj.records))throw new Error("V15.11 로컬 백업 파일이 아닙니다.");
+    for(const r of obj.records)if(r?.id&&r?.type)await localPutRecord(r);
+    for(const [k,v] of Object.entries(obj.settings||{}))await localSettingSet(k,v);
+    if(obj.legacyPersonal&&typeof obj.legacyPersonal==="object")storeSave(obj.legacyPersonal);
+    await refreshLocalStoragePanel();renderPersonal();alert(`복원 완료\n기록 ${obj.records.length}개`)
+  }catch(e){alert("JSON 복원 실패: "+e.message)}ev.target.value=""
+}
+async function clearLocalHistory(){
+  if(!confirm("로컬 분석/신호 기록을 모두 비울까요?\n관심종목과 알림 조건은 유지됩니다."))return;
+  await localClearRecords();await refreshLocalStoragePanel();alert("로컬 기록을 비웠습니다.")
+}
+async function requestLocalPersistence(){
+  const box=$("localPersistText");
+  try{
+    if(!navigator.storage?.persist){box.textContent="이 브라우저는 저장 보호 요청을 지원하지 않습니다.";return}
+    const granted=await navigator.storage.persist();
+    box.textContent=granted?"저장 보호 허용됨 · 브라우저가 데이터를 임의 정리할 가능성이 낮아집니다.":"저장 보호 미허용 · JSON 백업을 권장합니다."
+  }catch{box.textContent="저장 보호 확인 실패 · JSON 백업을 권장합니다."}
+}
+async function saveUiLocalSettings(){
+  await localSettingSet("ui",{market:$("market")?.value||"KRW-BTC",tf:$("tf")?.value||"240",analysisMode:$("analysisMode")?.value||"closed",count:$("count")?.value||"120",updatedAt:new Date().toISOString()})
+}
+async function restoreUiLocalSettings(){
+  const s=await localSettingGet("ui");if(!s)return;
+  if($("market")&&[...$("market").options].some(o=>o.value===s.market))$("market").value=s.market;
+  if($("tf")&&["60","240","day"].includes(String(s.tf)))$("tf").value=String(s.tf);
+  if($("analysisMode")&&s.analysisMode)$("analysisMode").value=s.analysisMode;
+  if($("count")&&s.count)$("count").value=String(s.count);
+  if($("tfBadge"))$("tfBadge").textContent=TF_NAMES[$("tf").value];updateModeUi()
+}
+async function localStorageInit(){
+  await localDbOpen();const legacy=db(),savedPersonal=await localSettingGet("personal");
+  if(!localStorage.getItem(STORE_KEY)&&savedPersonal)storeSave(savedPersonal);else await localSettingSet("personal",legacy);
+  await restoreUiLocalSettings();await refreshLocalStoragePanel();
+  try{const p=await navigator.storage?.persisted?.();if($("localPersistText"))$("localPersistText").textContent=p?"저장 보호 상태: 허용됨":"저장 보호 상태: 기본 · JSON 백업 권장"}catch{}
+}
+
 const STORE_KEY="cryptoAnalyzerV14";
 function storeLoad(){try{return JSON.parse(localStorage.getItem(STORE_KEY))||{}}catch{return{}}}
 function storeSave(d){localStorage.setItem(STORE_KEY,JSON.stringify(d))}
 function db(){const d=storeLoad();d.watchlist??=[];d.alerts??=[];d.snapshots??=[];d.journal??=[];d.portfolio??=[];return d}
-function saveDb(d){storeSave(d);renderPersonal()}
+function saveDb(d){storeSave(d);localSettingSet("personal",d).catch(()=>{});renderPersonal()}
 function addWatch(){const d=db(),m=$("market").value;if(!d.watchlist.includes(m))d.watchlist.push(m);saveDb(d)}
 function renderPersonal(){
   const d=db(),wl=$("watchList");if(!wl)return;wl.innerHTML="";for(const m of d.watchlist){const x=state.marketData.find(z=>z.market===m),e=document.createElement("div");e.className="listItem";e.innerHTML=`<div class="meta"><strong>${m}</strong><small>${x?x.korean_name:""} ${x?fmtKRW(x.trade_price):""}</small></div><button class="miniBtn" data-rw="${m}">삭제</button>`;wl.appendChild(e)}document.querySelectorAll("[data-rw]").forEach(b=>b.onclick=()=>{const z=db();z.watchlist=z.watchlist.filter(x=>x!==b.dataset.rw);saveDb(z)});
@@ -1841,7 +2227,7 @@ async function requestNotify(){if(!("Notification"in window))return alert("이 �
 function notifyUser(title,body){if("Notification"in window&&Notification.permission==="granted")new Notification(title,{body})}
 async function checkAlerts(){
   const d=db();if(!d.alerts.length)return alert("저장된 알림 조건이 없습니다.");setStatus("관심종목 알림 확인 중…",10);let hits=0;
-  for(let i=0;i<d.alerts.length;i++){const a=d.alerts[i];try{const c=await fetchCandles(a.market,a.tf,160),q=latest(c);if(q){const qual=Math.round(Math.max(30,Math.min(95,40+Math.min(25,q.x.adx/40*25)+(Math.abs(q.x.score)>=5?15:5)+(q.x.volRatio>=1.5?10:0))));if(q.x.score>=a.score&&qual>=a.quality){hits++;notifyUser(`${a.market} Signal`,`점수 +${q.x.score} · 신품 ${qual} · ${regime(c,q.i)}`)}}await sleep(140)}catch(e){console.warn(e)}}setStatus(`알림 확인 완료 · ${hits}개 조건 충족`,100);alert(`알림 확인 완료: ${hits}개 조건 충족`);
+  for(let i=0;i<d.alerts.length;i++){const a=d.alerts[i];try{const c=await fetchCandles(a.market,a.tf,160),q=latest(c);if(q){const qual=Math.round(Math.max(30,Math.min(95,40+Math.min(25,q.x.adx/40*25)+(Math.abs(q.x.score)>=5?15:5)+(q.x.volRatio>=1.5?10:0))));if(q.x.score>=a.score&&qual>=a.quality){hits++;notifyUser(`${a.market} Signal`,`점수 +${q.x.score} · 품질 ${qual} · ${regime(c,q.i)}`)}}await sleep(140)}catch(e){console.warn(e)}}setStatus(`알림 확인 완료 · ${hits}개 조건 충족`,100);alert(`알림 확인 완료: ${hits}개 조건 충족`);
 }
 function saveSnapshot(){if(!state.loaded)return;const d=db(),q=latest(state.candles),hw=historicalWinRate(state.candles,q.i);d.snapshots.push({savedAt:new Date().toISOString(),market:$("market").value,tf:TF_NAMES[$("tf").value],price:q.x.close,score:q.x.score,quality:confidence(),histWin:hw.rate,regime:regime(state.candles,q.i)});if(d.snapshots.length>200)d.snapshots=d.snapshots.slice(-200);saveDb(d)}
 function saveJournal(){const d=db(),entry=num($("jEntry").value),exit=num($("jExit").value),qty=num($("jQty").value);if(!entry||!qty)return alert("진입가와 수량을 입력하세요.");d.journal.push({savedAt:new Date().toISOString(),market:$("jMarket").value.trim().toUpperCase(),entry,exit:exit||null,qty,side:$("jSide").value,note:$("jNote").value.trim()});saveDb(d)}
@@ -1855,20 +2241,20 @@ const CLOUD_DEVICE_KEY="cryptoAnalyzerV15DeviceId";
 function cloudDeviceId(){let id=localStorage.getItem(CLOUD_DEVICE_KEY);if(!id){id=(crypto.randomUUID?crypto.randomUUID():("dev_"+Date.now()+"_"+Math.random().toString(36).slice(2))).replace(/[^a-zA-Z0-9_-]/g,"");localStorage.setItem(CLOUD_DEVICE_KEY,id)}return id}
 function b64ToUint8Array(s){const padding="=".repeat((4-s.length%4)%4),b=(s+padding).replace(/-/g,"+").replace(/_/g,"/"),raw=atob(b),out=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return out}
 async function cloudJson(url,options={}){const r=await fetch(url,options),d=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(d.error||`HTTP ${r.status}`);e.setupRequired=d.setupRequired;throw e}return d}
-async function cloudRefreshStatus(){$("cloudDevice").textContent=cloudDeviceId().slice(0,8)+"…";$('cloudMarket').value=$("market").value;try{const h=await cloudJson("/api/health",{cache:"no-store"});$("cloudDb").textContent=h.dbConfigured?"연결됨":"설정 필요";$("cloudDb").className=h.dbConfigured?"good":"warn";$("cloudPush").textContent=h.pushConfigured?"설정됨":"설정 필요";$("cloudPush").className=h.pushConfigured?"good":"warn";$("cloudCron").textContent=h.cronConfigured?"설정됨":"설정 필요";$("cloudCron").className=h.cronConfigured?"good":"warn"}catch(e){$("cloudDb").textContent="확인 실패"}await Promise.allSettled([cloudLoadRules(),cloudLoadEvents()])}
-async function cloudSubscribe(){if(!("serviceWorker"in navigator)||!("푸시Manager"in window))return alert("이 브라우저는 휴대폰 알림를 지원하지 않습니다.");try{const perm=await Notification.requestPermission();if(perm!=="granted")return alert("알림 권한이 필요합니다.");const reg=await navigator.serviceWorker.register("/sw.js"),{publicKey}=await cloudJson("/api/push-public-key",{cache:"no-store"});let sub=await reg.pushManager.getSubscription();if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToUint8Array(publicKey)});await cloudJson("/api/push-subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId(),subscription:sub.toJSON()})});alert("휴대폰 알림 연결 완료");await cloudRefreshStatus()}catch(e){alert("푸시 등록 실패: "+e.message)}}
-async function cloudSaveRule(){try{const body={deviceId:cloudDeviceId(),market:$("market").value,tf:$("cloudTf").value,minScore:num($("cloudScore").value,5),minQuality:num($("cloudQuality").value,75),minAdx:num($("cloudAdx").value,25),minVolRatio:num($("cloudVol").value,0),regime:$("cloudRegime").value,cooldownMinutes:num($("cloudCooldown").value,240)};await cloudJson("/api/cloud-alerts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});alert("자동 알림 조건 저장 완료");await cloudLoadRules()}catch(e){alert("알림 저장 실패: "+e.message)}}
-async function cloudLoadRules(){const body=$("cloudRuleBody");if(!body)return;body.innerHTML="";try{const d=await cloudJson(`/api/cloud-alerts?deviceId=${encodeURIComponent(cloudDeviceId())}`,{cache:"no-store"});if($("overviewCloudRules"))$("overviewCloudRules").textContent=(d.rules||[]).length+"개";for(const r of d.rules||[]){const tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${r.market}</td><td>${TF_NAMES[r.tf]||r.tf}</td><td>≥ ${r.min_score}</td><td>≥ ${r.min_quality}</td><td>≥ ${Number(r.min_adx).toFixed(0)}</td><td>≥ ${Number(r.min_vol_ratio).toFixed(1)}x</td><td>${r.require_regime}</td><td>${r.cooldown_minutes}분</td><td>${r.last_triggered_at?new Date(r.last_triggered_at).toLocaleString("ko-KR"):"-"}</td><td><button class="miniBtn" data-cloud-del="${r.id}">삭제</button></td>`;body.appendChild(tr)}document.querySelectorAll("[data-cloud-del]").forEach(b=>b.onclick=()=>cloudDeleteRule(b.dataset.cloudDel))}catch(e){if(e.setupRequired){const tr=document.createElement("tr");tr.innerHTML='<td colspan="10" style="text-align:left">Supabase 환경변수 설정 후 사용할 수 있습니다.</td>';body.appendChild(tr)}}}
-async function cloudDeleteRule(id){if(!confirm("이 자동 알림 조건을 삭제할까요?"))return;try{await cloudJson(`/api/cloud-alerts?deviceId=${encodeURIComponent(cloudDeviceId())}&id=${encodeURIComponent(id)}`,{method:"DELETE"});await cloudLoadRules()}catch(e){alert("삭제 실패: "+e.message)}}
-async function cloudTest(){try{const d=await cloudJson("/api/push-test",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});alert(`시험 알림 요청 완료 · 전송 ${d.sent||0}개`)}catch(e){alert("시험 알림 실패: "+e.message)}}
-async function cloudCheck(){try{setStatus("V15 자동 알림 조건 검사 중…",20);const d=await cloudJson("/api/check-alerts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});setStatus(`자동 확인 완료 · ${d.triggered||0}개 발동 · 푸시 ${d.pushSent||0}개`,100);alert(`검사 완료\
+async function cloudRefreshStatus(){$("cloudDevice").textContent=cloudDeviceId().slice(0,8)+"…";$('cloudMarket').value=$("market").value;try{const h=await cloudJson(API_ROUTE("health"),{cache:"no-store"});$("cloudDb").textContent=h.dbConfigured?"연결됨":"설정 필요";$("cloudDb").className=h.dbConfigured?"good":"warn";$("cloudPush").textContent=h.pushConfigured?"설정됨":"설정 필요";$("cloudPush").className=h.pushConfigured?"good":"warn";$("cloudCron").textContent=h.cronConfigured?"설정됨":"설정 필요";$("cloudCron").className=h.cronConfigured?"good":"warn"}catch(e){$("cloudDb").textContent="확인 실패"}await Promise.allSettled([cloudLoadRules(),cloudLoadEvents()])}
+async function cloudSubscribe(){if(!("serviceWorker"in navigator)||!("PushManager"in window))return alert("이 브라우저는 휴대폰 알림을 지원하지 않습니다.");try{const perm=await Notification.requestPermission();if(perm!=="granted")return alert("알림 권한이 필요합니다.");const reg=await navigator.serviceWorker.register("/sw.js"),{publicKey}=await cloudJson(API_ROUTE("push-public-key"),{cache:"no-store"});let sub=await reg.pushManager.getSubscription();if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToUint8Array(publicKey)});await cloudJson(API_ROUTE("push-subscribe"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId(),subscription:sub.toJSON()})});alert("휴대폰 알림 연결 완료");await cloudRefreshStatus()}catch(e){alert("푸시 등록 실패: "+e.message)}}
+async function cloudSaveRule(){try{const body={deviceId:cloudDeviceId(),market:$("market").value,tf:$("cloudTf").value,minScore:num($("cloudScore").value,5),minQuality:num($("cloudQuality").value,75),minAdx:num($("cloudAdx").value,25),minVolRatio:num($("cloudVol").value,0),regime:$("cloudRegime").value,cooldownMinutes:num($("cloudCooldown").value,240)};await cloudJson(API_ROUTE("cloud-alerts"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});alert("자동 알림 조건 저장 완료");await cloudLoadRules()}catch(e){alert("알림 저장 실패: "+e.message)}}
+async function cloudLoadRules(){const body=$("cloudRuleBody");if(!body)return;body.innerHTML="";try{const d=await cloudJson(`${API_ROUTE("cloud-alerts")}&deviceId=${encodeURIComponent(cloudDeviceId())}`,{cache:"no-store"});if($("overviewCloudRules"))$("overviewCloudRules").textContent=(d.rules||[]).length+"개";for(const r of d.rules||[]){const tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${r.market}</td><td>${TF_NAMES[r.tf]||r.tf}</td><td>≥ ${r.min_score}</td><td>≥ ${r.min_quality}</td><td>≥ ${Number(r.min_adx).toFixed(0)}</td><td>≥ ${Number(r.min_vol_ratio).toFixed(1)}x</td><td>${r.require_regime}</td><td>${r.cooldown_minutes}분</td><td>${r.last_triggered_at?new Date(r.last_triggered_at).toLocaleString("ko-KR"):"-"}</td><td><button class="miniBtn" data-cloud-del="${r.id}">삭제</button></td>`;body.appendChild(tr)}document.querySelectorAll("[data-cloud-del]").forEach(b=>b.onclick=()=>cloudDeleteRule(b.dataset.cloudDel))}catch(e){if(e.setupRequired){const tr=document.createElement("tr");tr.innerHTML='<td colspan="10" style="text-align:left">Supabase 환경변수 설정 후 사용할 수 있습니다.</td>';body.appendChild(tr)}}}
+async function cloudDeleteRule(id){if(!confirm("이 자동 알림 조건을 삭제할까요?"))return;try{await cloudJson(`${API_ROUTE("cloud-alerts")}&deviceId=${encodeURIComponent(cloudDeviceId())}&id=${encodeURIComponent(id)}`,{method:"DELETE"});await cloudLoadRules()}catch(e){alert("삭제 실패: "+e.message)}}
+async function cloudTest(){try{const d=await cloudJson(API_ROUTE("push-test"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});alert(`시험 알림 요청 완료 · 전송 ${d.sent||0}개`)}catch(e){alert("시험 알림 실패: "+e.message)}}
+async function cloudCheck(){try{setStatus("V15 자동 알림 조건 검사 중…",20);const d=await cloudJson(API_ROUTE("check-alerts"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});setStatus(`자동 확인 완료 · ${d.triggered||0}개 발동 · 푸시 ${d.pushSent||0}개`,100);alert(`검사 완료\
 조건 ${d.evaluated||0}개\
 발동 ${d.triggered||0}개\
 푸시 ${d.pushSent||0}개`);await Promise.allSettled([cloudLoadRules(),cloudLoadEvents()])}catch(e){setStatus("서버 검사 오류: "+e.message,0);alert("서버 검사 실패: "+e.message)}}
 async function cloudLoadEvents(){
   const body=$("cloudEventBody");if(!body)return;body.innerHTML="";
   try{
-    const d=await cloudJson(`/api/signal-events?deviceId=${encodeURIComponent(cloudDeviceId())}`,{cache:"no-store"});
+    const d=await cloudJson(`${API_ROUTE("signal-events")}&deviceId=${encodeURIComponent(cloudDeviceId())}`,{cache:"no-store"});
     for(const e of d.events||[]){
       const outcome=e.outcome_return_pct==null?"-":`${Number(e.outcome_return_pct)>=0?"+":""}${Number(e.outcome_return_pct).toFixed(2)}%`;
       const tr=document.createElement("tr");tr.innerHTML=`<td style="text-align:left">${new Date(e.created_at).toLocaleString("ko-KR")}</td><td>${e.market}</td><td>${TF_NAMES[e.tf]||e.tf}</td><td>${e.score>=0?"+":""}${e.score}</td><td>${e.quality}</td><td>${Number(e.adx).toFixed(1)}</td><td>${e.regime}</td><td>${Math.round(Number(e.price)).toLocaleString()}</td><td class="${e.outcome_hit===true?"good":e.outcome_hit===false?"bad":""}">${outcome}</td><td>${e.mfe_pct==null?"-":"+"+Number(e.mfe_pct).toFixed(2)+"%"}</td><td>${e.mae_pct==null?"-":Number(e.mae_pct).toFixed(2)+"%"}</td><td>${e.push_sent?"✓":"-"}</td>`;body.appendChild(tr)
@@ -1878,17 +2264,60 @@ async function cloudLoadEvents(){
 async function evaluateServerOutcomes(){
   $("evaluateOutcomes").disabled=true;
   try{
-    const d=await cloudJson("/api/evaluate-outcomes",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});
+    const d=await cloudJson(API_ROUTE("evaluate-outcomes"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deviceId:cloudDeviceId()})});
     alert(`Outcome 평가 완료\n평가 ${d.evaluated||0}개\n대기 ${d.pending||0}개`);await cloudLoadEvents()
   }catch(e){
     alert(e.migrationRequired?"V15.5 Supabase migration SQL을 먼저 실행해야 합니다.":"Outcome 평가 실패: "+e.message)
   }finally{$("evaluateOutcomes").disabled=false}
 }
 
-function aiContext(){const q=latest(state.candles),multi={},divergence={};for(const tf of ["60","240","day"]){const z=latest(state.multi[tf]||[]);if(z)multi[TF_NAMES[tf]]={score:z.x.score,rsi:+z.x.rsi.toFixed(1),adx:+z.x.adx.toFixed(1),regime:regime(state.multi[tf],z.i),trend:trendText(z.x)};const dv=state.divergence[tf];if(dv)divergence[TF_NAMES[tf]]={type:dv.type?DIV_NAMES[dv.type]:"없음",rsi:Boolean(dv.rsi),macd:Boolean(dv.macd),strength:dv.strength,trend:dv.trend}}return{market:$("market").value,timeframe:TF_NAMES[$("tf").value],analysisMode:activeAnalysisMode(),scannerBreadth:state.scannerBreadth,divergence,marketEnvironment:state.marketEnv,ichimoku:state.ichimoku,breakout:state.breakout,reversal:state.reversal,elliottCandidate:state.wave,confluence:state.confluence,current:q?{price:Math.round(q.x.close),score:q.x.score,signalQuality:confidence(),historicalWinRate:historicalWinRate(state.candles,q.i),regime:regime(state.candles,q.i),rsi:+q.x.rsi.toFixed(1),adx:+q.x.adx.toFixed(1),atrPct:+q.x.atrPct.toFixed(2),volumeRatio:+q.x.volRatio.toFixed(2),support:Math.round(state.levels.support),resistance:Math.round(state.levels.resistance)}:null,risk:state.risk||null,multi,backtest:state.bt?{...state.bt.summary,trades:state.bt.trades.length}:null,walkForward:state.compare||null,scannerTop:state.scanner.slice(0,8)}}
-async function callAi(mode,question=""){if(!state.loaded)return;$("aiSummary").disabled=true;$("aiAsk").disabled=true;$("aiOutput").textContent="AI 해설 중…";try{const r=await fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode,question,context:aiContext()})}),d=await r.json().catch(()=>({}));if(!r.ok){$("aiOutput").textContent=d.setupRequired?"AI 기능 설정이 필요합니다.\n\nVercel → Settings → Environment Variables → OPENAI_API_KEY 추가 → Redeploy":("AI 오류: "+(d.error||r.status));$("aiModel").textContent="설정 필요"}else{$("aiOutput").textContent=d.text||"응답 없음";$("aiModel").textContent=d.model||"OpenAI"}}catch(e){$("aiOutput").textContent="AI 연결 오류: "+e.message}finally{$("aiSummary").disabled=false;$("aiAsk").disabled=false}}
 
-async function loadMarketsSelect(){try{const r=await fetch("/api/markets",{cache:"no-store"});if(!r.ok)return;const d=await r.json();state.marketData=d.markets||[];const sel=$("market"),keep=sel.value;sel.innerHTML="";for(const m of d.markets){const o=document.createElement("option");o.value=m.market;o.textContent=`${m.market} · ${m.korean_name}`;sel.appendChild(o)}if([...sel.options].some(o=>o.value===keep))sel.value=keep;renderPersonal()}catch{}}
+function setDiag(id,text,tone=""){const el=$(id);if(!el)return;el.textContent=text;el.classList.remove("good","warn","bad");if(tone)el.classList.add(tone)}
+async function fetchJsonTimed(url,options={},timeout=9000){const ac=new AbortController(),timer=setTimeout(()=>ac.abort(),timeout);try{const r=await fetch(url,{...options,cache:"no-store",signal:ac.signal}),d=await r.json().catch(()=>({}));return{ok:r.ok,status:r.status,data:d}}finally{clearTimeout(timer)}}
+async function resetAppCache(){try{if("caches"in window){const keys=await caches.keys();await Promise.all(keys.map(k=>caches.delete(k)))}}catch{}try{if("serviceWorker"in navigator){const reg=await navigator.serviceWorker.getRegistration();if(reg)await reg.update()}}catch{}}
+function showVersionGuard(title,text,tone="warn",showButton=true){const box=$("versionGuard");if(!box)return;box.hidden=false;box.className=`versionGuard ${tone}`;$("versionGuardTitle").textContent=title;$("versionGuardText").textContent=text;$("applyUpdate").hidden=!showButton}
+function hideVersionGuard(){if($("versionGuard"))$("versionGuard").hidden=true}
+async function forceLatestVersion(serverVersion="latest"){await resetAppCache();const u=new URL(location.href);u.searchParams.set("appv",serverVersion);u.searchParams.set("_refresh",Date.now().toString());location.replace(u.toString())}
+async function checkDeploymentVersion({autoFix=true}={}){try{const r=await fetchJsonTimed(`${API_ROUTE("version")}&_=${Date.now()}`,{},6500);if(!r.ok)throw new Error(`HTTP ${r.status}`);const server=String(r.data?.version||"");if(server===APP_VERSION){hideVersionGuard();return{ok:true,server}}showVersionGuard("⚠ 화면과 서버 버전이 다릅니다.",`화면 ${APP_VERSION} · 서버 ${server||"알 수 없음"} · 파일이 섞였거나 브라우저 캐시가 남아 있을 수 있습니다.`,"bad",true);if(autoFix&&server){const key=`vfix:${APP_VERSION}->${server}`;if(sessionStorage.getItem(key)!=="1"){sessionStorage.setItem(key,"1");setTimeout(()=>forceLatestVersion(server),450)}}return{ok:false,server,mismatch:true}}catch(e){showVersionGuard("서버 버전 확인 실패","앱은 열 수 있지만 Vercel 배포/네트워크 상태를 자체진단에서 확인하세요.","warn",true);return{ok:false,error:e}}}
+async function setupUpdateProtection(){if(!("serviceWorker"in navigator))return{supported:false,registered:false};try{navigator.serviceWorker.addEventListener("message",e=>{const v=String(e.data?.version||"");if(e.data?.type==="CRYPTO_ANALYZER_SW_ACTIVE"&&v&&v!==APP_VERSION){showVersionGuard("새 버전이 감지되었습니다.",`현재 ${APP_VERSION} → 새 버전 ${v}`,"warn",true);const key=`swfix:${APP_VERSION}->${v}`;if(sessionStorage.getItem(key)!=="1"){sessionStorage.setItem(key,"1");setTimeout(()=>forceLatestVersion(v),500)}}});const reg=await navigator.serviceWorker.register(`/sw.js?v=${encodeURIComponent(APP_VERSION)}`,{updateViaCache:"none"});await reg.update();return{supported:true,registered:true}}catch(e){return{supported:true,registered:false,error:e}}}
+async function runDiagnostics(){
+  const btn=$("runDiagnostics");btn.disabled=true;btn.textContent="점검 중…";$("diagOverall").textContent="점검 중";$("diagOverall").className="";
+  for(const id of["diagServer","diagRouter","diagUpbit","diagMarketEnv","diagAi","diagDb","diagPush","diagCron","diagSw"])setDiag(id,"확인 중");
+  setDiag("diagFrontend",`V${APP_VERSION}`,"good");setDiag("diagSmart","로컬 자동저장","good");
+  let criticalBad=false,optionalWarn=false;
+  try{
+    const[ver,health,env,sw,local]=await Promise.allSettled([
+      fetchJsonTimed(`${API_ROUTE("version")}&_=${Date.now()}`,{},7000),
+      fetchJsonTimed(`${API_ROUTE("health")}&deep=1&_=${Date.now()}`,{},9000),
+      fetchJsonTimed(`${API_ROUTE("market-env")}&_=${Date.now()}`,{},10000),
+      setupUpdateProtection(),localDbSelfTest()
+    ]);
+    if(ver.status==="fulfilled"&&ver.value.ok){
+      const sv=String(ver.value.data?.version||"?"),match=sv===APP_VERSION;setDiag("diagServer",`V${sv}`,match?"good":"bad");if(!match)criticalBad=true;
+      const routeOk=ver.value.data?.deployment==="single-router";setDiag("diagRouter",routeOk?"정상":"확인 필요",routeOk?"good":"bad");if(!routeOk)criticalBad=true
+    }else{setDiag("diagServer","연결 실패","bad");setDiag("diagRouter","확인 실패","bad");criticalBad=true}
+    if(health.status==="fulfilled"&&health.value.ok){
+      const h=health.value.data||{},up=Boolean(h.upbit?.checked&&h.upbit?.ok);setDiag("diagUpbit",up?`정상 · HTTP ${h.upbit.status||200}`:"연결 실패",up?"good":"bad");if(!up)criticalBad=true;
+      setDiag("diagAi",h.aiConfigured?"설정됨":"선택 · 미설정",h.aiConfigured?"good":"warn");if(!h.aiConfigured)optionalWarn=true
+    }else{setDiag("diagUpbit","확인 실패","bad");criticalBad=true;setDiag("diagAi","확인 실패","warn");optionalWarn=true}
+    if(local.status==="fulfilled"&&local.value.ok)setDiag("diagDb",local.value.mode,"good");else{setDiag("diagDb","저장 실패","bad");criticalBad=true}
+    const np=("Notification"in window)?Notification.permission:"unsupported";setDiag("diagPush",np==="granted"?"허용됨":np==="denied"?"차단됨":"선택 · 미허용",np==="granted"?"good":"warn");
+    setDiag("diagCron","앱 실행 중","good");
+    if(env.status==="fulfilled"&&env.value.ok&&env.value.data?.ok)setDiag("diagMarketEnv","정상","good");else{setDiag("diagMarketEnv","일시 실패","warn");optionalWarn=true}
+    if(sw.status==="fulfilled"){const s=sw.value;if(!s.supported)setDiag("diagSw","브라우저 미지원","warn");else if(s.registered)setDiag("diagSw","정상","good");else setDiag("diagSw","등록 실패","warn");if(!s.registered)optionalWarn=true}
+    else{setDiag("diagSw","확인 실패","warn");optionalWarn=true}
+    await refreshLocalStoragePanel();
+    if(criticalBad){$("diagOverall").textContent="오류 확인 필요";$("diagOverall").className="bad";$("diagNote").textContent="필수 항목에 오류가 있습니다. 버전/Router/Upbit/로컬 저장 상태를 확인하세요.";showVersionGuard("자체진단에서 필수 오류를 발견했습니다.","알림·설정 → 전체 자체진단 결과를 확인하세요.","bad",true)}
+    else if(optionalWarn){$("diagOverall").textContent="기본 기능 정상";$("diagOverall").className="warn";$("diagNote").textContent="로컬 개인모드의 필수 항목은 정상입니다. AI·브라우저 알림 등 선택 기능은 필요할 때 설정하면 됩니다.";await checkDeploymentVersion({autoFix:false})}
+    else{$("diagOverall").textContent="전체 정상";$("diagOverall").className="good";$("diagNote").textContent="분석·서버·Upbit·로컬 저장이 모두 정상입니다.";hideVersionGuard()}
+  }catch(e){$("diagOverall").textContent="점검 실패";$("diagOverall").className="bad";$("diagNote").textContent="자체진단 오류: "+String(e?.message||e)}
+  finally{$("diagTime").textContent=new Date().toLocaleString("ko-KR");btn.disabled=false;btn.textContent="전체 자체진단 실행"}
+}
+
+function aiContext(){const q=latest(state.candles),multi={},divergence={};for(const tf of ["60","240","day"]){const z=latest(state.multi[tf]||[]);if(z)multi[TF_NAMES[tf]]={score:z.x.score,rsi:+z.x.rsi.toFixed(1),adx:+z.x.adx.toFixed(1),regime:regime(state.multi[tf],z.i),trend:trendText(z.x)};const dv=state.divergence[tf];if(dv)divergence[TF_NAMES[tf]]={type:dv.type?DIV_NAMES[dv.type]:"없음",rsi:Boolean(dv.rsi),macd:Boolean(dv.macd),strength:dv.strength,trend:dv.trend}}return{market:$("market").value,timeframe:TF_NAMES[$("tf").value],analysisMode:activeAnalysisMode(),scannerBreadth:state.scannerBreadth,divergence,marketEnvironment:state.marketEnv,ichimoku:state.ichimoku,breakout:state.breakout,reversal:state.reversal,elliottCandidate:state.wave,confluence:state.confluence,scoreCalibration:state.calibration,current:q?{price:Math.round(q.x.close),score:q.x.score,signalQuality:confidence(),historicalWinRate:historicalWinRate(state.candles,q.i),regime:regime(state.candles,q.i),rsi:+q.x.rsi.toFixed(1),adx:+q.x.adx.toFixed(1),atrPct:+q.x.atrPct.toFixed(2),volumeRatio:+q.x.volRatio.toFixed(2),support:Math.round(state.levels.support),resistance:Math.round(state.levels.resistance)}:null,risk:state.risk||null,multi,backtest:state.bt?{...state.bt.summary,trades:state.bt.trades.length}:null,walkForward:state.compare||null,scannerTop:state.scanner.slice(0,8)}}
+async function callAi(mode,question=""){if(!state.loaded)return;$("aiSummary").disabled=true;$("aiAsk").disabled=true;$("aiOutput").textContent="AI 해설 중…";try{const r=await fetch(API_ROUTE("ai"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({mode,question,context:aiContext()})}),d=await r.json().catch(()=>({}));if(!r.ok){$("aiOutput").textContent=d.setupRequired?"AI 기능 설정이 필요합니다.\n\nVercel → Settings → Environment Variables → OPENAI_API_KEY 추가 → Redeploy":("AI 오류: "+(d.error||r.status));$("aiModel").textContent="설정 필요"}else{$("aiOutput").textContent=d.text||"응답 없음";$("aiModel").textContent=d.model||"OpenAI"}}catch(e){$("aiOutput").textContent="AI 연결 오류: "+e.message}finally{$("aiSummary").disabled=false;$("aiAsk").disabled=false}}
+
+async function loadMarketsSelect(){try{const r=await fetch(API_ROUTE("markets"),{cache:"no-store"});if(!r.ok)return;const d=await r.json();state.marketData=d.markets||[];const sel=$("market"),keep=sel.value;sel.innerHTML="";for(const m of d.markets){const o=document.createElement("option");o.value=m.market;o.textContent=`${m.market} · ${m.korean_name}`;sel.appendChild(o)}if([...sel.options].some(o=>o.value===keep))sel.value=keep;renderPersonal()}catch{}}
 
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".pane").forEach(x=>x.classList.remove("active"));b.classList.add("active");$(b.dataset.pane).classList.add("active");if(b.dataset.pane==="backtest"&&state.bt)drawEquity()}));
 document.querySelectorAll(".pill").forEach(b=>b.addEventListener("click",()=>{$("question").value=b.dataset.q}));
@@ -1928,10 +2357,13 @@ $("toggleReasons").addEventListener("click",()=>{
   $("toggleReasons").textContent=expanded?"세부 근거 접기":"세부 근거 더보기";
 });
 
-$("cloudSubscribe").addEventListener("click",cloudSubscribe);
-$("cloudSaveRule").addEventListener("click",cloudSaveRule);
-$("cloudTestPush").addEventListener("click",cloudTest);
-$("cloudCheckNow").addEventListener("click",cloudCheck);$("evaluateOutcomes").addEventListener("click",evaluateServerOutcomes);
+$("runDiagnostics").addEventListener("click",runDiagnostics);
+$("localBackup").addEventListener("click",exportLocalBackup);
+$("localRestore").addEventListener("change",importLocalBackup);
+$("localUpdateOutcomes").addEventListener("click",localUpdateOutcomes);
+$("localPersist").addEventListener("click",requestLocalPersistence);
+$("localClear").addEventListener("click",clearLocalHistory);
+$("applyUpdate").addEventListener("click",()=>forceLatestVersion("latest"));
 
 $("addWatch").addEventListener("click",addWatch);
 $("saveAlert").addEventListener("click",saveAlert);
@@ -1942,13 +2374,16 @@ $("saveJournal").addEventListener("click",saveJournal);
 $("saveHolding").addEventListener("click",saveHolding);
 $("exportData").addEventListener("click",exportPersonal);
 $("importData").addEventListener("change",importPersonal);
-$("runBt").addEventListener("click",runBacktest);$("calcRisk").addEventListener("click",calcRisk);$("runCompare").addEventListener("click",runCompare);$("runScanner").addEventListener("click",runScanner);$("aiSummary").addEventListener("click",()=>callAi("summary"));$("aiAsk").addEventListener("click",()=>{const q=$("question").value.trim();if(!q)return alert("질문을 입력하세요.");callAi("question",q)});$("tf").addEventListener("change",()=>{$("tfBadge").textContent=TF_NAMES[$("tf").value]});$("market").addEventListener("change",()=>{$("cloudMarket").value=$("market").value;if($("visualMarket"))$("visualMarket").textContent=$("market").value;if($("overviewMarket"))$("overviewMarket").textContent=$("market").value;});window.addEventListener("resize",()=>{if(state.loaded){drawAll();updateVisualOverview();if(state.bt)drawEquity()}});
+$("runBt").addEventListener("click",runBacktest);$("calcRisk").addEventListener("click",calcRisk);$("runCompare").addEventListener("click",runCompare);$("runScanner").addEventListener("click",runScanner);$("aiSummary").addEventListener("click",()=>callAi("summary"));$("aiAsk").addEventListener("click",()=>{const q=$("question").value.trim();if(!q)return alert("질문을 입력하세요.");callAi("question",q)});$("tf").addEventListener("change",()=>{$("tfBadge").textContent=TF_NAMES[$("tf").value];saveUiLocalSettings().catch(()=>{})});$("market").addEventListener("change",()=>{if($("visualMarket"))$("visualMarket").textContent=$("market").value;if($("overviewMarket"))$("overviewMarket").textContent=$("market").value;saveUiLocalSettings().catch(()=>{})});$("analysisMode").addEventListener("change",()=>saveUiLocalSettings().catch(()=>{}));window.addEventListener("resize",()=>{if(state.loaded){drawAll();updateVisualOverview();if(state.bt)drawEquity()}});
 
 document.querySelectorAll("details.secondaryBox").forEach(d=>d.addEventListener("toggle",()=>{
   if(d.open&&state.loaded)setTimeout(()=>drawAll(),30);
 }));
 
-if(innerWidth<=620)$("count").value="120";updateModeUi();renderReplay();renderPersonal();loadMarketsSelect().finally(()=>cloudRefreshStatus());
+if(innerWidth<=620)$("count").value="120";
+updateModeUi();renderReplay();renderPersonal();
+Promise.allSettled([setupUpdateProtection(),checkDeploymentVersion({autoFix:true})]);
+loadMarketsSelect().finally(()=>localStorageInit());
 </script>
 </body>
 </html>
